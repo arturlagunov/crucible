@@ -106,49 +106,52 @@ class TestSourceBuild(unittest.TestCase):
 
 
 class TestSourceFetchMocked(unittest.TestCase):
-    def test_fetch_writes_expected_files(self) -> None:
+    def test_pull_gets_three_urls(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            src = Source(tmp)
+            payloads = {
+                "details": b'{"name":"x","state":"Review","reviewItems":{"reviewItem":[]}}',
+                "comments": b'{"comments":[]}',
+                "html": b'new Comment(1)\n.setResolution(CommentResolution.from({\nstatus: "UNRESOLVED"\n',
+            }
+
+            def fake_get(url: str, *, accept: str | None = None) -> bytes:
+                if url.endswith("/details"):
+                    return payloads["details"]
+                if url.endswith("/comments/versioned"):
+                    return payloads["comments"]
+                if "/cru/" in url:
+                    return payloads["html"]
+                raise AssertionError(url)
+
+            with patch.object(src, "_get", side_effect=fake_get) as m:
+                bundle = src.pull(REVIEW)
+
+            self.assertEqual(m.call_count, 3)
+            self.assertEqual(bundle.review.id, REVIEW)
+            self.assertEqual(bundle.count, 0)
+            # на диск ничего сырого
+            self.assertEqual(list(Path(tmp).iterdir()), [])
+
+    def test_write_refresh_only_threads_json(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             src = Source(root)
-
-            def fake_download(url: str, name: str, *, accept: str | None = None) -> Path:
-                path = root / name
-                if name.endswith(".html"):
-                    path.write_text(
-                        'new Comment(1)\n.setResolution(CommentResolution.from({\n'
-                        'status: "UNRESOLVED"\n',
-                        encoding="utf-8",
-                    )
-                else:
-                    path.write_text("{}", encoding="utf-8")
-                return path
-
-            with patch.object(src, "_download", side_effect=fake_download) as m:
-                src.fetch(REVIEW)
-
-            self.assertEqual(m.call_count, 4)
-            for name in (
-                f"{REVIEW}-details.json",
-                f"{REVIEW}-comments.json",
-                f"{REVIEW}-general-comments.json",
-                f"{REVIEW}.html",
-            ):
-                self.assertTrue((root / name).exists(), name)
-
-    def test_pull_calls_fetch_then_build(self) -> None:
-        src = Source(FIXTURES)
-        with patch.object(src, "fetch") as f, patch.object(
-            src, "build", return_value=Bundle(
+            empty = Bundle(
                 review=__import__("build_threads", fromlist=["Review"]).Review(
                     REVIEW, "n", "Review", None
                 ),
                 base=Source.BASE,
                 threads=[],
             )
-        ) as b:
-            src.pull(REVIEW)
-            f.assert_called_once_with(REVIEW)
-            b.assert_called_once_with(REVIEW)
+            with patch.object(src, "pull", return_value=empty):
+                path, _ = src.write(REVIEW, refresh=True)
+            self.assertEqual(path, root / f"{REVIEW}-threads.json")
+            self.assertTrue(path.exists())
+            self.assertEqual(
+                sorted(p.name for p in root.iterdir()),
+                [f"{REVIEW}-threads.json"],
+            )
 
 
 class TestParseHelpers(unittest.TestCase):

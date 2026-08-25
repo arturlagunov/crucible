@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Собирает нормализованные треды Crucible из details + comments + html."""
+"""Собирает нормализованные треды Crucible → один *-threads.json."""
 
 from __future__ import annotations
 
@@ -79,10 +79,9 @@ class Bundle:
 
 class Source:
     """
-    Грузит сырьё с Crucible и готовит *-threads.json.
+    Грузит сырьё с Crucible и пишет только *-threads.json.
 
-    src = Source()
-    path, bundle = src.write("CR-17391", refresh=True)
+    path, bundle = Source().write("CR-17391", refresh=True)
     """
 
     BASE = "https://abderus.dept07/crucible"
@@ -98,49 +97,30 @@ class Source:
 
     # ── public ──────────────────────────────────────────────────────────
 
-    def fetch(self, review: str) -> None:
-        """Скачать details / comments / html с Crucible в root."""
+    def pull(self, review: str) -> Bundle:
+        """Скачать с Crucible в память и собрать Bundle (файлов-сырья нет)."""
         api = f"{self.base}/rest-service/reviews-v1"
-        self._download(
-            f"{api}/{review}/details",
-            f"{review}-details.json",
-            accept="application/json",
+        details = json.loads(
+            self._get(f"{api}/{review}/details", accept="application/json")
         )
-        self._download(
-            f"{api}/{review}/comments/versioned",
-            f"{review}-comments.json",
-            accept="application/json",
+        comments = json.loads(
+            self._get(
+                f"{api}/{review}/comments/versioned", accept="application/json"
+            )
         )
-        self._download(
-            f"{api}/{review}/comments/general",
-            f"{review}-general-comments.json",
-            accept="application/json",
+        html = self._get(f"{self.base}/cru/{review}").decode(
+            "utf-8", errors="ignore"
         )
-        self._download(f"{self.base}/cru/{review}", f"{review}.html")
+        return self._assemble(
+            review, details, comments, self._parse_status(html)
+        )
 
     def build(self, review: str) -> Bundle:
-        """Собрать Bundle из локальных дампов (без сети)."""
+        """Собрать Bundle из локальных дампов в root (моки/тесты)."""
         details = self._json(f"{review}-details.json")
         comments = self._json(f"{review}-comments.json")
         status = self._status_map(review)
-        items = self._items(details)
-
-        threads: list[Thread] = []
-        for node in comments.get("comments") or []:
-            th = self._thread(node, items, status)
-            if th is not None:
-                threads.append(th)
-
-        return Bundle(
-            review=self._meta(review, details),
-            base=self.base,
-            threads=threads,
-        )
-
-    def pull(self, review: str) -> Bundle:
-        """fetch + build (нужен доступ к Crucible)."""
-        self.fetch(review)
-        return self.build(review)
+        return self._assemble(review, details, comments, status)
 
     def write(
         self,
@@ -149,7 +129,7 @@ class Source:
         *,
         refresh: bool = False,
     ) -> tuple[Path, Bundle]:
-        """Bundle → *-threads.json. refresh=True → сначала fetch (машина с сетью)."""
+        """Единственный артефакт: *-threads.json. refresh=True → сеть."""
         bundle = self.pull(review) if refresh else self.build(review)
         path = Path(out) if out else self.root / f"{review}-threads.json"
         path.write_text(
@@ -158,21 +138,37 @@ class Source:
         )
         return path, bundle
 
-    # ── private: net ────────────────────────────────────────────────────
+    # ── private: net / assemble ─────────────────────────────────────────
 
-    def _download(self, url: str, name: str, *, accept: str | None = None) -> Path:
+    def _get(self, url: str, *, accept: str | None = None) -> bytes:
         headers = {"Accept": accept} if accept else {}
         req = urllib.request.Request(url, headers=headers)
         try:
             with urllib.request.urlopen(req, timeout=120) as resp:
-                body = resp.read()
+                return resp.read()
         except urllib.error.HTTPError as e:
             raise RuntimeError(f"GET {url} → HTTP {e.code}") from e
         except urllib.error.URLError as e:
             raise RuntimeError(f"GET {url} → {e.reason}") from e
-        path = self.root / name
-        path.write_bytes(body)
-        return path
+
+    def _assemble(
+        self,
+        review: str,
+        details: dict[str, Any],
+        comments: dict[str, Any],
+        status: dict[str, str],
+    ) -> Bundle:
+        items = self._items(details)
+        threads: list[Thread] = []
+        for node in comments.get("comments") or []:
+            th = self._thread(node, items, status)
+            if th is not None:
+                threads.append(th)
+        return Bundle(
+            review=self._meta(review, details),
+            base=self.base,
+            threads=threads,
+        )
 
     # ── private: IO / parse ─────────────────────────────────────────────
 
