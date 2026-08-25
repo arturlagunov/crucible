@@ -146,10 +146,10 @@ class TestSourceFetchMocked(unittest.TestCase):
             )
             with patch.object(src, "pull", return_value=empty):
                 path, _ = src.write(REVIEW, refresh=True)
-            self.assertEqual(path, root / f"{REVIEW}-threads.json")
+            self.assertEqual(path, root / "out" / f"{REVIEW}-threads.json")
             self.assertTrue(path.exists())
             self.assertEqual(
-                sorted(p.name for p in root.iterdir()),
+                sorted(p.name for p in (root / "out").iterdir()),
                 [f"{REVIEW}-threads.json"],
             )
 

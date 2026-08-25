@@ -8,12 +8,12 @@ make help
 ## Машина A
 
 ```bash
-make fetch                  # → только CR-17391-threads.json
+make fetch                  # → out/CR-17391-threads.json
 make fetch REVIEW=CR-12345
 # Windows/Git Bash: make fetch PYTHON=python
 ```
 
-Скопируй `*-threads.json` на машину B.
+Скопируй `out/*-threads.json` на машину B.
 
 ## Машина B (Cursor)
 

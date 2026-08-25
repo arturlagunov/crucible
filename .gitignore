@@ -4,9 +4,5 @@ __pycache__/
 .DS_Store
 *.egg-info/
 .venv/
-# сырьё Crucible больше не пишем; на всякий случай
-*-details.json
-*-comments.json
-*-general-comments.json
-CR-*.html
-!tests/fixtures/**
+out/*
+!out/.gitkeep

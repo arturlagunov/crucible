@@ -79,7 +79,7 @@ class Bundle:
 
 class Source:
     """
-    Грузит сырьё с Crucible и пишет только *-threads.json.
+    Грузит сырьё с Crucible и пишет только out/*-threads.json.
 
     path, bundle = Source().write("CR-17391", refresh=True)
     """
@@ -129,9 +129,10 @@ class Source:
         *,
         refresh: bool = False,
     ) -> tuple[Path, Bundle]:
-        """Единственный артефакт: *-threads.json. refresh=True → сеть."""
+        """Единственный артефакт: out/*-threads.json. refresh=True → сеть."""
         bundle = self.pull(review) if refresh else self.build(review)
-        path = Path(out) if out else self.root / f"{review}-threads.json"
+        path = Path(out) if out else self.root / "out" / f"{review}-threads.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(
             json.dumps(bundle.to_dict(), ensure_ascii=False, indent=2) + "\n",
             encoding="utf-8",
