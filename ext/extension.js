@@ -42,6 +42,10 @@ function spanLine(span) {
   return Math.max(0, (span?.[0] || 1) - 1);
 }
 
+function threadHasUnresolved(th) {
+  return (th?.msgs || []).some((m) => m.status === "UNRESOLVED");
+}
+
 function err(e) {
   vscode.window.showErrorMessage(String(e?.message || e));
 }
@@ -169,9 +173,13 @@ class Painter {
     if (!this.bundle?.review?.id || !Array.isArray(this.bundle.threads)) {
       throw new Error("это не *-threads.json");
     }
+    const total = this.bundle.threads.length;
+    this.bundle.threads = this.bundle.threads.filter(threadHasUnresolved);
     this.jsonPath = fsPath;
     this.reindex();
-    this.info(`loaded ${fsPath}: ${this.bundle.threads.length} threads`);
+    this.info(
+      `loaded ${fsPath}: ${this.bundle.threads.length}/${total} threads (unresolved only)`
+    );
   }
 
   clear() {
@@ -601,21 +609,22 @@ async function onAddToChat(a, b) {
   const endLine = Math.min(doc.lineCount, end) - 1;
   const endCol = doc.lineAt(endLine).range.end.character;
   const range = new vscode.Range(start - 1, 0, endLine, endCol);
-  const ed = await vscode.window.showTextDocument(doc, { preview: false });
-  ed.selection = new vscode.Selection(range.start, range.end);
-  ed.revealRange(range, vscode.TextEditorRevealType.InCenter);
 
   const rawText = doc.getText(range);
-  const codeSel = {
-    uri,
-    range: {
-      selectionStartLineNumber: start,
-      selectionStartColumn: 1,
-      positionLineNumber: end,
-      positionColumn: endCol + 1,
-    },
-    text: "```" + doc.languageId + "\n" + rawText + "\n```",
-    rawText,
+  const payload = {
+    codeSelections: [
+      {
+        uri,
+        range: {
+          selectionStartLineNumber: start,
+          selectionStartColumn: 1,
+          positionLineNumber: end,
+          positionColumn: endCol + 1,
+        },
+        text: "```" + doc.languageId + "\n" + rawText + "\n```",
+        rawText,
+      },
+    ],
   };
   const notes = (data.msgs || [])
     .map((m) => `**${m.author}** (${m.status}): ${m.text}`)
@@ -625,16 +634,30 @@ async function onAddToChat(a, b) {
     (end !== start ? `-${end}` : "") +
     `\n\n${notes}\n\nРазбери замечание и предложи правку.`;
 
-  // новый чат сразу с file+строками
   let ok = false;
+  let isNew = false;
   try {
-    await vscode.commands.executeCommand("composer.addsymbolstonewcomposer", {
-      codeSelections: [codeSel],
-    });
+    await vscode.commands.executeCommand(
+      "composer.addsymbolstocomposer",
+      payload
+    );
     ok = true;
-    painter.info("chat: newcomposer+selection");
+    painter.info("chat: add-to-current");
   } catch (e) {
-    painter.info(`chat newcomposer: ${e}`);
+    painter.info(`chat add: ${e}`);
+  }
+  if (!ok) {
+    try {
+      await vscode.commands.executeCommand(
+        "composer.addsymbolstonewcomposer",
+        payload
+      );
+      ok = true;
+      isNew = true;
+      painter.info("chat: newcomposer+selection");
+    } catch (e) {
+      painter.info(`chat newcomposer: ${e}`);
+    }
   }
   if (!ok) {
     try {
@@ -642,45 +665,42 @@ async function onAddToChat(a, b) {
         "composer.startComposerPromptFromSelection"
       );
       ok = true;
+      isNew = true;
     } catch (e) {
       painter.info(`chat fromSelection: ${e}`);
     }
   }
-  if (!ok) {
-    try {
-      await vscode.commands.executeCommand(
-        "composer.addfilestonnewcomposer",
-        uri
-      );
-      ok = true;
-    } catch (e) {
-      painter.info(`chat newfile: ${e}`);
-    }
-  }
 
-  await new Promise((r) => setTimeout(r, 250));
+  await new Promise((r) => setTimeout(r, 200));
 
   try {
     const prev = await vscode.env.clipboard.readText();
     await vscode.env.clipboard.writeText(intro);
-    await vscode.commands.executeCommand("composer.focusComposer");
-    await new Promise((r) => setTimeout(r, 100));
     await vscode.commands.executeCommand("editor.action.clipboardPasteAction");
     await vscode.env.clipboard.writeText(prev);
   } catch (e) {
     painter.info(`chat paste: ${e}`);
   }
 
-  await new Promise((r) => setTimeout(r, 100));
-  for (const c of ["composer.submit", "composer.startComposerPrompt"]) {
-    try {
-      await vscode.commands.executeCommand(c);
-      painter.info(`chat submit via ${c}`);
-      break;
-    } catch (e) {
-      painter.info(`chat submit ${c}: ${e}`);
+  if (isNew) {
+    await new Promise((r) => setTimeout(r, 100));
+    for (const c of ["composer.submit", "composer.startComposerPrompt"]) {
+      try {
+        await vscode.commands.executeCommand(c);
+        painter.info(`chat submit via ${c}`);
+        break;
+      } catch (e) {
+        painter.info(`chat submit ${c}: ${e}`);
+      }
     }
   }
+
+  const ed = await vscode.window.showTextDocument(doc, {
+    preview: false,
+    preserveFocus: true,
+    selection: range,
+  });
+  ed.revealRange(range, vscode.TextEditorRevealType.InCenter);
 
   flash(
     ok

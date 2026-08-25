@@ -2,7 +2,7 @@
   "name": "cru",
   "displayName": "Crucible",
   "description": "Painter для *-threads.json",
-  "version": "0.3.1",
+  "version": "0.3.4",
   "publisher": "onec-sandbox",
   "engines": { "vscode": "^1.85.0" },
   "activationEvents": ["onStartupFinished"],
