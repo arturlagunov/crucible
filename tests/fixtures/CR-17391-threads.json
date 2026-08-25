@@ -2176,7 +2176,7 @@
         11,
         11
       ],
-      "status": "RESOLVED",
+      "status": "UNRESOLVED",
       "msgs": [
         {
           "id": "CMT:48360",
@@ -2184,7 +2184,17 @@
           "user": "vorj",
           "text": "НСтр",
           "date": 1783683711198,
-          "status": "RESOLVED",
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "LOCAL:1787678083781",
+          "author": "artur",
+          "user": "local",
+          "text": "tvft",
+          "date": "2026-08-25T17:14:43.782Z",
+          "status": "UNRESOLVED",
           "draft": false,
           "deleted": false
         }
@@ -3814,7 +3824,7 @@
         166,
         166
       ],
-      "status": "RESOLVED",
+      "status": "UNRESOLVED",
       "msgs": [
         {
           "id": "CMT:48293",
@@ -3822,7 +3832,7 @@
           "user": "vorj",
           "text": "так как тип Булево, то лучше назвать ЭтоОбъектПоставки\nПосоветуйся с Ильей, пожалуйста, по этому поводу.",
           "date": 1783516815508,
-          "status": "RESOLVED",
+          "status": "UNRESOLVED",
           "draft": false,
           "deleted": false
         },
@@ -3832,7 +3842,7 @@
           "user": "shei",
           "text": "Слово \"объект\" тут кажеся избыточным. Я бы назвал \"Поставляемый\"",
           "date": "2026-08-03T23:25:13.728+0400",
-          "status": "RESOLVED",
+          "status": "UNRESOLVED",
           "draft": false,
           "deleted": false
         }
@@ -3856,6 +3866,16 @@
           "user": "shei",
           "text": "уместен комментарий - на что конкретно эта ссылка",
           "date": 1785785316679,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "LOCAL:1787677842428",
+          "author": "artur",
+          "user": "local",
+          "text": "df",
+          "date": "2026-08-25T17:10:42.428Z",
           "status": "UNRESOLVED",
           "draft": false,
           "deleted": false

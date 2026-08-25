@@ -1,8 +1,15 @@
 ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 REVIEW ?= CR-17391
-EXT_ID := onec-sandbox.crucible-comments-demo-0.2.2
+EXT_ID := onec-sandbox.crucible-comments-demo-0.2.5
 EXT_DIR := $(HOME)/.cursor/extensions
+# Windows/Git Bash: python3 = WindowsApps stub → Error 49
+ifdef MSYSTEM
+PYTHON ?= python
+else ifeq ($(OS),Windows_NT)
+PYTHON ?= python
+else
 PYTHON ?= python3
+endif
 
 .PHONY: help fetch install uninstall load test
 

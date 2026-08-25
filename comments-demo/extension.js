@@ -52,9 +52,38 @@ class Painter {
     this.threads = [];
   }
 
+  /** @returns {string | undefined} */
+  threadIdOf(ct) {
+    if (!ct) {
+      return undefined;
+    }
+    const cached = this.meta.get(ct);
+    if (cached) {
+      return cached;
+    }
+    const m = /\btid=(\S+)/.exec(String(ct.contextValue || ""));
+    if (m) {
+      return m[1];
+    }
+    const m2 = /·\s*(\S+)\s*$/.exec(String(ct.label || ""));
+    return m2?.[1];
+  }
+
+  /** Живой CommentThread из this.threads (меню может отдать другой объект). */
+  liveOf(ctOrId) {
+    const id = typeof ctOrId === "string" ? ctOrId : this.threadIdOf(ctOrId);
+    if (!id) {
+      return undefined;
+    }
+    return (
+      this.threads.find((t) => this.threadIdOf(t) === id) ||
+      (typeof ctOrId === "object" ? ctOrId : undefined)
+    );
+  }
+
   /** @returns {any | undefined} */
   dataOf(ct) {
-    const id = this.meta.get(ct);
+    const id = this.threadIdOf(ct);
     if (!id || !this.bundle) {
       return undefined;
     }
@@ -71,13 +100,15 @@ class Painter {
     }
     for (const ct of this.threads) {
       const data = this.dataOf(ct);
-      if (!data || ct.state === undefined || !vscode.CommentThreadState) {
+      if (!data) {
         continue;
       }
-      data.status =
-        ct.state === vscode.CommentThreadState.Resolved
-          ? "RESOLVED"
-          : "UNRESOLVED";
+      if (vscode.CommentThreadState && ct.state !== undefined) {
+        data.status =
+          ct.state === vscode.CommentThreadState.Resolved
+            ? "RESOLVED"
+            : "UNRESOLVED";
+      }
     }
     this.bundle.count = this.bundle.threads.length;
     fs.writeFileSync(
@@ -87,9 +118,96 @@ class Painter {
     );
     this.info(`saved ${this.jsonPath}`);
     vscode.window.setStatusBarMessage(
-      `Crucible: сохранено → ${this.jsonPath}`,
+      `Crucible: сохранено → ${path.basename(this.jsonPath)}`,
       2500
     );
+  }
+
+  /** @param {string} status @param {string} [threadId] */
+  statusContext(status, threadId) {
+    const resolved = status === "RESOLVED";
+    const base = resolved
+      ? "crucible canUnresolve canDeleteThread"
+      : "crucible canResolve canDeleteThread";
+    return threadId ? `${base} tid=${threadId}` : base;
+  }
+
+  /** @param {vscode.CommentThread} ct @param {string} status */
+  applyThreadStatus(ct, status) {
+    const live = this.liveOf(ct) || ct;
+    const data = this.dataOf(live);
+    const tid = data?.id || this.threadIdOf(live);
+    const resolved = status === "RESOLVED";
+    if (vscode.CommentThreadState) {
+      live.state = resolved
+        ? vscode.CommentThreadState.Resolved
+        : vscode.CommentThreadState.Unresolved;
+    }
+    live.contextValue = this.statusContext(status, tid);
+    if (!data) {
+      return;
+    }
+    data.status = status;
+    for (const m of data.msgs || []) {
+      m.status = status;
+    }
+    if (this.bundle) {
+      live.comments = (data.msgs || []).map((m) => makeComment(m, this.bundle));
+    }
+  }
+
+  /** Пересобрать byFile из bundle.threads */
+  reindex() {
+    this.byFile = new Map();
+    if (!this.bundle) {
+      return;
+    }
+    for (const th of this.bundle.threads) {
+      const key = norm(th.ws);
+      if (!this.byFile.has(key)) {
+        this.byFile.set(key, []);
+      }
+      this.byFile.get(key).push(th);
+    }
+    this.bundle.count = this.bundle.threads.length;
+  }
+
+  /**
+   * Удалить msg из треда. Пустой тред → выкинуть целиком.
+   * @param {vscode.CommentThread} ct
+   * @param {string} msgId
+   */
+  deleteMsg(ct, msgId) {
+    const live = this.liveOf(ct) || ct;
+    const data = this.dataOf(live);
+    if (!data || !this.bundle) {
+      throw new Error("тред не найден");
+    }
+    const before = (data.msgs || []).length;
+    data.msgs = (data.msgs || []).filter((m) => String(m.id) !== String(msgId));
+    if (data.msgs.length === before) {
+      throw new Error(`msg ${msgId} не найден`);
+    }
+    if (data.msgs.length === 0) {
+      this.deleteThread(live);
+      return;
+    }
+    live.comments = data.msgs.map((m) => makeComment(m, this.bundle));
+    this.saveFixed();
+  }
+
+  /** @param {vscode.CommentThread} ct */
+  deleteThread(ct) {
+    const id = this.threadIdOf(ct);
+    const live = this.liveOf(ct);
+    if (!id || !this.bundle) {
+      throw new Error("тред не найден");
+    }
+    this.bundle.threads = this.bundle.threads.filter((t) => t.id !== id);
+    this.reindex();
+    this.threads = this.threads.filter((t) => this.threadIdOf(t) !== id);
+    (live || ct).dispose();
+    this.saveFixed();
   }
 
   /**
@@ -133,18 +251,21 @@ class Painter {
       const comments = (th.msgs || []).map((m) => makeComment(m, this.bundle));
       const ct = this.controller.createCommentThread(uri, range, comments);
       ct.label = `${this.bundle.review.id} · ${th.id}`;
-      ct.contextValue = "crucible";
       ct.canReply = true;
       ct.collapsibleState = expand
         ? vscode.CommentThreadCollapsibleState.Expanded
         : vscode.CommentThreadCollapsibleState.Collapsed;
-      if (vscode.CommentThreadState) {
-        ct.state =
-          th.status === "RESOLVED"
-            ? vscode.CommentThreadState.Resolved
-            : vscode.CommentThreadState.Unresolved;
-      }
       this.meta.set(ct, th.id);
+      const resolved = th.status === "RESOLVED";
+      if (vscode.CommentThreadState) {
+        ct.state = resolved
+          ? vscode.CommentThreadState.Resolved
+          : vscode.CommentThreadState.Unresolved;
+      }
+      ct.contextValue = this.statusContext(
+        resolved ? "RESOLVED" : "UNRESOLVED",
+        th.id
+      );
       this.threads.push(ct);
       n++;
     }
@@ -229,6 +350,8 @@ function makeComment(msg, bundle) {
     author: { name: msg.author || msg.user || "?" },
     body: md,
     mode: vscode.CommentMode.Preview,
+    contextValue: `canDelete mid=${msg.id || ""}`,
+    msgId: String(msg.id || ""),
     timestamp:
       typeof msg.date === "number"
         ? new Date(msg.date)
@@ -353,29 +476,151 @@ function onReply(reply) {
   };
   data.msgs = data.msgs || [];
   data.msgs.push(msg);
-  data.status = "UNRESOLVED";
-  ct.comments = [...ct.comments, makeComment(msg, painter.bundle)];
-  if (vscode.CommentThreadState) {
-    ct.state = vscode.CommentThreadState.Unresolved;
+  painter.applyThreadStatus(ct, "UNRESOLVED");
+  try {
+    painter.saveFixed();
+  } catch (e) {
+    vscode.window.showErrorMessage(String(e.message || e));
   }
-  painter.saveFixed();
+  refreshDecorations();
   updateStatus();
+}
+
+/** Распаковать args меню Comments (порядок thread/comment плавает). */
+function unpackThreadComment(a, b) {
+  if (a && typeof a === "object" && a.thread && (a.comment || a.reply === undefined)) {
+    if (a.comment || Array.isArray(a.thread?.comments)) {
+      return { thread: a.thread, comment: a.comment };
+    }
+  }
+  const isThread = (x) =>
+    x && (Array.isArray(x.comments) || x.uri) && x.range !== undefined;
+  const isComment = (x) =>
+    x && (x.body !== undefined || x.author !== undefined) && !isThread(x);
+  if (isThread(a) && (isComment(b) || b === undefined)) {
+    return { thread: a, comment: b };
+  }
+  if (isComment(a) && isThread(b)) {
+    return { thread: b, comment: a };
+  }
+  if (isComment(a) && !b && painter) {
+    const thread =
+      painter.threads.find((t) => (t.comments || []).includes(a)) ||
+      painter.threads.find((t) =>
+        (t.comments || []).some(
+          (c) => c.msgId && c.msgId === a.msgId && a.msgId
+        )
+      );
+    return { thread, comment: a };
+  }
+  return { thread: a, comment: b };
 }
 
 /** @param {vscode.CommentThread} thread */
 function setResolved(thread, resolved) {
-  if (!painter || !vscode.CommentThreadState) {
+  if (!painter?.bundle) {
     return;
   }
-  thread.state = resolved
-    ? vscode.CommentThreadState.Resolved
-    : vscode.CommentThreadState.Unresolved;
-  const data = painter.dataOf(thread);
-  if (data) {
-    data.status = resolved ? "RESOLVED" : "UNRESOLVED";
+  const { thread: t } = unpackThreadComment(thread, undefined);
+  const ct = t || thread;
+  if (!painter.dataOf(ct)) {
+    vscode.window.showErrorMessage("тред не найден в bundle");
+    return;
   }
-  painter.saveFixed();
+  painter.applyThreadStatus(ct, resolved ? "RESOLVED" : "UNRESOLVED");
+  try {
+    painter.saveFixed();
+  } catch (e) {
+    vscode.window.showErrorMessage(String(e.message || e));
+    return;
+  }
+  refreshDecorations();
   updateStatus();
+  vscode.window.setStatusBarMessage(
+    `Crucible: ${resolved ? "resolved" : "unresolved"} → ${path.basename(painter.jsonPath || "")}`,
+    2000
+  );
+}
+
+function onDeleteComment(a, b) {
+  if (!painter?.bundle) {
+    return;
+  }
+  const { thread, comment } = unpackThreadComment(a, b);
+  if (!thread) {
+    painter.info(
+      `deleteComment: no thread args=${typeof a},${typeof b} keysA=${a && Object.keys(a)}`
+    );
+    vscode.window.showErrorMessage("тред не найден");
+    return;
+  }
+  const data = painter.dataOf(thread);
+  if (!data) {
+    painter.info(
+      `deleteComment: dataOf miss label=${thread.label} cv=${thread.contextValue}`
+    );
+    vscode.window.showErrorMessage("тред не найден");
+    return;
+  }
+  let msgId = comment?.msgId;
+  if (!msgId && comment?.contextValue) {
+    const m = /\bmid=(\S+)/.exec(String(comment.contextValue));
+    msgId = m?.[1];
+  }
+  if (!msgId && comment) {
+    const idx = (thread.comments || []).indexOf(comment);
+    if (idx >= 0) {
+      msgId = data.msgs?.[idx]?.id;
+    }
+  }
+  if (!msgId && comment?.author?.name) {
+    const hit = (data.msgs || []).find(
+      (m) =>
+        (m.author === comment.author.name || m.user === comment.author.name) &&
+        String(comment.body?.value || comment.body || "").includes(m.text || "")
+    );
+    msgId = hit?.id;
+  }
+  if (!msgId) {
+    vscode.window.showErrorMessage("коммент не найден");
+    return;
+  }
+  try {
+    painter.deleteMsg(thread, String(msgId));
+  } catch (e) {
+    vscode.window.showErrorMessage(String(e.message || e));
+    return;
+  }
+  refreshDecorations();
+  updateStatus();
+}
+
+function onDeleteThread(a, b) {
+  if (!painter?.bundle) {
+    return;
+  }
+  const { thread } = unpackThreadComment(a, b);
+  if (!thread || !painter.dataOf(thread)) {
+    vscode.window.showErrorMessage("тред не найден");
+    return;
+  }
+  try {
+    painter.deleteThread(thread);
+  } catch (e) {
+    vscode.window.showErrorMessage(String(e.message || e));
+    return;
+  }
+  refreshDecorations();
+  updateStatus();
+}
+
+function refreshDecorations() {
+  if (!painter) {
+    return;
+  }
+  for (const ed of vscode.window.visibleTextEditors) {
+    painter.decorate(ed);
+  }
 }
 
 async function paintActive() {
@@ -471,6 +716,14 @@ function activate(context) {
     ),
     vscode.commands.registerCommand("crucibleCommentsDemo.unresolve", (thread) =>
       setResolved(thread, false)
+    ),
+    vscode.commands.registerCommand(
+      "crucibleCommentsDemo.deleteComment",
+      (thread, comment) => onDeleteComment(thread, comment)
+    ),
+    vscode.commands.registerCommand(
+      "crucibleCommentsDemo.deleteThread",
+      (thread) => onDeleteThread(thread)
     ),
     vscode.commands.registerCommand("crucibleCommentsDemo.save", () => {
       try {
