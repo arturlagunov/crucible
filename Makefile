@@ -2,14 +2,21 @@ ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 REVIEW ?= CR-17391
 EXT_ID := onec-sandbox.crucible-comments-demo-0.2.2
 EXT_DIR := $(HOME)/.cursor/extensions
+# Windows Store stub `python3` → exit 49; real install is usually `python`.
+ifeq ($(OS),Windows_NT)
+PYTHON ?= python
+else
+PYTHON ?= python3
+endif
 
 .PHONY: help fetch install uninstall load test
 
 help:
 	@echo "make fetch / install / uninstall / load [FILE=...] / test"
+	@echo "  PYTHON=$(PYTHON)  (override: make fetch PYTHON=py)"
 
 fetch:
-	python3 "$(ROOT)build_threads.py" "$(REVIEW)"
+	$(PYTHON) "$(ROOT)build_threads.py" "$(REVIEW)"
 
 install:
 	mkdir -p "$(EXT_DIR)"
@@ -22,10 +29,10 @@ uninstall:
 
 load:
 ifdef FILE
-	@python3 "$(ROOT)load_signal.py" "$(abspath $(FILE))"
+	@$(PYTHON) "$(ROOT)load_signal.py" "$(abspath $(FILE))"
 else
-	@python3 "$(ROOT)load_signal.py"
+	@$(PYTHON) "$(ROOT)load_signal.py"
 endif
 
 test:
-	cd "$(ROOT)" && python3 -m unittest tests.test_source -v
+	cd "$(ROOT)" && $(PYTHON) -m unittest tests.test_source -v

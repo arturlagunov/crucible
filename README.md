@@ -1,28 +1,26 @@
 # Crucible → Cursor
 
 ```bash
-cd projects/crucible && make help
+cd projects/crucible
+make help
 ```
 
 ## Машина A
 
 ```bash
-make fetch
+make fetch                  # → CR-17391-threads.json
+make fetch REVIEW=CR-12345
 ```
 
-Скопируй `*-threads.json` на B.
+Скопируй `*-threads.json` на машину B.
 
-## Машина B
+## Машина B (Cursor)
 
 ```bash
-make install     # → Reload Window
-
+make install                # → Reload Window
 make load FILE=tests/fixtures/CR-17391-threads.json
-# или make load  (zenity)
+# или: make load            # системный диалог
 ```
-
-Откроется json в Cursor → toast `CR-17391 — N тредов` → прыгнет в файл с комментами.  
-Если нет: в json сверху CodeLens **Нанести треды Crucible**.
 
 ## Тесты
 
