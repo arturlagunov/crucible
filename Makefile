@@ -1,6 +1,6 @@
 ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 REVIEW ?= CR-17391
-EXT_ID := onec-sandbox.crucible-comments-demo-0.2.5
+EXT_ID := onec-sandbox.cru-0.3.1
 EXT_DIR := $(HOME)/.cursor/extensions
 # Windows/Git Bash: python3 = WindowsApps stub → Error 49
 ifdef MSYSTEM
@@ -21,12 +21,12 @@ fetch:
 
 install:
 	mkdir -p "$(EXT_DIR)"
-	rm -f "$(EXT_DIR)"/onec-sandbox.crucible-comments-demo-*
-	ln -sfn "$(ROOT)comments-demo" "$(EXT_DIR)/$(EXT_ID)"
+	rm -f "$(EXT_DIR)"/onec-sandbox.cru-* "$(EXT_DIR)"/onec-sandbox.crucible-comments-demo-*
+	ln -sfn "$(ROOT)ext" "$(EXT_DIR)/$(EXT_ID)"
 	@echo "OK $(EXT_ID) — Reload Window"
 
 uninstall:
-	rm -f "$(EXT_DIR)"/onec-sandbox.crucible-comments-demo-*
+	rm -f "$(EXT_DIR)"/onec-sandbox.cru-* "$(EXT_DIR)"/onec-sandbox.crucible-comments-demo-*
 
 load:
 ifdef FILE

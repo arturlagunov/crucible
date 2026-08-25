@@ -1,0 +1,84 @@
+{
+  "name": "cru",
+  "displayName": "Crucible",
+  "description": "Painter для *-threads.json",
+  "version": "0.3.1",
+  "publisher": "onec-sandbox",
+  "engines": { "vscode": "^1.85.0" },
+  "activationEvents": ["onStartupFinished"],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "cru.load", "title": "Crucible: Load Threads JSON" },
+      { "command": "cru.paint", "title": "Crucible: Paint Active File" },
+      { "command": "cru.reply", "title": "Reply", "enablement": "!commentIsEmpty" },
+      { "command": "cru.resolve", "title": "Resolve", "icon": "$(check)" },
+      { "command": "cru.unresolve", "title": "Unresolve", "icon": "$(issues)" },
+      { "command": "cru.chat", "title": "В чат", "icon": "$(comment-discussion)" },
+      { "command": "cru.del", "title": "Delete", "icon": "$(trash)" },
+      { "command": "cru.delThread", "title": "Delete Thread", "icon": "$(trash)" },
+      { "command": "cru.link", "title": "Copy Link", "icon": "$(link)" },
+      { "command": "cru.save", "title": "Crucible: Save Threads JSON" },
+      { "command": "cru.clear", "title": "Crucible: Clear" }
+    ],
+    "menus": {
+      "commandPalette": [
+        { "command": "cru.reply", "when": "false" },
+        { "command": "cru.resolve", "when": "false" },
+        { "command": "cru.unresolve", "when": "false" },
+        { "command": "cru.chat", "when": "false" },
+        { "command": "cru.del", "when": "false" },
+        { "command": "cru.delThread", "when": "false" },
+        { "command": "cru.link", "when": "false" }
+      ],
+      "comments/commentThread/title": [
+        {
+          "command": "cru.chat",
+          "group": "inline@0",
+          "when": "commentController == cru"
+        },
+        {
+          "command": "cru.resolve",
+          "group": "inline@1",
+          "when": "commentController == cru && commentThread =~ /canResolve/"
+        },
+        {
+          "command": "cru.unresolve",
+          "group": "inline@2",
+          "when": "commentController == cru && commentThread =~ /canUnresolve/"
+        },
+        {
+          "command": "cru.delThread",
+          "group": "inline@3",
+          "when": "commentController == cru && commentThread =~ /canDeleteThread/"
+        }
+      ],
+      "comments/comment/title": [
+        {
+          "command": "cru.link",
+          "group": "inline@1",
+          "when": "commentController == cru && comment =~ /canCopy/"
+        },
+        {
+          "command": "cru.del",
+          "group": "inline@2",
+          "when": "commentController == cru && comment =~ /canDelete/"
+        }
+      ],
+      "comments/commentThread/context": [
+        {
+          "command": "cru.reply",
+          "group": "inline",
+          "when": "commentController == cru && !commentThreadIsEmpty"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "cru.paint",
+        "key": "alt+;",
+        "when": "editorTextFocus"
+      }
+    ]
+  }
+}
