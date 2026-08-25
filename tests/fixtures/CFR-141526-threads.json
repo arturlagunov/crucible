@@ -1,0 +1,176 @@
+{
+  "review": {
+    "id": "CR-17391",
+    "name": "﻿Создание хранилища конфигурации //------  Версия хранилища №1 от 2026-02-27 20:10:30 Администратор ...",
+    "state": "Review",
+    "author": "Лагунов Артур"
+  },
+  "base": "https://abderus.dept07/crucible",
+  "count": 6,
+  "threads": [
+    {
+      "id": "CMT:48192",
+      "item": "CFR-141526",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        20,
+        20
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48192",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "неиспользуемый код удалить",
+          "date": 1782882085659,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48267",
+      "item": "CFR-141526",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        10,
+        10
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48267",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "лишняя \";\"",
+          "date": 1783491051108,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48268",
+      "item": "CFR-141526",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        17,
+        17
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48268",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "ВФаЙл",
+          "date": 1783491096835,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48283",
+      "item": "CFR-141526",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        1,
+        1
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48283",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "у этого справочника не предусмотрено заполнение наименования. Это так задумано?",
+          "date": 1783515246526,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48790",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "да так задумано",
+          "date": "2026-08-03T13:57:29.838+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49017",
+      "item": "CFR-141526",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        43,
+        43
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49017",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "почему-то крусибл теряет остаток модуля.\nтам никакой плохой символ не затесался?",
+          "date": 1786391695498,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49018",
+      "item": "CFR-141526",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        17,
+        17
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49018",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "ВФайлы ?\nи Процедура ВыборФайла - точно имеет смысл ее делать общей для обеих команд?",
+          "date": 1786391827207,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49209",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "ну да они тут как противоположность друг другу, ну и читается кажется проще меньше процедур",
+          "date": "2026-08-19T07:43:08.755+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    }
+  ]
+}

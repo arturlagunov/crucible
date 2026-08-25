@@ -1,0 +1,5162 @@
+{
+  "review": {
+    "id": "CR-17391",
+    "name": "﻿Создание хранилища конфигурации //------  Версия хранилища №1 от 2026-02-27 20:10:30 Администратор ...",
+    "state": "Review",
+    "author": "Лагунов Артур"
+  },
+  "base": "https://abderus.dept07/crucible",
+  "count": 185,
+  "threads": [
+    {
+      "id": "CMT:48195",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        8,
+        8
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48195",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "как будто Tab стоит",
+          "date": 1782882385903,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48196",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        29,
+        29
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48196",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "НЕ ВерсииРегистровУчета.ПометкаУдаления",
+          "date": 1782882499074,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48197",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        68,
+        68
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48197",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "ВызватьИсключение?\nИнформирование пользователя\nhttp://pyramid/v8std/?N=User&C=400\n\nДля вывода сообщений пользователю во всех случаях следует использовать объект СообщениеПользователю, даже когда сообщение не «привязывается» к некоторому элементу управления формы. Метод Сообщить применять не следует.\nОграничение на использование метода Сообщить\nhttp://pyramid/v8std?N=User&C=418\nВ стандарте описаны методы БСП",
+          "date": 1782883342775,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48198",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        86,
+        86
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48198",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "фаЙл",
+          "date": 1782884790167,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48199",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        133,
+        133
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48199",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "все экспортные функции необходимо описывать",
+          "date": 1782884861967,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48200",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        199,
+        199
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48200",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "не нужно дополнительный таб ставить для текста запроса",
+          "date": 1782885002066,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48201",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        193,
+        193
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48201",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "лучше совсем избегать разыменование. А в данном случае еще и двойное",
+          "date": 1782885232293,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48791",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "Само разыменование это транспиляция - преобразование кода в код, в данном случае кода встроенного языка запросов платформы в язык запросов используемой СУБД.В данном случае в результате транспиляции будет 2 левых соединения с очень маленькими по мощности (количеству элементов) множествами, в силу этого поля по которым будет соединение не нуждаются в индексировании. Никаких проблем с производительностью данная транспиляция не вызывает. \n\nОпасна скорее неосознанная транспиляция, например разыменование с полями составных типов, которая может привести к множеству неосознанных левых соединений, что может создать нагрузку на СУБД.",
+          "date": "2026-08-03T14:18:27.889+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48202",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        195,
+        195
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48202",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "тоже разыменование",
+          "date": 1782885352402,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48798",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "Само разыменование это транспиляция - преобразование кода в код, в данном случае кода встроенного языка запросов платформы в язык запросов используемой СУБД.В данном случае в результате транспиляции будет 2 левых соединения с очень маленькими по мощности (количеству элементов) множествами, в силу этого поля по которым будет соединение не нуждаются в индексировании. Никаких проблем с производительностью данная транспиляция не вызывает. \n\nОпасна скорее неосознанная транспиляция, например разыменование с полями составных типов, которая может привести к множеству неосознанных левых соединений, что может создать нагрузку на СУБД.",
+          "date": "2026-08-03T14:36:05.406+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48203",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        214,
+        214
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48203",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "тоже можно убрать доп таб",
+          "date": 1782885458420,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48204",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        314,
+        314
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48204",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "почему не запрос?",
+          "date": 1782885794624,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48842",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "выборка оптимизирована по освобождению оперативной памяти, она порциями подчитывает, насколько я понимаю",
+          "date": "2026-08-04T08:16:24.942+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48269",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        78,
+        78
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48269",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "НСтр\nhttps://its.1c.ru/db/v8std/content/761/hdoc",
+          "date": 1783494062572,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48276",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        309,
+        309
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48276",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "можно описать, почему именно так принято решение генерировать версию дампа.\nЕсть еще метод ТекущаяУниверсальнаяДатаВМиллисекундах() - возвращает число\nОн бы не подошел?",
+          "date": 1783510878424,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48277",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        365,
+        365
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48277",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "переменные должны быть говорящие. Мета - это просто сокращенное от Метаданные.\nhttps://its.1c.ru/db/v8std/content/454/hdoc\nМожно назвать типа \"ОбъектМетаданных\". Главное, чтобы не заревервированное было слово\n\nОбъектИБ.Метаданные() то же самое должно возвращать, и не нужно тип получать",
+          "date": 1783511536540,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48278",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        416,
+        416
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48278",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "в каких-то местах используешь проверку на ссылочный тип,\nв некоторых - добавлена функция ЭтоПримитив():\nРегистрСведений.ЗаписиРегистровУчета.Модуль менеджера\nПланВидовХарактеристик.ПоляРегистровУчета.Форма.ФормаЭлемента.Форма.Модуль\n\nПочему разные подходы используются?\nК сожалению в БСП БП нет функции проверки на примитив",
+          "date": 1783512115507,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48279",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        188,
+        188
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48279",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "название функции непонятное.\n\nХорошо бы было в этой функции описать механизм генерации файла, для чего он и куда текст сгенерированного файла можно помещать.",
+          "date": 1783513989551,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48280",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        209,
+        209
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48280",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "корректность выражения в полях регистров учета никак не проверяется при генерации файла. Стоит ли тогда объявлять переменную со значением Неопределено, если все равно шаблоны функции создаются только в случае, когда есть запись в выражениях. Если выражение неверное - все равно платформа покажет ошибку, либо не покажет, если просто не будет присваивание значению. Но по сути это будет скрытая ошибка.",
+          "date": 1783514350506,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48801",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "переменную тут в явном виде объявляю чтоб было что возвращать, чтоб не вернуть не инициализированную переменную",
+          "date": "2026-08-03T14:39:52.861+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48281",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        207,
+        207
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48281",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "так как функции экспортные, нужно добавить описание этих функций",
+          "date": 1783514771361,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48970",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "это ведь служебный интерфейс, вызываемый только из этой подсистемы",
+          "date": "2026-08-07T10:04:59.446+0400",
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48282",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        227,
+        227
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48282",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "в выгруженный файл необходимо добавить описание модуля, что текст модуля сгенерирован с помощью такого-то инструмента....",
+          "date": 1783514834790,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48294",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        110,
+        110
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48294",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "название переменной непонятное",
+          "date": 1783517749640,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48803",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "Стр - сокращение от слова строка, его можно считать принятым так как глобальное пространство имен кишит функциями работы с строками от разработчиков платформы, вида: СтрНайти, СтрНайтиПоРегулярномуВыражению, СтрШаблон и.т.д.",
+          "date": "2026-08-03T14:43:15.832+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48295",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        266,
+        266
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48295",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "ОбъектИБ.Метаданные()",
+          "date": 1783517989906,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48364",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        309,
+        309
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48364",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "XMLСтрока",
+          "date": 1783694534421,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49004",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        80,
+        80
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49004",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "хотя бы в ЖР стоит записать, что пошло не так",
+          "date": 1786389263336,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49005",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        77,
+        77
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49005",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "почему вне транзакции?",
+          "date": 1786389287938,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49254",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "поправил",
+          "date": "2026-08-20T16:32:31.521+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49006",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        52,
+        52
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49006",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "а Неопределено что значит?",
+          "date": 1786389375371,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49253",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "загружает из макета конфигурации, добавил в описание",
+          "date": "2026-08-20T16:31:43.347+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49007",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        293,
+        293
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49007",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "чтобы что?",
+          "date": 1786389491885,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49008",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        97,
+        97
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49008",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "Выглядит странно здесь сообщение - функция только помещает значения, то есть, она не отвечает за конечный, видимый пользователю результат.\nКажется, не ее задача вести диалог с пользователем.",
+          "date": 1786389614371,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49255",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "в целом согласен, думал об этом когда писал, но хочется простую сигнатуру, один тип на выходе - адрес, а версия только тут доступна, и раз серверный сообщить платформа без проблем позволяет, то я этим пользуюсь, удобно",
+          "date": "2026-08-20T16:33:39.044+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49009",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        352,
+        352
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49009",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "непонятно, почему он Кеш",
+          "date": 1786390008333,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49012",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        343,
+        343
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49012",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "все объекты складывать в память выглядит неоправданным по памяти; и в целом это необычный паттерн - не уверен, что платформа на такой сценарий рассчитывает.\nты же не возвращаешься к предыдущим - то есть, кажется достаточно в виде объектлв держать только то, что в стеке вызовов\nа в очереди - ссылки",
+          "date": 1786390593217,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49013",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        393,
+        393
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49013",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "непонятное название - чем \"дополнить\" отличается от \"добавить\"\nтем более, что здесь имеется в виду конкретный тип, а не абстрактные \"объекты\"",
+          "date": 1786390723261,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49256",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "тут ребро графа в обратную сторону смотрит, и в обход по ширину не попадает, по этому на одном из узлов дополняем объекты",
+          "date": "2026-08-20T16:37:29.219+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49014",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        233,
+        233
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49014",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "номер ведь не обязательный? получается какое-то \"неровное\" пространство имен\nможет быть, стоит предупреждать, если есть совпадения имен\nчто такое Р? или это P?",
+          "date": 1786391020749,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49020",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "название функции с цифры начинаться не может,  по это",
+          "date": "2026-08-11T10:16:01.717+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49015",
+      "item": "CFR-141511",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        234,
+        235
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49015",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "в обоих случаях аргумент Выборка.Выражение",
+          "date": 1786391295608,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48210",
+      "item": "CFR-141513",
+      "path": "bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаВыражения/Module.bsl",
+      "ws": "projects/bp3/bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаВыражения/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        6,
+        6
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48210",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "ненужный комментарий",
+          "date": 1782893027240,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49048",
+      "item": "CFR-141514",
+      "path": "bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Form.form",
+      "ws": "projects/bp3/bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Form.form",
+      "repo": "BP3_DT",
+      "span": [
+        45,
+        45
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49048",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "лучше осмысленные имена дать - почему они объединены в группу?",
+          "date": 1786475994185,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49281",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "поправил",
+          "date": "2026-08-21T07:53:34.029+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49049",
+      "item": "CFR-141514",
+      "path": "bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Form.form",
+      "ws": "projects/bp3/bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Form.form",
+      "repo": "BP3_DT",
+      "span": [
+        398,
+        398
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49049",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "не понял, какого макета?",
+          "date": 1786476022348,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48211",
+      "item": "CFR-141515",
+      "path": "bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "ws": "projects/bp3/bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        43,
+        43
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48211",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "лишний пробел",
+          "date": 1782893097826,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48212",
+      "item": "CFR-141515",
+      "path": "bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "ws": "projects/bp3/bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        44,
+        44
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48212",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "в служебную область",
+          "date": 1782893153976,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48213",
+      "item": "CFR-141515",
+      "path": "bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "ws": "projects/bp3/bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        73,
+        73
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48213",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "удалить комментарий",
+          "date": 1782893166206,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48214",
+      "item": "CFR-141515",
+      "path": "bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "ws": "projects/bp3/bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        115,
+        115
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48214",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "а если заменить на\n\n{code} ТипЗначения.СодержитТип(Тип(\"Дата\")) Или  \n       ТипЗначения.СодержитТип(Тип(\"Строка\")) Или  \n        ТипЗначения.СодержитТип(Тип(\"Число\")) Или  \n        ТипЗначения.СодержитТип(Тип(\"Булево\")) ;\n{code}",
+          "date": 1782893227950,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48313",
+      "item": "CFR-141515",
+      "path": "bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "ws": "projects/bp3/bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        26,
+        26
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48313",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "не поняла такую подмену. то есть свойство DTO может иметь значение, отличное от типа пакета XDTO?",
+          "date": 1783619561849,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48873",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "если не заполнили СвойствоDTO, считаем его равным свойству объекта ИБ, имена свойств",
+          "date": "2026-08-05T09:52:08.791+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48314",
+      "item": "CFR-141515",
+      "path": "bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "ws": "projects/bp3/bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        33,
+        33
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48314",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "лучше для простых типов иметь форму без табличной части, а при записи уже переносить в табличную часть\n\nЕсли нет в табличной части строк, то выпадает в ошибку, индекс за границами массива",
+          "date": 1783619705839,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48854",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "справочник для разработчика не для пользователя, по этому требования к интерфейсу тут на мой взгляд проще",
+          "date": "2026-08-04T13:13:33.871+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49047",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "но падать с такой ошибкой все равно не надо",
+          "date": "2026-08-11T23:18:51.656+0400",
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49046",
+      "item": "CFR-141515",
+      "path": "bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "ws": "projects/bp3/bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        20,
+        23
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49046",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "это не должна быть проверка заполнения?",
+          "date": 1786475769848,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49286",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "да больно не разграничишь, тут и заполнение и проверка",
+          "date": "2026-08-21T09:34:56.075+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49051",
+      "item": "CFR-141515",
+      "path": "bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "ws": "projects/bp3/bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        79,
+        79
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49051",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "> 0 ?",
+          "date": 1786476524026,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49285",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "перед началом =1",
+          "date": "2026-08-21T09:31:20.084+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49052",
+      "item": "CFR-141515",
+      "path": "bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "ws": "projects/bp3/bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        103,
+        106
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49052",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "непонятно, зачем такая конструкция - почему это не явный OR или elif?",
+          "date": 1786476594063,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49050",
+      "item": "CFR-141516",
+      "path": "bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/ПоляРегистровУчета.mdo",
+      "ws": "projects/bp3/bp3/src/ChartsOfCharacteristicTypes/ПоляРегистровУчета/ПоляРегистровУчета.mdo",
+      "repo": "BP3_DT",
+      "span": [
+        316,
+        316
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49050",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "1. необязательное колонка?\n2. рекомендуется избегать имен с отрицанием.\nможет быть Опциональное ?\nа действительно ли по умолчанию колонки обязательные? может быть назвать Обязательное?",
+          "date": 1786476203803,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49057",
+      "item": "CFR-141517",
+      "path": "bp3/src/CommonModules/АлгоритмыРегистровУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/CommonModules/АлгоритмыРегистровУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        46,
+        46
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49057",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "фэйсролл?",
+          "date": 1786477429894,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49058",
+      "item": "CFR-141517",
+      "path": "bp3/src/CommonModules/АлгоритмыРегистровУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/CommonModules/АлгоритмыРегистровУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        66,
+        66
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49058",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "это не могут быть документы с полем \"входящий номер\"?",
+          "date": 1786477509931,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48316",
+      "item": "CFR-141518",
+      "path": "bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        78,
+        78
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48316",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "разыменование в параметрах виртуальной таблицы",
+          "date": 1783625395844,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48870",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "заменил на доп запрос",
+          "date": "2026-08-05T08:38:43.759+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48317",
+      "item": "CFR-141518",
+      "path": "bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        37,
+        37
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48317",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "это поле лучше в след. таблице получить через левое соединение",
+          "date": 1783625435884,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48318",
+      "item": "CFR-141518",
+      "path": "bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        41,
+        41
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48318",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "тоже есть возможность в след таблице через левое соединение получить",
+          "date": 1783625494985,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48319",
+      "item": "CFR-141518",
+      "path": "bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        110,
+        110
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48319",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "точно текущая дата? а не конец периода?",
+          "date": 1783625764648,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48320",
+      "item": "CFR-141518",
+      "path": "bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        44,
+        44
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48320",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "точно КорОборот?",
+          "date": 1783625928494,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48871",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "да КорОборот",
+          "date": "2026-08-05T08:50:16.459+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48321",
+      "item": "CFR-141518",
+      "path": "bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        103,
+        103
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48321",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "Можно рассмотреть подход,  как в дополнительных реквизитах.  Есть поле наименование, а есть имя разработчика с припиской ID, если это как инструмент для разработчиков.\nА то получается, если захочется изменить наименование, то нужно и в коде менять.\nТакой подход утвердили на демо?",
+          "date": 1783625986814,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48849",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "наименование в данном случае неизменное поле, представление справочника идет по полю заголовок",
+          "date": "2026-08-04T09:45:33.787+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49132",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "Выглядит неожиданно. Обычно для ключа используется Код, а не наименование.",
+          "date": "2026-08-13T23:06:23.287+0400",
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48322",
+      "item": "CFR-141518",
+      "path": "bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        109,
+        109
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48322",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "Новый Граница(КонецДня(Регистр.КонецПериода), ВидГраницы.Включая)",
+          "date": 1783626710796,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49126",
+      "item": "CFR-141518",
+      "path": "bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        14,
+        14
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49126",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "выглядит странно - зачем сначала получаем через точку?\nимя ПроцентныеРасходы может быть вынести в метод - чтобы отовсюду к нему обращаться, а не к литералу",
+          "date": 1786646658999,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49127",
+      "item": "CFR-141518",
+      "path": "bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        33,
+        33
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49127",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "дизайн метода выглядит оверинжинирингом\n\nпочему бы не сделать просто\nФункция ЕстьПравоЗаписиПоставляемыхОбъектов()\nВозврат Ложь\n?\n\nили даже РазрешенаЗаписьПоставляемыхОбъектов()",
+          "date": 1786646960882,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49210",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "тут логика что свои объекты например скопированные записать можно, а те что мы поставили нет",
+          "date": "2026-08-19T07:49:16.112+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49128",
+      "item": "CFR-141518",
+      "path": "bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        69,
+        69
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49128",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "еще есть ПроцентыКПолучениюУплате",
+          "date": 1786647337275,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49129",
+      "item": "CFR-141518",
+      "path": "bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        124,
+        124
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49129",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "получается, Дт 51 Кт 91.01 в доходы не попадет",
+          "date": 1786647432819,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49130",
+      "item": "CFR-141518",
+      "path": "bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        79,
+        79
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49130",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "выглядит, что это работает лишь случайно: по счетам доходов имеет смысл только кредитовый оборот, они \"односторонние\"",
+          "date": 1786647713073,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49131",
+      "item": "CFR-141518",
+      "path": "bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        138,
+        139
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49131",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "среди контрагентов тоже могут быть физлица",
+          "date": 1786647863182,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49133",
+      "item": "CFR-141518",
+      "path": "bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        156,
+        158
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49133",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "для каждого регистра будет дублироваться?\nможет быть сразу стоит вынести в метод - типа Запрос = НачатьЗапрос(НачалоПериода, КонецПериода, Организация)",
+          "date": 1786648093371,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49134",
+      "item": "CFR-141518",
+      "path": "bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/CommonModules/РегистрыУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        160,
+        162
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49134",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "зачем упаковывать в массив?",
+          "date": 1786648122981,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48331",
+      "item": "CFR-141522",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        22,
+        22
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48331",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "обязательно нужен метод НачалоДня?",
+          "date": 1783628602801,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48857",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "да привожу к началу дня чтоб избавиться от времени, исхожу из того что период везде без времени, чтоб избежать ошибок",
+          "date": "2026-08-04T13:38:28.830+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48332",
+      "item": "CFR-141522",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        108,
+        108
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48332",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "Tab",
+          "date": 1783628660564,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48333",
+      "item": "CFR-141522",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        170,
+        170
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48333",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "фаЙл",
+          "date": 1783628692896,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48335",
+      "item": "CFR-141522",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        334,
+        334
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48335",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "таб",
+          "date": 1783628998721,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48341",
+      "item": "CFR-141522",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        14,
+        14
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48341",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "можно просто Параметры.ТолькоПросмотр",
+          "date": 1783675601307,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48847",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "там неопределено может быть",
+          "date": "2026-08-04T09:20:08.808+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48342",
+      "item": "CFR-141522",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        60,
+        60
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48342",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "ОбработчикиСобытийЭлементовШапкиФормы",
+          "date": 1783675717780,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48344",
+      "item": "CFR-141522",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        168,
+        168
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48344",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "ФаЙл",
+          "date": 1783676546044,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48345",
+      "item": "CFR-141522",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        171,
+        171
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48345",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "на форме можно диалоговое окно вывести. Типа такого сообщения: \"Перед выгрузкой файл будет сохранен. Продолжить?\". Можно посоветоваться с ответственными за интерфейс",
+          "date": 1783676593677,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48348",
+      "item": "CFR-141522",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        310,
+        310
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48348",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "в параметры можно передать не все параметры отчета, а только необходимые Период и ВидРегистра",
+          "date": 1783679763736,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48856",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "тут ненужных нет, далее происходит поиск или создание соответствующего регистра",
+          "date": "2026-08-04T13:34:55.724+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48349",
+      "item": "CFR-141522",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        424,
+        424
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48349",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "странное название метода.",
+          "date": 1783679894472,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49279",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "ну запись фактически раньше была, тут только номер корректировки устанавливаем, но пользовательский сценарий это записать, у пользователя объект видимым становится",
+          "date": "2026-08-21T07:46:01.099+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48350",
+      "item": "CFR-141522",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        440,
+        440
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48350",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "Название параметров должны отражать содержимое. В экспортном методе названо \"Параметр1\", так как это один из перечисленных параметров:Параметр1, Параметр2,...",
+          "date": 1783680436547,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49153",
+      "item": "CFR-141522",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        7,
+        7
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49153",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "выглядит странно: ТолькоПросмотр это стандартный параметр, он должен наследоваться элементами непосредственно.\nвозможно, у каких-то реквизитов формы надо установить Сохраняемые данные",
+          "date": 1786652452701,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49251",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "ну тут я как раз пустоту и обработал, если не передали, то ложь, передали значение, а так да я намеренно беру этот стандартный флаг и на нем логику строю",
+          "date": "2026-08-20T16:07:07.351+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49154",
+      "item": "CFR-141522",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        235,
+        235
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49154",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "непонятно, зачем НачалоДня - в реквизите же только Дата, без времени",
+          "date": 1786652735857,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49275",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "поправил",
+          "date": "2026-08-21T07:22:27.138+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49155",
+      "item": "CFR-141522",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        440,
+        440
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49155",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "непонятно, кто такие Тек и Док",
+          "date": 1786652877492,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49276",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "поправил",
+          "date": "2026-08-21T07:42:54.878+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49156",
+      "item": "CFR-141522",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        459,
+        460
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49156",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "имя метода нужно указывать непосредственно литералом в параметре (чтобы минимизировать риск подмены имени метода)",
+          "date": 1786653011632,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49278",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "поправил",
+          "date": "2026-08-21T07:44:52.725+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49157",
+      "item": "CFR-141522",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/РегистрУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        442,
+        442
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49157",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "непонятно, почему запись фактически не выполняется",
+          "date": 1786653105284,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49277",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "если -1 корректировку не нашли, значит объекта к записи нет",
+          "date": "2026-08-21T07:44:10.075+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48360",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        11,
+        11
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48360",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "НСтр",
+          "date": 1783683711198,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48361",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        20,
+        20
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48361",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "таб",
+          "date": 1783683742661,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48362",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        33,
+        33
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48362",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "https://its.1c.ru/db/v8std#content:641:hdoc",
+          "date": 1783683803994,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48363",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        576,
+        576
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48363",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "Справочники.ВерсииРегистровУчета.ПакетXDTO(Версия) м.б. Неопределено. Нужна проверка",
+          "date": 1783686519559,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48370",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        567,
+        567
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48370",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "Хорошо бы описать, каким образом формируется таблица, откуда берутся колонки и тип. Параметр \"Версия\" больше ассоциируется с каким-то числом, нежели со справочником Версии регистров учета",
+          "date": 1783706461582,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48372",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        610,
+        610
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48372",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "можно сделать отдельную функцию-соответствие\nСоответствиеТипов = Новый Структура ; (или Новый Соответствие)\nСоответствиеТипов.Вставить(\"date\" ,  ОбщегоНазначения.ОписаниеТипаДата(ЧастиДаты.Дата));\n...",
+          "date": 1783707393716,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48374",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        36,
+        36
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48374",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "опечатка НаборЫ",
+          "date": 1783707758454,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48378",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        267,
+        267
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48378",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "почему такое решение разделить ресурсы по типам, а не создать один ресурс Значение с разными типами?\nТоже можно описать логику работы регистра в начале модуля. Как раз и про разделитель написать.",
+          "date": 1783709805760,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48862",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "составной тип платформа ужасно индексирует",
+          "date": "2026-08-05T07:44:37.705+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48379",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        341,
+        341
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48379",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "дать смысловое название функции",
+          "date": 1783710257458,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48850",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "функция возвращает значение, возвращаемое значение - объект ИБ строкой, название СтрОбъектИБ",
+          "date": "2026-08-04T10:13:21.860+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48380",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        423,
+        423
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48380",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "переименовать",
+          "date": 1783710512043,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48381",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        320,
+        320
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48381",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "вместо этой функции не подойдет ОбщегоНазначения.ЗначенияРеквизитовОбъектов? Показалось, что не нужны все реквизиты объекта, а только те, которые указаны в версии регистра.",
+          "date": 1783711705110,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48861",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "заменил на массовое чтение, ушел запрос в цикле",
+          "date": "2026-08-05T07:43:23.776+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49158",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        33,
+        33
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49158",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "непонятно назначение этой схемы",
+          "date": 1786653436373,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49211",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "так ну тут для вывода в отчет она используется, добавил комментарий",
+          "date": "2026-08-19T07:56:52.439+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49159",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        837,
+        837
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49159",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "почему именно 12 ?",
+          "date": 1786653486201,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49160",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        839,
+        840
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49160",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "зачем тут массив?",
+          "date": 1786653520749,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49271",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "У описание типов такой конструктор, вот пример из доки, может проще есть, вроде так и есть\n\n\n// Создание описателя типов для таблицы значений\nКЧ = Новый КвалификаторыЧисла(12,2);\nКС = Новый КвалификаторыСтроки(20);\nМассив = Новый Массив;\nМассив.Добавить(Тип(\"Строка\"));\nОписаниеТиповС = Новый ОписаниеТипов(Массив, , КС);\nМассив.Очистить();\nМассив.Добавить(Тип(\"Число\"));\nОписаниеТиповЧ = Новый ОписаниеТипов(Массив, , ,КЧ);",
+          "date": "2026-08-21T06:56:11.030+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49161",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        859,
+        861
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49161",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "строковые константы лучше поместить в метод, в частности, чтоб можно было понять общий набор допустимых значений",
+          "date": 1786653648358,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49162",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        117,
+        117
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49162",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "БухгалтерскиеОтчетыКлиентСервер.ИмяМакетаОформленияПоУмолчанию()",
+          "date": 1786653847715,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49163",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        174,
+        175
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49163",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "непонятно - выглядит так, что удаляем с нулевой позиции Ссылка только для того, чтобы ниже вставить на эту позицию эту же строку",
+          "date": 1786653990804,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49212",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "Ссылка вторым полем пропускаем, Поле.Ссылка.Дочернее1.Дочернее2",
+          "date": "2026-08-19T07:59:45.042+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49164",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        294,
+        294
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49164",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "обход кеша здесь выглядит странно - может быть надо обходить исходную коллекцию, которой принадлежат .Значение",
+          "date": 1786654235422,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49252",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "тут свертка происходит колонок по контракту с подчеркиванием\nДоход_Поле1, Доход_Поле2, Расход_Поле1, Расход_Поле2, на выходе\nКолонка1: Доход | Структура\nКолонка2: Расход | Структура",
+          "date": "2026-08-20T16:15:57.787+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49165",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        494,
+        494
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49165",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "непонятны назначение в целом, параметры, терминология",
+          "date": 1786655661265,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49213",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "эммм, ну пришел набор данных ввиде таблицы значений, вот эта функция записывает все объекты которые были внутри этой таблицы (набора данных), таблицу исходную  я везде набор данных называю",
+          "date": "2026-08-19T08:04:51.288+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49166",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        503,
+        503
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49166",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "непонятно, почему обходятся объекты набора, а не объекты потока",
+          "date": 1786655940623,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49214",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "ну поток тут не ключевое, можно в потоках можно без, а вот сами объекты сгруппированы по колонкам исходного набора и разбиваются по потокам по round robin и каждый поток равномерно получает порцию всех объектов всех типов",
+          "date": "2026-08-19T08:06:22.010+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49167",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        505,
+        505
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49167",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "изменение состава коллекции внутри обхода по коллекции не выглядит надежным",
+          "date": 1786655967285,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49168",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        531,
+        531
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49168",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "непонятно, почему берем из Ссылки - разве в ключе не будет тип?",
+          "date": 1786656150860,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49287",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "после хеширования нет:)\n\nКлючЗначение(Ключ) = Тип(\"Структура\") = Ложь\n\nили после десериализации",
+          "date": "2026-08-21T09:47:06.289+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49169",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        535,
+        535
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49169",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "непонятно, почему создаются без попытки найти",
+          "date": 1786656513252,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49215",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "там где структуры , это я выделил как транзакционные DTO, в данном случае там Сочетание суммы, даты дохода и т п., и вот эти DTO удаляем всегда при удалении регистра без поиска существующих",
+          "date": "2026-08-19T08:12:12.337+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49170",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        631,
+        633
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49170",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "не понял, за счет чего гарантируется сохранение порядка в результате запроса?",
+          "date": 1786656818237,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49216",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "ну тут join по хэшу и по ссылке, по ссылке сделан как раз чтоб избежать коллизий",
+          "date": "2026-08-19T08:14:52.438+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49171",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        724,
+        724
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49171",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "а если будут посимвольно отличаться (но логически совпадать) сериализованные dto, например, в разных версиях платформы - и соответственно, будет отличаться хеш - к каким последствиям это приведет?",
+          "date": 1786657094017,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49217",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "да в общем то ни к каким, новый регистр  со своими DTO пропишется, старый останется со старыми при чтении,  если перезаполнят , то подтянет новые DTO",
+          "date": "2026-08-19T08:16:42.528+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49172",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        739,
+        739
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49172",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "\"Используется для сохранения функциональной совместимости с 1С:Предприятием 7.7. Использовать для других целей не рекомендуется.\"",
+          "date": 1786657278017,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49173",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        796,
+        798
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49173",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "сложно воспринимается - запутанная, размазанная по нескольким методам логика с нумерацией пакетов в запросе",
+          "date": 1786657677151,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49274",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "ну тут вроде всего 2 набор данных - последний пакет, и набор объектов предпоследний\n\nвзяли данные, получили указатели на объекты, свернули, получили отдельно множество объектов",
+          "date": "2026-08-21T07:07:48.645+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49174",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        894,
+        894
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49174",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "определяемый тип?",
+          "date": 1786657984204,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49272",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "колонки всегда примитив, примитивы без составных типов",
+          "date": "2026-08-21T07:00:08.944+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49175",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        939,
+        939
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49175",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "непонятно, зачем вынесен в метод.\nесли для схемы ниже (для модификации) он важен, то его полезно видеть перед глазами.\nесли не важен, то зачем это единый пакет? может быть, отдельно выполнить, передав менеджер ВТ",
+          "date": 1786658123125,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49288",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "эммм тут динамически текст запроса собираем, поэтому отдельный метод, чтоб собрать этот текст",
+          "date": "2026-08-21T10:06:03.055+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49176",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        958,
+        958
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49176",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "странно, что псевдоним не устанавливается явно",
+          "date": 1786658307853,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49177",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        1119,
+        1123
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49177",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "строго говоря, может быть составное значение, включающее примитивный тип\nтогда эта логика сработает неверно",
+          "date": 1786658507170,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49218",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "ну по логике структуры хранения составных типов с примитивами быть не должно, набор данных валидный должен быть",
+          "date": "2026-08-19T08:20:02.688+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49178",
+      "item": "CFR-141524",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        1161,
+        1167
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49178",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "платформа не гарантирует уникальность, а значит у кого-тот обязательно встретится несколько записей с одинаковым наименованием\nкак минимум надо упорядочивать; и TOP 1 уместно",
+          "date": 1786658617215,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49273",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "поправил",
+          "date": "2026-08-21T07:03:59.579+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48192",
+      "item": "CFR-141526",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        20,
+        20
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48192",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "неиспользуемый код удалить",
+          "date": 1782882085659,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48267",
+      "item": "CFR-141526",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        10,
+        10
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48267",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "лишняя \";\"",
+          "date": 1783491051108,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48268",
+      "item": "CFR-141526",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        17,
+        17
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48268",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "ВФаЙл",
+          "date": 1783491096835,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48283",
+      "item": "CFR-141526",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        1,
+        1
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48283",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "у этого справочника не предусмотрено заполнение наименования. Это так задумано?",
+          "date": 1783515246526,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48790",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "да так задумано",
+          "date": "2026-08-03T13:57:29.838+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49017",
+      "item": "CFR-141526",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        43,
+        43
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49017",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "почему-то крусибл теряет остаток модуля.\nтам никакой плохой символ не затесался?",
+          "date": 1786391695498,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49018",
+      "item": "CFR-141526",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        17,
+        17
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49018",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "ВФайлы ?\nи Процедура ВыборФайла - точно имеет смысл ее делать общей для обеих команд?",
+          "date": 1786391827207,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49209",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "ну да они тут как противоположность друг другу, ну и читается кажется проще меньше процедур",
+          "date": "2026-08-19T07:43:08.755+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48193",
+      "item": "CFR-141527",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        2,
+        2
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48193",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "правильно ОбработчикиСобытийФормы",
+          "date": 1782882238188,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48194",
+      "item": "CFR-141527",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        23,
+        23
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48194",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "д.б. в области #Область ОбработчикиСобытийЭлементовШапкиФормы",
+          "date": 1782882285825,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49016",
+      "item": "CFR-141527",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        7,
+        7
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49016",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "правильно так: при чтении + при создании для новых (с пустой ссылкой)\nиначе команда \"перечитать\" в форме будет приводить к \"залипанию\" свойств формы",
+          "date": 1786391451008,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48836",
+      "item": "CFR-141528",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Templates/Данные/Template.txt",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Templates/Данные/Template.txt",
+      "repo": "BP3_DT",
+      "span": [
+        4,
+        4
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48836",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "выглядит странно, что поставляются ссылки - получается, сопоставление по естественному ключу не выполняется?\nнет ли риска дублей в результате разного рода админских действий?",
+          "date": 1785785567310,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48837",
+      "item": "CFR-141528",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Templates/Данные/Template.txt",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Templates/Данные/Template.txt",
+      "repo": "BP3_DT",
+      "span": [
+        67,
+        67
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48837",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "Поставка таких объектов выглядит странно - как минимум, потому что это вне ответственности нашей библиотеки, то есть, нарушение SRP",
+          "date": 1785785878259,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48838",
+      "item": "CFR-141528",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Templates/Данные/Template.txt",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Templates/Данные/Template.txt",
+      "repo": "BP3_DT",
+      "span": [
+        102,
+        104
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48838",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "Это эмуляция ЛюбойДокументСсылка?",
+          "date": 1785786063368,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48839",
+      "item": "CFR-141528",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Templates/Данные/Template.txt",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Templates/Данные/Template.txt",
+      "repo": "BP3_DT",
+      "span": [
+        109,
+        109
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48839",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "Непонятно, что значит \"ВыборТипа=Документ\"",
+          "date": 1785786149938,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48876",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "переключатель на форму добавил, там выбрать можно что это, любой справочник, любой документ или конкретный тип",
+          "date": "2026-08-05T10:07:37.779+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48840",
+      "item": "CFR-141528",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Templates/Данные/Template.txt",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Templates/Данные/Template.txt",
+      "repo": "BP3_DT",
+      "span": [
+        123,
+        123
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48840",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "В частном случае это ведь должен быть \"входящий номер\".\nСм. также регистр ДанныеПервичныхДокументов",
+          "date": 1785786201502,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48841",
+      "item": "CFR-141528",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Templates/Данные/Template.txt",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Templates/Данные/Template.txt",
+      "repo": "BP3_DT",
+      "span": [
+        147,
+        147
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48841",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "?",
+          "date": 1785786276371,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48832",
+      "item": "CFR-141530",
+      "path": "bp3/src/Catalogs/ВидыРегистровУчета/ВидыРегистровУчета.mdo",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВидыРегистровУчета/ВидыРегистровУчета.mdo",
+      "repo": "BP3_DT",
+      "span": [
+        536,
+        536
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48832",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "Уместен комментарий - что за номер",
+          "date": 1785784989044,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49059",
+      "item": "CFR-141531",
+      "path": "bp3/src/CommonModules/АлгоритмыРегистровУчета/АлгоритмыРегистровУчета.mdo",
+      "ws": "projects/bp3/bp3/src/CommonModules/АлгоритмыРегистровУчета/АлгоритмыРегистровУчета.mdo",
+      "repo": "BP3_DT",
+      "span": [
+        8,
+        8
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49059",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "для толстого клиента тоже надо разрешать",
+          "date": 1786477569791,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48327",
+      "item": "CFR-141535",
+      "path": "bp3/src/Configuration/Configuration.mdo",
+      "ws": "projects/bp3/bp3/src/Configuration/Configuration.mdo",
+      "repo": "BP3_DT",
+      "span": [
+        12384,
+        12384
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48327",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "?",
+          "date": 1783627956666,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48874",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "убрал",
+          "date": "2026-08-05T09:54:58.327+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48328",
+      "item": "CFR-141535",
+      "path": "bp3/src/Configuration/Configuration.mdo",
+      "ws": "projects/bp3/bp3/src/Configuration/Configuration.mdo",
+      "repo": "BP3_DT",
+      "span": [
+        7246,
+        7246
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48328",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "?",
+          "date": 1783627978367,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48875",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "убрал",
+          "date": "2026-08-05T09:55:04.715+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48324",
+      "item": "CFR-141536",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/АрхивРегистровУчета/Form.form",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/АрхивРегистровУчета/Form.form",
+      "repo": "BP3_DT",
+      "span": [
+        1393,
+        1393
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48324",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "эта команда доступна для любых регистров. Это так задумано?\nИ почему именно решено добавить кнопку \"Удалить\", а не пользоваться Пометкой на удаление?",
+          "date": 1783627494021,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48859",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "добавил управление видимостью, не уверен что в этом коммите было",
+          "date": "2026-08-04T13:42:26.826+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48329",
+      "item": "CFR-141536",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/АрхивРегистровУчета/Form.form",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/АрхивРегистровУчета/Form.form",
+      "repo": "BP3_DT",
+      "span": [
+        1067,
+        1067
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48329",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "почему не >=0? Корректировка д.б. неотрицательной, и минусовое значение странно смотрится.\nне поняла смысл этого условия",
+          "date": 1783628091290,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48858",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "Корректировка в данном случае может быть отрицательной, это специальное значение, часть логики формирования регистров. По логике мы сначала записываем регистр с номером корректировки -1 - просто формируем отчет, а при сохранении просто меняем номер с -1 на текущий.",
+          "date": "2026-08-04T13:39:48.898+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48352",
+      "item": "CFR-141538",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/ФормаСписка/Form.form",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/ФормаСписка/Form.form",
+      "repo": "BP3_DT",
+      "span": [
+        132,
+        132
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48352",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "получается, до этого поля Организация не было в списке и непонятно было, к какой организации относится тот или иной документ? Или этот список открывался только для конкретной организации?",
+          "date": 1783681486696,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48867",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "не было, было непонятно, но эта форма я на сколько понимаю нигде не используется в интерфейсе, вместо нее архив регистров учета используется",
+          "date": "2026-08-05T08:23:43.904+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49054",
+      "item": "CFR-141539",
+      "path": "bp3/src/Reports/РегистрУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Reports/РегистрУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        7,
+        7
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49054",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "разве есть такая?",
+          "date": 1786476991418,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49291",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "ну да моя форма",
+          "date": "2026-08-21T10:15:07.135+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49019",
+      "item": "CFR-141544",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Attributes/Список/ExtInfo/ListSettings.dcss",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаСписка/Attributes/Список/ExtInfo/ListSettings.dcss",
+      "repo": "BP3_DT",
+      "span": [
+        16,
+        16
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49019",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "я так понимаю, настройки списка включены в пользовательские настройки?\nчтобы что?",
+          "date": 1786392013495,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48285",
+      "item": "CFR-141546",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаЭлемента/Form.form",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/Forms/ФормаЭлемента/Form.form",
+      "repo": "BP3_DT",
+      "span": [
+        4,
+        4
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48285",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "Лучше, чтобы названия групп имели смысловое значение, а не просто Группа1, Группа2, Группа3",
+          "date": 1783515492508,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48293",
+      "item": "CFR-141547",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ВерсииРегистровУчета.mdo",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ВерсииРегистровУчета.mdo",
+      "repo": "BP3_DT",
+      "span": [
+        166,
+        166
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48293",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "так как тип Булево, то лучше назвать ЭтоОбъектПоставки\nПосоветуйся с Ильей, пожалуйста, по этому поводу.",
+          "date": 1783516815508,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48833",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "Слово \"объект\" тут кажеся избыточным. Я бы назвал \"Поставляемый\"",
+          "date": "2026-08-03T23:25:13.728+0400",
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48834",
+      "item": "CFR-141547",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ВерсииРегистровУчета.mdo",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ВерсииРегистровУчета.mdo",
+      "repo": "BP3_DT",
+      "span": [
+        126,
+        126
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48834",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "уместен комментарий - на что конкретно эта ссылка",
+          "date": 1785785316679,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49027",
+      "item": "CFR-141548",
+      "path": "bp3/src/Catalogs/ЗначенияРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ЗначенияРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        6,
+        7
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49027",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "Непонятно, какую роль несет наименование, а какую - заголовок.",
+          "date": 1786470852393,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49289",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "наименование ключ, а заголовок представление, имя предопределенных нельзя использовать потому что это поставка через макет, по этому элементы не предопределенные",
+          "date": "2026-08-21T10:10:34.226+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48205",
+      "item": "CFR-141549",
+      "path": "bp3/src/Catalogs/ЗначенияРегистровУчета/ObjectModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ЗначенияРегистровУчета/ObjectModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        12,
+        12
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48205",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "СлУжЕбные",
+          "date": 1782885920015,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48206",
+      "item": "CFR-141549",
+      "path": "bp3/src/Catalogs/ЗначенияРегистровУчета/ObjectModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ЗначенияРегистровУчета/ObjectModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        22,
+        22
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48206",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "ОбщегоНазначения.СообщитьПользователю",
+          "date": 1782888374893,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48835",
+      "item": "CFR-141549",
+      "path": "bp3/src/Catalogs/ЗначенияРегистровУчета/ObjectModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ЗначенияРегистровУчета/ObjectModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        8,
+        8
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48835",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "почему именно при записи, а не при проверке заполнения?",
+          "date": 1785785487253,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48207",
+      "item": "CFR-141551",
+      "path": "bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        4,
+        4
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48207",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "не нужна запятая",
+          "date": 1782889177647,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48208",
+      "item": "CFR-141551",
+      "path": "bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        8,
+        8
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48208",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "добавить еще Неопределено\n\n{code}\n//  Данные - Строка - данные сериализации объекта \n//         - Неопределено\n{code}",
+          "date": 1782889453200,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48209",
+      "item": "CFR-141551",
+      "path": "bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        53,
+        53
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48209",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "дефис не нужен после типа\nЕсли параметр может принимать тип и Неопределено, то Неопределено тоже лучше добавлять в описание (выше привела пример)",
+          "date": 1782890355614,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48310",
+      "item": "CFR-141551",
+      "path": "bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        77,
+        77
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48310",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "перд \"полученная\" нужна запятая",
+          "date": 1783617963719,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49029",
+      "item": "CFR-141551",
+      "path": "bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        29,
+        29
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49029",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "непонятна логика  - зачем читать в транзакции без блокировки?\nесли нужно ответственное чтение, то придется читать дважды - вне транзакции получить пространство блокировок, в транзакции заблокировать и прочитать \"начистовую\"",
+          "date": 1786472108966,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49030",
+      "item": "CFR-141551",
+      "path": "bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        37,
+        37
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49030",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "нельзя бесследно ловить исключения\nсм. Перехват исключений в коде\nhttp://pyramid/v8std?N=User&C=499\n\nя бы тут просто пробросил исключение наверх\nсм. Транзакции: правила использования\nhttp://pyramid/v8std?N=User&C=783",
+          "date": 1786472229946,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49031",
+      "item": "CFR-141551",
+      "path": "bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        56,
+        56
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49031",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "непонятно, зачем",
+          "date": 1786472564607,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49284",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "запись ускоряю как могу, так вроде быстрее идет",
+          "date": "2026-08-21T08:25:24.066+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49032",
+      "item": "CFR-141551",
+      "path": "bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        48,
+        48
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49032",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "видимо, определенный через ХешСтрока()",
+          "date": 1786472614345,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49034",
+      "item": "CFR-141551",
+      "path": "bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        60,
+        62
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49034",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "нужно пояснять комментарием, зачем так",
+          "date": 1786472666307,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49035",
+      "item": "CFR-141551",
+      "path": "bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        59,
+        59
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49035",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "в параметре по умолчанию пустая строка, а проверяется не Неопределено",
+          "date": 1786472694691,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49037",
+      "item": "CFR-141551",
+      "path": "bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        80,
+        83
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49037",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "ОбщегоНазначения.ОбъектXDTOВСтрокуXML ?",
+          "date": 1786473006797,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49038",
+      "item": "CFR-141551",
+      "path": "bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        97,
+        99
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49038",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "ОбщегоНазначения.КонтрольнаяСуммаСтрокой ?",
+          "date": 1786473059789,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49039",
+      "item": "CFR-141551",
+      "path": "bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ОбъектыРегистровУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        121,
+        121
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49039",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "1. непонятно, зачем тут временная таблица\n2. странно выглядит группировка. почему не ВЫБРАТЬ РАЗЛИЧНЫЕ?",
+          "date": 1786473554744,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48351",
+      "item": "CFR-141557",
+      "path": "bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        6,
+        6
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48351",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "лишний комментарий",
+          "date": 1783680887429,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48354",
+      "item": "CFR-141557",
+      "path": "bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        100,
+        100
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48354",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "лучше сделать массив.\n\n{code} \nТекстыУсловий = Новый Массив;\nДля Каждого КлючЗначение Из Отбор Цикл\nУсловие = СтрШаблон(\"РегистрУчета.%1 = &%2\", КлючЗначение.Ключ, КлючЗначение.Ключ);\nВсеУсловия.Добавить(Условие);\nЗапрос.УстановитьПараметр(КлючЗначение.Ключ, КлючЗначение.Значение);    \nКонецЦикла; \nТекстУсловия = СтрСоединить(ТекстыУсловий, \" И \");\n{code}",
+          "date": 1783682357510,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49139",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "1. Да, лучше собирать массивом. Отрезать хвост строки выглядит костыльно.\n2. При пустом Отбор упадет?",
+          "date": "2026-08-13T23:18:37.748+0400",
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48355",
+      "item": "CFR-141557",
+      "path": "bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        111,
+        111
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48355",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "{code} \n        Если Результат.Пустой() Тогда\n                Возврат Неопределено;\n        КонецЕсли;     \n        Выборка = Результат.Выбрать();\n        Выборка.Следующий();\n        Возврат Выборка.Ссылка;     \n{code}",
+          "date": 1783682617727,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48356",
+      "item": "CFR-141557",
+      "path": "bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        115,
+        115
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48356",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "фаЙл",
+          "date": 1783682721630,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48357",
+      "item": "CFR-141557",
+      "path": "bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        128,
+        128
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48357",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "ОбщегоНазначения",
+          "date": 1783682752038,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48358",
+      "item": "CFR-141557",
+      "path": "bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        312,
+        312
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48358",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "Нстр",
+          "date": 1783682812429,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49135",
+      "item": "CFR-141557",
+      "path": "bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        12,
+        16
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49135",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "почему важно обходить с конца?",
+          "date": 1786648226737,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49136",
+      "item": "CFR-141557",
+      "path": "bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        20,
+        23
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49136",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "зачем сразу удалять (не помечать на удаление)?\nправа на это будут?",
+          "date": 1786648376626,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49138",
+      "item": "CFR-141557",
+      "path": "bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        33,
+        33
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49138",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "непонятно, что значит \"обновляет записи регистра\"",
+          "date": 1786648623697,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49140",
+      "item": "CFR-141557",
+      "path": "bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        73,
+        73
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49140",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "если текст в таком виде не исполняется (то есть, текст модифицируется), то не принято его присваивать запросу.\nмодификация текста запроса заменами подстрок - стремное мероприятие, поэтому нужно чтобы было очевидно, что она происходит.\nнапример, можно использовать имя переменной \nШаблонЗапроса = ...\nЗапрос.Текст = СтрЗаменить(ШаблонЗапроса, ...",
+          "date": 1786648863851,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49141",
+      "item": "CFR-141557",
+      "path": "bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        136,
+        136
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49141",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "1. стоит вынести константу в метод\n2. почему именно 34? регистр может быть ведь составлен и за часть года",
+          "date": 1786649023929,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49142",
+      "item": "CFR-141557",
+      "path": "bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        140,
+        140
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49142",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "тут тоже",
+          "date": 1786649048132,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49143",
+      "item": "CFR-141557",
+      "path": "bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        178,
+        181
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49143",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "почему это часть метода?",
+          "date": 1786649164028,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49144",
+      "item": "CFR-141557",
+      "path": "bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        211,
+        212
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49144",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "по-моему это неопределенное поведение: если свойства нет, то в Ключ может оказаться что угодно",
+          "date": 1786649312384,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49145",
+      "item": "CFR-141557",
+      "path": "bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        214,
+        214
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49145",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "непонятна логика. что конкретно мы проверяем по незаполненности версии?",
+          "date": 1786649383241,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49147",
+      "item": "CFR-141557",
+      "path": "bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/ManagerModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        322,
+        324
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49147",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "в stl есть assert - ОбщегоНазначения.Проверить() или типа того",
+          "date": 1786649604310,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48359",
+      "item": "CFR-141558",
+      "path": "bp3/src/Documents/РегистрУчета/ObjectModule.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/ObjectModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        60,
+        60
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48359",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "лишний пробел",
+          "date": 1783683552950,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48375",
+      "item": "CFR-141560",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ЗаписиРегистровУчета.mdo",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ЗаписиРегистровУчета.mdo",
+      "repo": "BP3_DT",
+      "span": [
+        176,
+        176
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48375",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "Можно написать в комментарии, для чего в измерение добавлен разделитель. На первый взгляд он кажется лишним для бизнес-логики, так как выполняет техническую роль. И когда в первый раз про него рассказывал, я не поняла, для чего он нужен в измерениях.",
+          "date": 1783708084258,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48846",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "удалил разделитель",
+          "date": "2026-08-04T09:07:44.756+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48376",
+      "item": "CFR-141560",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ЗаписиРегистровУчета.mdo",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ЗаписиРегистровУчета.mdo",
+      "repo": "BP3_DT",
+      "span": [
+        139,
+        139
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48376",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "что хранит источник? что означают эти цифры? Нельзя без него обойтись?",
+          "date": 1783709357090,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48845",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "Источник хранит поле в котором лежит значение, так как тип null sql не поддерживается платформой, то понять в каком поле лежит значение без пустоты невозможно, поле числовое в целях экономии памяти.",
+          "date": "2026-08-04T08:59:57.824+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49148",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "в комментарий к полю стоит написать ссылку на метод, связывающий поля и значения источника",
+          "date": "2026-08-14T00:00:10.485+0400",
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49149",
+      "item": "CFR-141560",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ЗаписиРегистровУчета.mdo",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ЗаписиРегистровУчета.mdo",
+      "repo": "BP3_DT",
+      "span": [
+        72,
+        83
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49149",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "1. это недостаточная точность для сумм - крупнейшим уже недостаточно даже 13 знаков и на проекте разрядность может быть увеличена\n2. для сумм может быть сделать отдельное поле с разрядностью из определяемого типа ДенежнаяСумма",
+          "date": 1786651270525,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49150",
+      "item": "CFR-141560",
+      "path": "bp3/src/InformationRegisters/ЗаписиРегистровУчета/ЗаписиРегистровУчета.mdo",
+      "ws": "projects/bp3/bp3/src/InformationRegisters/ЗаписиРегистровУчета/ЗаписиРегистровУчета.mdo",
+      "repo": "BP3_DT",
+      "span": [
+        154,
+        154
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49150",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "Регистр и Поле не должны быть ведущими?",
+          "date": 1786651437217,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48309",
+      "item": "CFR-141570",
+      "path": "bp3/src/Catalogs/ОбъектыРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ОбъектыРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        26,
+        26
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48309",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "Объект.Ссылка.Данные.Получить() не проще будет?\nИ одинаковые названия \"Данные\" путают.",
+          "date": 1783616602846,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48869",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "ну это еще один дублирующий запрос в бд, а объект и так прочитан из бд при создании формы",
+          "date": "2026-08-05T08:28:16.780+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49041",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "А почему есть уверенность, что он прочитан?",
+          "date": "2026-08-11T22:44:23.793+0400",
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49282",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "ну как я понимаю, объект иб платформа держит на сервере во временном хранилище, и после изменения объекта на клиенте, измененные реквизиты (дифф) отправляет на сервер, на сервере обновляется объект и потом он помещается в базу, если мне память не изменяет поток такой",
+          "date": "2026-08-21T07:58:20.071+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49042",
+      "item": "CFR-141570",
+      "path": "bp3/src/Catalogs/ОбъектыРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ОбъектыРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        27,
+        27
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49042",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "непонятно, зачем его прятать",
+          "date": 1786473933856,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49043",
+      "item": "CFR-141570",
+      "path": "bp3/src/Catalogs/ОбъектыРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ОбъектыРегистровУчета/Forms/ФормаЭлемента/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        30,
+        30
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49043",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "у поля нет r/o, при этом модификация значения не реализована",
+          "date": 1786473981850,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48311",
+      "item": "CFR-141571",
+      "path": "bp3/src/Catalogs/ОбъектыРегистровУчета/ObjectModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ОбъектыРегистровУчета/ObjectModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        6,
+        6
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48311",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "так лучше не сокращать \"Стр\". Можно заменить на \"ДанныеИзХранилища\" или спросить ИИ более удачное название",
+          "date": 1783618063975,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48848",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "Можно считать принятым сокращением, потому что все глобальные методы  платформы для работы с строками используют его: СтрНайтиПоРегулярномуВыражению, СтрШаблон, СтрНайти и.т.д",
+          "date": "2026-08-04T09:38:48.821+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49125",
+      "item": "CFR-141575",
+      "path": "bp3/src/CommonModules/РегистрыУчета/РегистрыУчета.mdo",
+      "ws": "projects/bp3/bp3/src/CommonModules/РегистрыУчета/РегистрыУчета.mdo",
+      "repo": "BP3_DT",
+      "span": [
+        8,
+        8
+      ],
+      "status": "UNRESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49125",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "+ толстый клиент",
+          "date": 1786646496331,
+          "status": "UNRESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48382",
+      "item": "CFR-141578",
+      "path": "bp3/src/Subsystems/БухгалтерияПредприятияПодсистемы/БухгалтерияПредприятияПодсистемы.mdo",
+      "ws": "projects/bp3/bp3/src/Subsystems/БухгалтерияПредприятияПодсистемы/БухгалтерияПредприятияПодсистемы.mdo",
+      "repo": "BP3_DT",
+      "span": [
+        2440,
+        2440
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48382",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "договорились обсудить такое решение с отделом",
+          "date": 1783711982418,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48296",
+      "item": "CFR-142596",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ObjectModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ObjectModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        6,
+        6
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48296",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "КонецДня(ОбъектКопирования.Период) + 1",
+          "date": 1783518352470,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48297",
+      "item": "CFR-142596",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ObjectModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ObjectModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        12,
+        12
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48297",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "лучше ТекущаяВерсия, а не ТекВерсия",
+          "date": 1783518380451,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:48843",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "Вообще краткий идентификатор всегда проще для восприятия, меньше когнитивной нагрузки при чтении: тут элемент психологии, чем меньше символов в имени переменной тем проще она воспринимается, в мире 1С только это не принято. Вся unix ОС например это сплошные абривеатуры и сокращения, как в командах так и в файловой системе. Слово текущий например очень часто сокращают при именовании, как на английском current_some, curr_some, так и на русском текущий на тек.",
+          "date": "2026-08-04T08:27:56.521+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48298",
+      "item": "CFR-142596",
+      "path": "bp3/src/Catalogs/ВерсииРегистровУчета/ObjectModule.bsl",
+      "ws": "projects/bp3/bp3/src/Catalogs/ВерсииРегистровУчета/ObjectModule.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        14,
+        14
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48298",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "Лучше использовать локальный формат даты Формат(Период, \"ДЛФ=D\")\nhttps://its.1c.ru/db/v8std/content/763/hdoc",
+          "date": 1783518475466,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:48325",
+      "item": "CFR-142952",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/АрхивРегистровУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/АрхивРегистровУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        142,
+        142
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:48325",
+          "author": "Воротилова Юлия",
+          "user": "vorj",
+          "text": "Tab",
+          "date": 1783627631078,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    },
+    {
+      "id": "CMT:49151",
+      "item": "CFR-142952",
+      "path": "bp3/src/Documents/РегистрУчета/Forms/АрхивРегистровУчета/Module.bsl",
+      "ws": "projects/bp3/bp3/src/Documents/РегистрУчета/Forms/АрхивРегистровУчета/Module.bsl",
+      "repo": "BP3_DT",
+      "span": [
+        236,
+        236
+      ],
+      "status": "RESOLVED",
+      "msgs": [
+        {
+          "id": "CMT:49151",
+          "author": "Шевелев Илья",
+          "user": "shei",
+          "text": "что значит \"объект хранения\"?",
+          "date": 1786652204930,
+          "status": "RESOLVED",
+          "draft": false,
+          "deleted": false
+        },
+        {
+          "id": "CMT:49290",
+          "author": "Лагунов Артур",
+          "user": "laga",
+          "text": "тут регистры отличаем, от справок с PDF в базе сохраненные",
+          "date": "2026-08-21T10:13:34.387+0400",
+          "status": "UNKNOWN",
+          "draft": false,
+          "deleted": false
+        }
+      ]
+    }
+  ]
+}

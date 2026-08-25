@@ -1,0 +1,55 @@
+{
+  "name": "crucible-comments-demo",
+  "displayName": "Crucible Comments",
+  "description": "Painter для *-threads.json",
+  "version": "0.2.2",
+  "publisher": "onec-sandbox",
+  "engines": { "vscode": "^1.85.0" },
+  "activationEvents": ["onStartupFinished"],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "crucibleCommentsDemo.load", "title": "Crucible: Load Threads JSON" },
+      { "command": "crucibleCommentsDemo.paintActive", "title": "Crucible: Paint Active File" },
+      { "command": "crucibleCommentsDemo.reply", "title": "Reply", "enablement": "!commentIsEmpty" },
+      { "command": "crucibleCommentsDemo.resolve", "title": "Resolve Conversation", "icon": "$(check)" },
+      { "command": "crucibleCommentsDemo.unresolve", "title": "Unresolve Conversation", "icon": "$(issues)" },
+      { "command": "crucibleCommentsDemo.save", "title": "Crucible: Save Threads JSON" },
+      { "command": "crucibleCommentsDemo.clear", "title": "Crucible: Clear" },
+      { "command": "crucibleCommentsDemo.copyUrl", "title": "Crucible: Copy URL" }
+    ],
+    "menus": {
+      "commandPalette": [
+        { "command": "crucibleCommentsDemo.reply", "when": "false" },
+        { "command": "crucibleCommentsDemo.resolve", "when": "false" },
+        { "command": "crucibleCommentsDemo.unresolve", "when": "false" }
+      ],
+      "comments/commentThread/title": [
+        {
+          "command": "crucibleCommentsDemo.resolve",
+          "group": "inline@1",
+          "when": "commentController == crucible-comments && commentThread == crucible"
+        },
+        {
+          "command": "crucibleCommentsDemo.unresolve",
+          "group": "inline@2",
+          "when": "commentController == crucible-comments && commentThread == crucible"
+        }
+      ],
+      "comments/commentThread/context": [
+        {
+          "command": "crucibleCommentsDemo.reply",
+          "group": "inline",
+          "when": "commentController == crucible-comments && !commentThreadIsEmpty"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "crucibleCommentsDemo.paintActive",
+        "key": "alt+;",
+        "when": "editorTextFocus"
+      }
+    ]
+  }
+}

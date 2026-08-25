@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>Crucible Comments — как в Cursor</title>
+  <style>
+    :root {
+      --bg: #1e1e1e;
+      --editor: #1e1e1e;
+      --gutter: #1e1e1e;
+      --line: #858585;
+      --code: #d4d4d4;
+      --kw: #569cd6;
+      --str: #ce9178;
+      --comment-bg: #252526;
+      --border: #474747;
+      --accent: #007acc;
+      --muted: #9d9d9d;
+      --name: #cccccc;
+      --unresolved: #f14c4c;
+      --resolved: #89d185;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #111;
+      color: var(--code);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px;
+    }
+    h1 { font-size: 14px; font-weight: 600; color: var(--muted); margin: 0 0 16px; }
+    .window {
+      width: min(920px, 100%);
+      background: var(--bg);
+      border: 1px solid #333;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+    }
+    .titlebar {
+      background: #323233;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #bbb;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #555; }
+    .dot.r { background: #ff5f56; }
+    .dot.y { background: #ffbd2e; }
+    .dot.g { background: #27c93f; }
+    .editor {
+      display: grid;
+      grid-template-columns: 28px 48px 1fr;
+      font-family: "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+      font-size: 13px;
+      line-height: 20px;
+      padding: 12px 0 24px;
+    }
+    .gutter-icons, .gutter-nums, .code {
+      padding-top: 4px;
+    }
+    .gutter-icons { text-align: center; color: var(--accent); }
+    .gutter-nums { text-align: right; padding-right: 12px; color: var(--line); user-select: none; }
+    .code { padding-right: 16px; white-space: pre; }
+    .row { display: contents; }
+    .row > span { display: block; height: 20px; }
+    .row.active .gutter-nums,
+    .row.active .code { background: rgba(0,122,204,.12); }
+    .bubble {
+      grid-column: 2 / -1;
+      margin: 6px 16px 10px 0;
+      background: var(--comment-bg);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .bubble-head {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+    }
+    .msg {
+      padding: 10px 12px;
+      border-bottom: 1px solid #2a2a2a;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .msg:last-child { border-bottom: none; }
+    .meta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 12px;
+    }
+    .avatar {
+      width: 22px; height: 22px; border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 10px; font-weight: 700; color: #111;
+    }
+    .a1 { background: #c586c0; }
+    .a2 { background: #4ec9b0; }
+    .a3 { background: #dcdcaa; }
+    .author { color: var(--name); font-weight: 600; }
+    .when { color: var(--muted); }
+    .badge {
+      font-size: 10px; font-weight: 700; letter-spacing: .02em;
+      padding: 1px 6px; border-radius: 999px;
+    }
+    .badge.u { background: rgba(241,76,76,.15); color: var(--unresolved); }
+    .badge.r { background: rgba(137,209,133,.15); color: var(--resolved); }
+    .body { color: #ddd; }
+    .hint { margin-top: 16px; font-size: 12px; color: #777; max-width: 920px; text-align: center; }
+    .kw { color: var(--kw); }
+    .str { color: var(--str); }
+  </style>
+</head>
+<body>
+  <h1>Preview · VS Code / Cursor Comments API (как будет в редакторе)</h1>
+  <div class="window">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span style="margin-left:8px">crucible/crucible.sh — onec_sandbox</span>
+    </div>
+    <div class="editor">
+      <div class="row"><span class="gutter-icons"></span><span class="gutter-nums">8</span><span class="code">set -euo pipefail</span></div>
+      <div class="row"><span class="gutter-icons"></span><span class="gutter-nums">9</span><span class="code"></span></div>
+      <div class="row active">
+        <span class="gutter-icons" title="comment">💬</span>
+        <span class="gutter-nums">10</span>
+        <span class="code"><span class="kw">REVIEW</span>=<span class="str">"${1:-CR-17391}"</span></span>
+      </div>
+
+      <!-- раскрытый тред -->
+      <div class="bubble">
+        <div class="bubble-head">
+          <span>CR-17391 · CMT:48314 · строка 10</span>
+          <span>3 comments · Crucible Review</span>
+        </div>
+
+        <div class="msg">
+          <div class="meta">
+            <span class="avatar a1">ЮВ</span>
+            <span class="author">Воротилова Юлия</span>
+            <span class="badge u">UNRESOLVED</span>
+            <span class="when">20 Jun 2026</span>
+          </div>
+          <div class="body">лучше для простых типов иметь форму без табличной части, а при записи уже переносить в ТЧ<br><a href="https://abderus.dept07/crucible/cru/CR-17391#c48314" target="_blank" rel="noopener">↗ открыть в Crucible</a></div>
+        </div>
+
+        <div class="msg">
+          <div class="meta">
+            <span class="avatar a2">АЛ</span>
+            <span class="author">Лагунов Артур</span>
+            <span class="badge r">RESOLVED</span>
+            <span class="when">4 Aug 2026</span>
+          </div>
+          <div class="body">справочник для разработчика, не для пользователя — требования к интерфейсу тут другие<br><a href="https://abderus.dept07/crucible/cru/CR-17391#c48854" target="_blank" rel="noopener">↗ открыть в Crucible</a></div>
+        </div>
+
+        <div class="msg">
+          <div class="meta">
+            <span class="avatar a3">ИШ</span>
+            <span class="author">Шевелев Илья</span>
+            <span class="badge u">UNRESOLVED</span>
+            <span class="when">11 Aug 2026</span>
+          </div>
+          <div class="body">но падать с такой ошибкой все равно не надо<br><a href="https://abderus.dept07/crucible/cru/CR-17391#c49047" target="_blank" rel="noopener">↗ открыть в Crucible</a></div>
+        </div>
+      </div>
+
+      <div class="row"><span class="gutter-icons"></span><span class="gutter-nums">11</span><span class="code"><span class="kw">BASE_URL</span>=<span class="str">"https://abderus.dept07/crucible"</span></span></div>
+      <div class="row"><span class="gutter-icons"></span><span class="gutter-nums">12</span><span class="code"><span class="kw">API</span>=<span class="str">"$BASE_URL/rest-service/reviews-v1"</span></span></div>
+    </div>
+  </div>
+  <p class="hint">
+    В Cursor это тот же виджет: 💬 в gutter → пузырь со списком сообщений сверху вниз (родитель → ответы).<br>
+    После Reload Window: команда <b>Crucible Demo: Show Sample Thread</b>, клик по 💬 на строке 10.
+  </p>
+</body>
+</html>

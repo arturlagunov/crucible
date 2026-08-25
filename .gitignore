@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+.load-request
+.DS_Store
+*.egg-info/
+.venv/
