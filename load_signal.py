@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Системный выбор json → crucible/.load-request (плагин поллит раз в 0.5с)."""
+"""Системный выбор json → projects/crucible/.load-request (плагин поллит)."""
 
 from __future__ import annotations
 
