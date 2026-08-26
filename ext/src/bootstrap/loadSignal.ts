@@ -6,7 +6,7 @@ import type { LoadHost } from "../app/shape";
 export class LoadSignal {
   static async apply(host: LoadHost, fsPath: string): Promise<void> {
     host.ops.store.load(fsPath);
-    const n = host.ui.painter.paint(undefined, { expand: true });
+    const n = host.ui.painter.paint(undefined, { expand: false });
     const top = host.data.bundle!.busiest();
     if (top) {
       const fp = Paths.wsFsPath(top.key);

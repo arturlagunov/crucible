@@ -18,7 +18,7 @@ export class Painter {
     if (!folder || !this.host.data.bundle) {
       throw new Error("нет workspace или bundle");
     }
-    const expand = opts.expand !== false;
+    const expand = opts.expand === true;
     const all = onlyUri
       ? this.host.forUri(onlyUri)
       : this.host.data.bundle.threads;
@@ -48,7 +48,7 @@ export class Painter {
     return count;
   }
 
-  repaintFile(uri: vscode.Uri, expand = true): number {
+  repaintFile(uri: vscode.Uri, expand = false): number {
     if (!this.host.data.bundle || !this.host.ui.controller) {
       return 0;
     }
