@@ -11,15 +11,23 @@ export class Ops {
 
   constructor(host: OpsSeed) {
     this.store = new BundleStore(host);
-    const painter = new Painter({ ...host, ops: { store: this.store } });
+    const painter = new Painter({
+      data: host.data,
+      ui: host.ui,
+      forUri: (u) => host.forUri(u),
+      info: (m) => host.info(m),
+      ops: { store: this.store },
+    });
     host.ui.painter = painter;
     this.thread = new ThreadOps({
-      ...host,
+      data: host.data,
       ui: { panel: host.ui.panel },
+      notify: () => host.notify(),
       ops: { store: this.store },
     });
     this.comment = new CommentOps({
-      ...host,
+      data: host.data,
+      ui: { panel: host.ui.panel },
       ops: { store: this.store, thread: this.thread },
     });
   }

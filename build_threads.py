@@ -41,6 +41,7 @@ class Thread:
     ws: str  # путь в воркспейсе: projects/bp3/bp3/src/...
     repo: str
     span: tuple[int, int]  # (start, end), 1-based inclusive
+    status: str = "UNKNOWN"  # UNRESOLVED | RESOLVED | UNKNOWN
     msgs: list[Msg] = field(default_factory=list)
     anchor: dict[str, list[str]] | None = None  # {"lines": [...]}
 
@@ -291,6 +292,12 @@ class Source:
             return None
 
         ws = self._ws(path)
+        if any(m.status == "UNRESOLVED" for m in msgs):
+            th_status = "UNRESOLVED"
+        elif any(m.status == "RESOLVED" for m in msgs):
+            th_status = "RESOLVED"
+        else:
+            th_status = "UNKNOWN"
         return Thread(
             id=self._id(node.get("permaId")),
             item=rid,
@@ -298,8 +305,8 @@ class Source:
             ws=ws,
             repo=item.get("repositoryName") or "",
             span=span,
+            status=th_status,
             msgs=msgs,
-            anchor=self._anchor(ws, span),
         )
 
 

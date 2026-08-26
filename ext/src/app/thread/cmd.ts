@@ -28,7 +28,7 @@ export class ThreadCmd {
     if (!ed || !this.host.requireBundle()) {
       return;
     }
-    const data = this.host.forUri(ed.document.uri).open.atLine(ed.selection.active.line);
+    const data = this.host.forUri(ed.document.uri).atLine(ed.selection.active.line);
     if (!data) {
       Ui.err(`нет треда на строке ${ed.selection.active.line + 1}`);
       return;
@@ -57,14 +57,14 @@ export class ThreadCmd {
       return;
     }
     const uri = ed.document.uri;
-    const data = this.host.forUri(uri).open.atLine(ed.selection.active.line);
+    const data = this.host.forUri(uri).atLine(ed.selection.active.line);
     if (data) {
       await this.open(data, uri);
       return;
     }
     const n = this.host.ui.painter.repaintFile(uri, true);
     this.host.notify();
-    const jsonN = this.host.forUri(uri).open.length;
+    const jsonN = this.host.forUri(uri).length;
     vscode.window.showInformationMessage(
       `Crucible: ${n}/${jsonN} на ${path.basename(uri.fsPath)}`
     );

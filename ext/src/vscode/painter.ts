@@ -35,16 +35,12 @@ export class Painter {
         continue;
       }
       const lines = Paths.lines(fp);
-      const open = items.filter((t) => t.unresolved);
-      const rest = items.filter((t) => !t.unresolved);
-      if (this.host.ui.anchors.locateLines(open, lines)) {
-        spanDirty = true;
-      }
-      if (rest.length && this.host.ui.anchors.locateLines(rest, lines, { miss: false })) {
+      if (this.host.ui.anchors.locateLines(items, lines, { miss: false })) {
         spanDirty = true;
       }
     }
-    const { count } = this.host.ui.panel.paint(all.open, expand, () => false);
+    const list = all.shown(this.host.data.show);
+    const { count } = this.host.ui.panel.paint(list, expand, () => false);
     if (spanDirty) {
       this.host.ops.store.save({ quiet: true });
     }
@@ -57,16 +53,13 @@ export class Painter {
       return 0;
     }
     const all = this.host.forUri(uri);
-    const list = all.open;
+    const list = all.shown(this.host.data.show);
     if (!list.length) {
+      this.host.ui.panel.dropUri(uri);
       return 0;
     }
     const lines = Paths.lines(uri.fsPath);
-    this.host.ui.anchors.locateLines(list.toArray(), lines, { miss: false });
-    const rest = all.filter((t) => !t.unresolved);
-    if (rest.length) {
-      this.host.ui.anchors.locateLines(rest.toArray(), lines, { miss: false });
-    }
+    this.host.ui.anchors.locateLines(all.toArray(), lines, { miss: false });
     this.host.ui.panel.dropUri(uri);
     const { count } = this.host.ui.panel.paint(list, expand, () => false);
     if (count) {

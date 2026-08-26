@@ -1,7 +1,7 @@
 import { norm } from "../infra/norm";
 import { Items } from "./items";
 import { Thread } from "./thread";
-import type { LineEdit } from "./types";
+import type { LineEdit, Show } from "./types";
 
 export class ThreadList extends Items<Thread, ThreadList> {
   protected wrap(items: Thread[]): ThreadList {
@@ -11,6 +11,18 @@ export class ThreadList extends Items<Thread, ThreadList> {
   /** Только UNRESOLVED. */
   get open(): ThreadList {
     return this.filter((t) => t.unresolved);
+  }
+
+  /** Только RESOLVED. */
+  get resolved(): ThreadList {
+    return this.filter((t) => !t.unresolved);
+  }
+
+  shown(show: Show): ThreadList {
+    if (show === "all") {
+      return this;
+    }
+    return show === "resolved" ? this.resolved : this.open;
   }
 
   /** ws → треды. */

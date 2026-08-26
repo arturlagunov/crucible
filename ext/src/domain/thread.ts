@@ -6,21 +6,24 @@ import type { LineEdit, Span, ThreadAnchor, ThreadData, ThreadStatus } from "./t
 export class Thread {
   id!: string;
   ws!: string;
+  item?: string;
+  path?: string;
+  repo?: string;
   private span!: Span;
+  private stored?: ThreadStatus;
   readonly reviewId: string;
   msgs!: CommentList;
   anchor?: ThreadAnchor;
   miss?: boolean;
 
   constructor(raw: ThreadData, reviewId: string) {
-    const { span, msgs, miss, status: _drop, ...rest } = raw as ThreadData & {
-      status?: ThreadStatus;
-    };
+    const { span, msgs, miss, status, ...rest } = raw;
     Object.assign(this, rest);
     this.reviewId = reviewId;
     this.span = [...span] as Span;
     this.msgs = CommentList.fromRaw(msgs);
     this.miss = miss;
+    this.stored = status;
   }
 
   /** normalized [start, end], copy */
@@ -31,11 +34,22 @@ export class Thread {
   }
 
   get unresolved(): boolean {
+    if (this.stored === "RESOLVED") {
+      return false;
+    }
+    if (this.stored === "UNRESOLVED") {
+      return true;
+    }
     return this.msgs.some((c) => c.status === "UNRESOLVED");
   }
 
   get status(): ThreadStatus {
     return this.unresolved ? "UNRESOLVED" : "RESOLVED";
+  }
+
+  set status(v: ThreadStatus) {
+    this.stored = v;
+    this.msgs.setStatus(v);
   }
 
   get ln(): string {
@@ -44,7 +58,8 @@ export class Thread {
 
   get label(): string {
     const warn = this.miss ? " ⚠" : "";
-    return `${this.reviewId} · ${this.id} · :${this.ln}${warn}`;
+    const done = this.unresolved ? "" : " ✓";
+    return `${this.reviewId} · ${this.id} · :${this.ln}${done}${warn}`;
   }
 
   relocate(docLines: string[]): boolean {
@@ -112,6 +127,10 @@ export class Thread {
       msgs: this.msgs.toRaw(),
       anchor: this.anchor,
       miss: this.miss,
+      status: this.status,
+      item: this.item,
+      path: this.path,
+      repo: this.repo,
     };
   }
 

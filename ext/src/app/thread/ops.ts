@@ -14,7 +14,7 @@ export class ThreadOps {
     if (!data) {
       return live;
     }
-    data.msgs.setStatus(status);
+    data.status = status;
     live.comments = toComments(data);
     return live;
   }

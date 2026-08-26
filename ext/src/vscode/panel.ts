@@ -115,8 +115,9 @@ export class Panel {
   }
 
   setUi(ct: vscode.CommentThread, status: ThreadStatus, tid?: string): void {
+    // CommentThreadState.Resolved — Cursor прячет glyph в редакторе
     if (STATE) {
-      ct.state = status === "RESOLVED" ? STATE.Resolved : STATE.Unresolved;
+      ct.state = STATE.Unresolved;
     }
     ct.contextValue = Panel.uiCtx(status, tid);
   }

@@ -31,7 +31,8 @@
       { "command": "cru.delThread", "title": "Delete Thread", "icon": "$(trash)" },
       { "command": "cru.link", "title": "Copy Link", "icon": "$(link)" },
       { "command": "cru.save", "title": "Crucible: Save Threads JSON" },
-      { "command": "cru.clear", "title": "Crucible: Clear" }
+      { "command": "cru.clear", "title": "Crucible: Clear" },
+      { "command": "cru.show", "title": "Crucible: Toggle unresolved / all / resolved" }
     ],
     "menus": {
       "commandPalette": [

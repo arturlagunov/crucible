@@ -1,10 +1,9 @@
+import * as fs from "fs";
 import * as path from "path";
 import * as vscode from "vscode";
 import { ThreadBundle } from "../../domain/bundle";
 import { Ui } from "../../vscode/ui";
 import type { StoreHost } from "../shape";
-
-const STATE = vscode.CommentThreadState;
 
 export interface SaveOpts {
   quiet?: boolean;
@@ -16,11 +15,13 @@ export class BundleStore {
 
   load(jsonUri: string | vscode.Uri): void {
     const fsPath = typeof jsonUri === "string" ? jsonUri : jsonUri.fsPath;
-    const { bundle } = ThreadBundle.read(fsPath);
+    const { bundle, total } = ThreadBundle.read(fsPath);
     this.host.data.bundle = bundle;
     this.host.data.jsonPath = fsPath;
+    const open = bundle.threads.open.length;
+    const resolved = bundle.threads.resolved.length;
     this.host.info(
-      `loaded ${fsPath}: ${this.host.data.bundle.threads.open.length}/${this.host.data.bundle.threads.length} unresolved`
+      `loaded ${fsPath}: ${total} threads (${open} unresolved / ${resolved} resolved)`
     );
   }
 
@@ -29,20 +30,14 @@ export class BundleStore {
     this.host.data.jsonPath = undefined;
   }
 
-  /** Снять resolved/unresolved с panel → domain → disk. */
+  /** Domain → disk. Не читать status с виджета: Resolved-state прячет треды. */
   save(opts: SaveOpts = {}): void {
     const { jsonPath, bundle } = this.host.data;
     if (!jsonPath || !bundle) {
       throw new Error("нечего сохранять");
     }
-    for (const ct of this.host.ui.panel.threads) {
-      const data = this.host.ui.panel.dataOf(ct);
-      if (!data || !STATE || ct.state === undefined) {
-        continue;
-      }
-      data.msgs.setStatus(
-        ct.state === STATE.Resolved ? "RESOLVED" : "UNRESOLVED"
-      );
+    if (!this.canWrite(jsonPath, bundle.threads.length)) {
+      return;
     }
     bundle.save(jsonPath);
     this.host.info(`saved ${jsonPath}`);
@@ -59,6 +54,27 @@ export class BundleStore {
       return false;
     }
     this.host.notify();
+    return true;
+  }
+
+  /** Старый фильтр+save вырезал resolved. Не затирать полный JSON коротким. */
+  private canWrite(jsonPath: string, memN: number): boolean {
+    if (!fs.existsSync(jsonPath)) {
+      return true;
+    }
+    try {
+      const raw = JSON.parse(fs.readFileSync(jsonPath, "utf8")) as {
+        threads?: unknown[];
+      };
+      const diskN = Array.isArray(raw.threads) ? raw.threads.length : 0;
+      if (diskN >= 20 && memN < diskN * 0.8) {
+        this.host.info(`save skip: disk ${diskN} > mem ${memN}`);
+        Ui.err(`save aborted: на диске ${diskN} тредов, в памяти ${memN}`);
+        return false;
+      }
+    } catch {
+      /* */
+    }
     return true;
   }
 }

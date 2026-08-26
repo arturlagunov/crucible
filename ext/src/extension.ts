@@ -7,6 +7,7 @@ import { Lens, type LensHandle } from "./vscode/lens";
 import { LoadSignal } from "./bootstrap/loadSignal";
 import { wire } from "./bootstrap/wire";
 import { POLL_MS } from "./infra/constants";
+import { asShow } from "./app/data";
 
 export class App {
   private ctx?: Ctx;
@@ -17,6 +18,7 @@ export class App {
   activate(context: vscode.ExtensionContext): void {
     const ctx = new Ctx();
     ctx.ui.context = context;
+    ctx.data.show = asShow(context.workspaceState.get("cru.show"));
     wire(ctx, Controller.for, () => {
       this.refresh();
       this.updateStatus();
@@ -31,7 +33,8 @@ export class App {
       vscode.StatusBarAlignment.Right,
       100
     );
-    status.command = "cru.paint";
+    status.command = "cru.show";
+    status.tooltip = "клик: unresolved → all → resolved";
     context.subscriptions.push(status);
     this.status = status;
 
@@ -62,9 +65,10 @@ export class App {
       },
       vscode.window.onDidChangeActiveTextEditor((ed) => {
         if (ed && ctx.data.bundle) {
-          const jsonN = ctx.forUri(ed.document.uri).open.length;
+          const jsonN = ctx.forUri(ed.document.uri).length;
           const liveN = ctx.ui.panel.liveFor(ed.document.uri).length;
-          if (jsonN > 0 && liveN !== jsonN) {
+          const want = ctx.forUri(ed.document.uri).shown(ctx.data.show).length;
+          if (jsonN > 0 && liveN !== want) {
             ctx.ui.painter.repaintFile(ed.document.uri, false);
           }
           ctx.notify();
@@ -94,9 +98,16 @@ export class App {
     if (!status) {
       return;
     }
-    status.text = ctx?.data.bundle
-      ? `$(comment-discussion) ${ctx.data.bundle.review.id}: ${ctx.ui.panel.threads.length}`
-      : "$(comment-discussion) Crucible: idle";
+    if (!ctx?.data.bundle) {
+      status.text = "$(comment-discussion) Crucible: idle";
+      status.show();
+      return;
+    }
+    const show = ctx.data.show;
+    const n = ctx.ui.panel.threads.length;
+    const total = ctx.data.bundle.threads.length;
+    const icon = show === "resolved" ? "$(check)" : "$(comment-discussion)";
+    status.text = `${icon} ${ctx.data.bundle.review.id}: ${n}/${total} ${show}`;
     status.show();
   }
 }

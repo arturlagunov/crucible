@@ -21,6 +21,16 @@ function raw(id: string, status: ThreadStatus, ws = "src/a.bsl"): ThreadData {
   };
 }
 
+test("shown: unresolved / resolved / all", () => {
+  const list = ThreadList.from([
+    new Thread(raw("a", "UNRESOLVED"), "CR-1"),
+    new Thread(raw("b", "RESOLVED"), "CR-1"),
+  ]);
+  assert.equal(list.shown("unresolved").length, 1);
+  assert.equal(list.shown("resolved").first()?.id, "b");
+  assert.equal(list.shown("all").length, 2);
+});
+
 test("open: только UNRESOLVED", () => {
   const list = ThreadList.from([
     new Thread(raw("a", "UNRESOLVED"), "CR-1"),
@@ -52,6 +62,15 @@ test("save: resolved остаются в JSON", () => {
     ["a", "b"]
   );
   fs.rmSync(dir, { recursive: true });
+});
+
+test("read: thread.status RESOLVED, даже если msgs UNRESOLVED", () => {
+  const th = new Thread(
+    { ...raw("b", "UNRESOLVED"), status: "RESOLVED" },
+    "CR-1"
+  );
+  assert.equal(th.unresolved, false);
+  assert.equal(th.toRaw().status, "RESOLVED");
 });
 
 test("index: forKey / atLine / busiest", () => {

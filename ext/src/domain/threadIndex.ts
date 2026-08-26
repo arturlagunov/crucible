@@ -23,7 +23,7 @@ export class ThreadIndex {
   }
 
   atLine(key: string, line0: number): Thread | undefined {
-    return this.forKey(key).open.atLine(line0);
+    return this.forKey(key).atLine(line0);
   }
 
   /** Файл с max UNRESOLVED тредов. */

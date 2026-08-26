@@ -20,12 +20,13 @@ export class Lens {
             return [];
           }
           const lenses: vscode.CodeLens[] = [];
-          for (const th of view.forUri(document.uri).open) {
+          for (const th of view.forUri(document.uri).shown(view.data.show)) {
             const line = th.lines[0] - 1;
+            const mark = th.unresolved ? "" : " ✓";
             const warn = th.miss ? " ⚠" : "";
             lenses.push(
               new vscode.CodeLens(new vscode.Range(line, 0, line, 0), {
-                title: `$(comment-discussion) ${th.id}${warn}`,
+                title: `$(comment-discussion) ${th.id}${mark}${warn}`,
                 command: "cru.openId",
                 arguments: [th.id, document.uri.toString()],
               })

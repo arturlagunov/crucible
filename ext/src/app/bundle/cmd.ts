@@ -3,6 +3,9 @@ import { LoadSignal } from "../../bootstrap/loadSignal";
 import { Ui } from "../../vscode/ui";
 import { cmd } from "../cmd";
 import type { BundleCmds } from "../shape";
+import type { Show } from "../../domain/types";
+
+const ORDER: Show[] = ["unresolved", "all", "resolved"];
 
 export class BundleCmd {
   constructor(private host: BundleCmds) {}
@@ -12,6 +15,7 @@ export class BundleCmd {
       cmd("cru.load", () => this.load()),
       cmd("cru.save", () => this.save()),
       cmd("cru.clear", () => this.clear()),
+      cmd("cru.show", () => this.cycle()),
     ];
   }
 
@@ -39,5 +43,17 @@ export class BundleCmd {
     this.host.ui.panel.clear();
     this.host.ui.decorator.clearAll();
     this.host.notify();
+  }
+
+  private cycle(): void {
+    if (!this.host.data.bundle) {
+      return;
+    }
+    const i = Math.max(0, ORDER.indexOf(this.host.data.show));
+    this.host.data.show = ORDER[(i + 1) % ORDER.length];
+    void this.host.ui.context?.workspaceState.update("cru.show", this.host.data.show);
+    this.host.ui.painter.paint(undefined, { expand: false });
+    this.host.notify();
+    Ui.flash(`show: ${this.host.data.show}`, 1500);
   }
 }

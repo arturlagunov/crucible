@@ -8,6 +8,8 @@ export type LineEdit = {
   at?: number;
 };
 
+export type Show = "unresolved" | "resolved" | "all";
+
 export type ThreadStatus = "RESOLVED" | "UNRESOLVED" | "UNKNOWN";
 
 export interface CommentData {
@@ -32,6 +34,10 @@ export interface ThreadData {
   msgs: CommentData[];
   anchor?: ThreadAnchor;
   miss?: boolean;
+  status?: ThreadStatus;
+  item?: string;
+  path?: string;
+  repo?: string;
 }
 
 export interface Bundle {

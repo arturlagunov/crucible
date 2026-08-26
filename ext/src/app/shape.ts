@@ -9,7 +9,7 @@ import type { SaveOpts } from "./bundle/store";
 
 /** Минимальный slice — без import ctx.ts. */
 export type View = {
-  data: Pick<Data, "bundle">;
+  data: Pick<Data, "bundle" | "show">;
   ui: { panel: Panel };
   info(msg: string): void;
   forUri(uri: vscode.Uri): ThreadList;
@@ -26,7 +26,7 @@ export type StoreHost = Refresh & {
 };
 
 export type PaintHost = {
-  data: Pick<Data, "bundle">;
+  data: Pick<Data, "bundle" | "show">;
   ui: {
     panel: Panel;
     controller: vscode.CommentController;
@@ -76,6 +76,7 @@ export type BundleCmds = LoadHost & {
     panel: Panel;
     decorator: { clearAll(): void };
     painter: { paint(onlyUri?: vscode.Uri, opts?: { expand?: boolean }): number };
+    context?: vscode.ExtensionContext;
   };
   ops: {
     store: {

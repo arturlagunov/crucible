@@ -12,7 +12,7 @@ export class Controller {
         if (!view.data.bundle) {
           return [];
         }
-        return view.forUri(document.uri).open.map((th: Thread) =>
+        return view.forUri(document.uri).shown(view.data.show).map((th: Thread) =>
           threadRange(th, document)
         );
       },

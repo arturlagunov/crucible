@@ -56,7 +56,7 @@ export class Ctx {
   }
 
   atLine(uri: vscode.Uri, line0: number): Thread | undefined {
-    return this.forUri(uri).open.atLine(line0);
+    return this.forUri(uri).atLine(line0);
   }
 
   info(msg: string): void {
