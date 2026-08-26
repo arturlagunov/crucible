@@ -2,25 +2,25 @@ import * as path from "path";
 import * as vscode from "vscode";
 import type { LineEdit } from "../domain/types";
 import type { TrackHost } from "../app/shape";
+import { SAVE_MS } from "../infra/constants";
 import { threadRange } from "../vscode/span";
 
-/** Геометрический сдвиг span + ct.range. Без locate/remount/notify. */
+/** Сдвиг span в памяти. JSON — раз в SAVE_MS или на save документа. */
 export class EditTracker implements vscode.Disposable {
-  private timers = new Map<string, ReturnType<typeof setTimeout>>();
+  private dirty = false;
+  private timer: ReturnType<typeof setTimeout> | undefined;
   private disposable: vscode.Disposable;
 
   constructor(private host: TrackHost) {
-    this.disposable = vscode.workspace.onDidChangeTextDocument((e) =>
-      this.onChange(e)
+    this.disposable = vscode.Disposable.from(
+      vscode.workspace.onDidChangeTextDocument((e) => this.onChange(e)),
+      vscode.workspace.onDidSaveTextDocument(() => this.flush())
     );
   }
 
   dispose(): void {
+    this.flush();
     this.disposable.dispose();
-    for (const t of this.timers.values()) {
-      clearTimeout(t);
-    }
-    this.timers.clear();
   }
 
   private onChange(e: vscode.TextDocumentChangeEvent): void {
@@ -41,44 +41,53 @@ export class EditTracker implements vscode.Disposable {
         moved = true;
       }
     }
+    this.pin(e.document);
     if (!moved) {
       return;
     }
+    this.dirty = true;
+    this.arm();
+  }
 
+  /** Вернуть range на первую строку, если VS Code растянул. collapsibleState не трогаем. */
+  private pin(doc: vscode.TextDocument): void {
     const panel = this.host.ui.panel;
-    const doc = e.document;
     for (const ct of panel.liveFor(doc.uri)) {
       const data = panel.dataOf(ct);
       if (!data) {
         continue;
       }
-      ct.range = threadRange(data, doc);
-      ct.label = data.label;
+      const want = threadRange(data, doc);
+      const r = ct.range;
+      if (!r || r.start.line !== want.start.line || r.end.line !== want.end.line) {
+        ct.range = want;
+      }
     }
-    this.schedule(doc.uri);
   }
 
-  private schedule(uri: vscode.Uri): void {
-    const key = uri.toString();
-    const prev = this.timers.get(key);
-    if (prev) {
-      clearTimeout(prev);
+  private arm(): void {
+    if (this.timer) {
+      return;
     }
-    this.timers.set(
-      key,
-      setTimeout(() => {
-        this.timers.delete(key);
-        if (!this.host.data.bundle) {
-          return;
-        }
-        try {
-          this.host.ops.store.save({ quiet: true });
-          this.host.info(`shift → ${path.basename(uri.fsPath)}`);
-        } catch (err) {
-          this.host.info(`save: ${err}`);
-        }
-      }, 800)
-    );
+    this.timer = setTimeout(() => this.flush(), SAVE_MS);
+  }
+
+  private flush(): void {
+    if (this.timer) {
+      clearTimeout(this.timer);
+      this.timer = undefined;
+    }
+    if (!this.dirty || !this.host.data.bundle) {
+      return;
+    }
+    this.dirty = false;
+    try {
+      this.host.ops.store.save({ quiet: true });
+      this.host.info("shift json saved");
+    } catch (err) {
+      this.dirty = true;
+      this.host.info(`save: ${err}`);
+    }
   }
 }
 
