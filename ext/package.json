@@ -2,11 +2,20 @@
   "name": "cru",
   "displayName": "Crucible",
   "description": "Painter для *-threads.json",
-  "version": "0.3.18",
+  "version": "0.3.21",
   "publisher": "onec-sandbox",
   "engines": { "vscode": "^1.85.0" },
   "activationEvents": ["onStartupFinished"],
-  "main": "./extension.js",
+  "main": "./out/extension.js",
+  "scripts": {
+    "compile": "tsc -p .",
+    "watch": "tsc -watch -p ."
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.7.0"
+  },
   "contributes": {
     "commands": [
       { "command": "cru.load", "title": "Crucible: Load Threads JSON" },

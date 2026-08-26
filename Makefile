@@ -1,6 +1,6 @@
 ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 REVIEW ?= CR-17391
-EXT_ID := onec-sandbox.cru-0.3.18
+EXT_ID := onec-sandbox.cru-0.3.21
 EXT_DIR := $(HOME)/.cursor/extensions
 # Windows/Git Bash: python3 = WindowsApps stub → Error 49
 ifdef MSYSTEM
@@ -20,6 +20,7 @@ fetch:
 	$(PYTHON) "$(ROOT)build_threads.py" "$(REVIEW)"
 
 install:
+	cd "$(ROOT)ext" && npm ci && npm run compile
 	mkdir -p "$(EXT_DIR)"
 	rm -f "$(EXT_DIR)"/onec-sandbox.cru-* "$(EXT_DIR)"/onec-sandbox.crucible-comments-demo-*
 	ln -sfn "$(ROOT)ext" "$(EXT_DIR)/$(EXT_ID)"
