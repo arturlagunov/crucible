@@ -91,6 +91,15 @@ function shiftSpan(span, change) {
   return [shiftLine(a - 1, change) + 1, shiftLine(b - 1, change) + 1];
 }
 
+/** Правка пересекает span треда [1-based]. */
+function editOverlapsSpan(change, span) {
+  const start = change.range.start.line + 1;
+  const end = change.range.end.line + 1;
+  const a = span?.[0] || 1;
+  const b = span?.[1] ?? a;
+  return !(end < a || start > b);
+}
+
 function clampSpan(span, lineCount) {
   const maxLine = Math.max(1, lineCount);
   const a = Math.max(1, Math.min(span[0], maxLine));
@@ -651,16 +660,30 @@ class Painter {
 
     if (shifted || relocated) {
       this.info(`shift ${path.basename(uri.fsPath)}: ${moved.join(", ")}`);
-    }
-
-    // Cursor ломает нативный CommentThread на только что изменённой строке
-    this.remountPanel(expanded, uri);
-    refreshDecorations();
-    if (shifted || relocated) {
+      this.remountPanel(expanded, uri);
+      refreshDecorations();
       this.save({ quiet: true });
       flash(`${path.basename(uri.fsPath)} → ${list[0].span[0]}`, 1500);
+      return true;
     }
-    return true;
+
+    let touched = false;
+    for (const change of changes) {
+      for (const th of list) {
+        if (editOverlapsSpan(change, th.span)) {
+          touched = true;
+          break;
+        }
+      }
+      if (touched) {
+        break;
+      }
+    }
+    if (touched) {
+      this.repaintFile(uri, false);
+      refreshDecorations();
+    }
+    return touched;
   }
 
   /** save + decorations + statusbar; errors → toast. */
