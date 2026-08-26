@@ -2,7 +2,7 @@
   "name": "cru",
   "displayName": "Crucible",
   "description": "Painter для *-threads.json",
-  "version": "0.3.12",
+  "version": "0.3.18",
   "publisher": "onec-sandbox",
   "engines": { "vscode": "^1.85.0" },
   "activationEvents": ["onStartupFinished"],
@@ -12,6 +12,7 @@
       { "command": "cru.load", "title": "Crucible: Load Threads JSON" },
       { "command": "cru.paint", "title": "Crucible: Paint Active File" },
       { "command": "cru.open", "title": "Crucible: Open Thread at Cursor" },
+      { "command": "cru.openId", "title": "Crucible: Open Thread by ID" },
       { "command": "cru.reply", "title": "Reply", "enablement": "!commentIsEmpty" },
       { "command": "cru.resolve", "title": "Resolve", "icon": "$(check)" },
       { "command": "cru.unresolve", "title": "Unresolve", "icon": "$(issues)" },
@@ -30,7 +31,8 @@
         { "command": "cru.chat", "when": "false" },
         { "command": "cru.del", "when": "false" },
         { "command": "cru.delThread", "when": "false" },
-        { "command": "cru.link", "when": "false" }
+        { "command": "cru.link", "when": "false" },
+        { "command": "cru.openId", "when": "false" }
       ],
       "comments/commentThread/title": [
         {

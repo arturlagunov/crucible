@@ -31,6 +31,20 @@ function wsFsPath(ws) {
   return path.join(folder.uri.fsPath, ...norm(ws).split("/"));
 }
 
+function docForPath(fsPath) {
+  if (!fsPath) {
+    return undefined;
+  }
+  const want = path.normalize(fsPath);
+  const active = vscode.window.activeTextEditor;
+  if (active && path.normalize(active.document.uri.fsPath) === want) {
+    return active.document;
+  }
+  return vscode.workspace.textDocuments.find(
+    (d) => path.normalize(d.uri.fsPath) === want
+  );
+}
+
 /** Ключ файла в byFile — совпадает с relKey(uri) даже если ws в json другого формата. */
 function wsKey(ws, folderUri) {
   const fp = wsFsPath(ws);
@@ -322,8 +336,8 @@ class Painter {
   }
 
   /**
-   * span из json → проверить текст на строках → если не совпало, искать anchor.
-   * @returns {boolean} span изменился
+   * span из json → сверка с anchor → поиск по файлу → иначе anchorMiss.
+   * @returns {boolean} span изменился (найден anchor в другом месте)
    */
   locateThread(th, docLines) {
     const prevA = th.span?.[0] || 1;
@@ -350,26 +364,34 @@ class Painter {
     }
 
     th.anchorMiss = true;
-    const end = Math.max(1, Math.min(anchor.length, docLines.length));
-    const fallback = [1, end];
-    if (th.span[0] !== fallback[0] || th.span[1] !== fallback[1]) {
-      th.span = fallback;
-      this.info(
-        `${th.id} anchor miss (expected ${prevA}-${prevB}) → :1-${end}`
-      );
-      return true;
-    }
-    this.info(`${th.id} anchor miss (expected ${prevA}-${prevB})`);
     return false;
   }
 
   locateFileThreads(threads, fsPath) {
     const docLines = readDocLines(fsPath);
     let changed = false;
+    const missed = [];
     for (const th of threads) {
       if (this.locateThread(th, docLines)) {
         changed = true;
       }
+      if (th.anchorMiss) {
+        missed.push(th);
+      }
+    }
+    let line = 1;
+    for (const th of missed) {
+      const n = Math.max(1, th.anchor?.lines?.length || 1);
+      const end = Math.min(line + n - 1, docLines.length);
+      const span = [line, end];
+      const prevA = th.span?.[0] || 1;
+      const prevB = th.span?.[1] ?? prevA;
+      if (span[0] !== prevA || span[1] !== prevB) {
+        th.span = span;
+        this.info(`${th.id} anchor miss → :${span[0]}-${span[1]}`);
+        changed = true;
+      }
+      line = end + 1;
     }
     return changed;
   }
@@ -513,7 +535,8 @@ class Painter {
 
   /** Обновить range/label/comments — панель Comments читает author и range. */
   syncThread(ct, data) {
-    const r = spanRange(data.span);
+    const doc = docForPath(ct.uri.fsPath);
+    const r = spanRange(data.span, doc);
     ct.label = threadLabel(this.bundle.review.id, data);
     ct.comments = (data.msgs || []).map((m) => makeComment(m, data.span));
     ct.range = r;
@@ -627,18 +650,16 @@ class Painter {
     }
 
     if (shifted || relocated) {
-      // Remount Comments panel (Cursor не обновляет [Ln N] при обычном repaint)
-      this.remountPanel(expanded, uri);
-      refreshDecorations();
-      this.save({ quiet: true });
       this.info(`shift ${path.basename(uri.fsPath)}: ${moved.join(", ")}`);
-      flash(`${path.basename(uri.fsPath)} → ${list[0].span[0]}`, 1500);
-      return true;
     }
 
-    // Cursor сбрасывает CommentThread при правке текста — пересоздаём виджеты файла
-    this.repaintFile(uri, true);
+    // Cursor ломает нативный CommentThread на только что изменённой строке
+    this.remountPanel(expanded, uri);
     refreshDecorations();
+    if (shifted || relocated) {
+      this.save({ quiet: true });
+      flash(`${path.basename(uri.fsPath)} → ${list[0].span[0]}`, 1500);
+    }
     return true;
   }
 
@@ -730,7 +751,7 @@ class Painter {
       return undefined;
     }
     const uri = vscode.Uri.file(fsPath);
-    const doc = vscode.workspace.textDocuments.find((d) => d.uri.fsPath === fsPath);
+    const doc = docForPath(fsPath);
     try {
       const ct = this.controller.createCommentThread(
         uri,
@@ -748,6 +769,9 @@ class Painter {
         th.status === "RESOLVED" ? "RESOLVED" : "UNRESOLVED",
         th.id
       );
+      if (doc) {
+        ct.range = spanRange(th.span, doc);
+      }
       return ct;
     } catch (e) {
       this.info(`mount ${th.id} @${th.span}: ${e}`);
@@ -820,7 +844,7 @@ class Painter {
   }
 
   decorate(editor) {
-    if (!editor || !this.bundle || !this.gutter) {
+    if (!editor || !this.bundle) {
       return;
     }
     const live = this.liveThreadsFor(editor.document.uri);
@@ -831,15 +855,20 @@ class Painter {
       if (!data) {
         continue;
       }
-      marks.push({
-        range: new vscode.Range(spanLine(data.span), 0, spanLine(data.span), 0),
-        hoverMessage: new vscode.MarkdownString(
-          `**${data.id}** · ${data.status}${data.anchorMiss ? " ⚠" : ""}`
-        ),
-      });
-      hi.push({ range: spanRange(data.span) });
+      const line = ct.range?.start?.line ?? spanLine(data.span);
+      if (this.gutter) {
+        marks.push({
+          range: new vscode.Range(line, 0, line, 0),
+          hoverMessage: new vscode.MarkdownString(
+            `**${data.id}** · ${data.status}${data.anchorMiss ? " ⚠" : ""}\n\nAlt+; — открыть`
+          ),
+        });
+      }
+      hi.push({ range: ct.range ?? spanRange(data.span, editor.document) });
     }
-    editor.setDecorations(this.gutter, marks);
+    if (this.gutter) {
+      editor.setDecorations(this.gutter, marks);
+    }
     if (this.lineHi) {
       editor.setDecorations(this.lineHi, hi);
     }
@@ -860,6 +889,12 @@ let status;
 const shiftPending = new Map();
 /** @type {Map<string, ReturnType<typeof setTimeout>>} */
 const shiftTimers = new Map();
+/** @type {vscode.EventEmitter<void> | undefined} */
+let lensEmitter;
+
+function refreshCodeLenses() {
+  lensEmitter?.fire();
+}
 
 function scheduleShift(e) {
   if (!painter?.bundle || e.document.uri.scheme !== "file") {
@@ -913,6 +948,7 @@ function refreshDecorations() {
   for (const ed of vscode.window.visibleTextEditors) {
     painter.decorate(ed);
   }
+  refreshCodeLenses();
 }
 
 function updateStatus() {
@@ -1206,36 +1242,112 @@ async function onLink(a, b) {
   flash("ссылка скопирована", 1500);
 }
 
+function threadDataAtLine(uri, line0) {
+  const line1 = line0 + 1;
+  for (const th of painter.threadsFor(uri)) {
+    const a = th.span[0];
+    const b = th.span[1] ?? a;
+    if (line1 >= a && line1 <= b) {
+      return th;
+    }
+  }
+  let best;
+  let bestDist = 5;
+  for (const th of painter.threadsFor(uri)) {
+    const dist = Math.abs(line1 - th.span[0]);
+    if (dist < bestDist) {
+      bestDist = dist;
+      best = th;
+    }
+  }
+  return best;
+}
+
+function threadAtLine(uri, line0) {
+  const data = threadDataAtLine(uri, line0);
+  if (!data) {
+    return undefined;
+  }
+  return painter.threads.find((t) => painter.threadIdOf(t) === data.id);
+}
+
+async function openThreadData(data, uri) {
+  const ct = painter.threads.find((t) => painter.threadIdOf(t) === data.id);
+  const doc = docForPath(uri.fsPath);
+  if (ct && doc) {
+    painter.syncThread(ct, data);
+    ct.collapsibleState = vscode.CommentThreadCollapsibleState.Expanded;
+    for (const cmdId of [
+      "workbench.action.focusCommentsView",
+      "workbench.panel.comments.focus",
+    ]) {
+      try {
+        await vscode.commands.executeCommand(cmdId);
+        break;
+      } catch (_) {}
+    }
+  }
+  await showThreadDoc(data);
+  flash(`тред ${data.id}`, 1500);
+}
+
+async function showThreadDoc(data) {
+  const lines = [`# ${data.id} · :${data.span[0]}`, ""];
+  for (const m of data.msgs || []) {
+    lines.push(`## ${m.author || m.user || "?"} · ${m.status || ""}`, "");
+    lines.push(m.text || "", "", "---", "");
+  }
+  if (painter?.bundle) {
+    lines.push("", `[Открыть в Crucible](${commentUrl(data.msgs?.[0]?.id, painter.bundle)})`);
+  }
+  const doc = await vscode.workspace.openTextDocument({
+    content: lines.join("\n"),
+    language: "markdown",
+  });
+  await vscode.window.showTextDocument(doc, {
+    preview: true,
+    preserveFocus: false,
+  });
+}
+
+async function revealThread(ct, uri) {
+  const data = painter.dataOf(ct);
+  if (!data) {
+    err("нет данных треда");
+    return;
+  }
+  await openThreadData(data, uri);
+  return data.id;
+}
+
+async function openThreadById(id, uriStr) {
+  if (!painter?.bundle || !id) {
+    vscode.window.showWarningMessage("Сначала make load");
+    return;
+  }
+  const data = painter.bundle.threads.find((t) => t.id === id);
+  if (!data) {
+    err(`тред ${id} не найден в json`);
+    return;
+  }
+  const uri = uriStr
+    ? vscode.Uri.parse(uriStr)
+    : vscode.Uri.file(wsFsPath(data.ws));
+  await openThreadData(data, uri);
+}
+
 async function openThreadAtCursor() {
   const ed = vscode.window.activeTextEditor;
   if (!ed || !painter?.bundle) {
     vscode.window.showWarningMessage("Сначала make load");
     return;
   }
-  const line = ed.selection.active.line;
-  const uri = ed.document.uri;
-  const find = () =>
-    painter.liveThreadsFor(uri).find((t) => {
-      const r = t.range;
-      return line >= r.start.line && line <= r.end.line;
-    });
-  let ct = find();
-  if (!ct) {
-    painter.repaintFile(uri, true);
-    painter.decorate(ed);
-    ct = find();
-  }
-  if (!ct) {
-    const jsonN = painter.threadsFor(uri).length;
-    const liveN = painter.liveThreadsFor(uri).length;
-    err(`нет треда на строке ${line + 1} (json ${jsonN}, live ${liveN})`);
+  const data = threadDataAtLine(ed.document.uri, ed.selection.active.line);
+  if (!data) {
+    err(`нет треда на строке ${ed.selection.active.line + 1}`);
     return;
   }
-  ct.collapsibleState = vscode.CommentThreadCollapsibleState.Expanded;
-  try {
-    await vscode.commands.executeCommand("workbench.action.focusCommentsView");
-  } catch (_) {}
-  flash(`тред ${painter.meta.get(ct) ?? "?"}`, 1500);
+  await openThreadData(data, ed.document.uri);
 }
 
 async function paintActive() {
@@ -1244,17 +1356,19 @@ async function paintActive() {
     vscode.window.showWarningMessage("Сначала make load");
     return;
   }
-  const n = painter.paint(ed.document.uri, { expand: true });
-  const jsonN = painter.threadsFor(ed.document.uri).length;
-  const liveN = painter.liveThreadsFor(ed.document.uri).length;
-  if (liveN < jsonN) {
-    painter.info(`paint: live ${liveN}/${jsonN}, remount`);
-    painter.repaintFile(ed.document.uri, true);
+  const uri = ed.document.uri;
+  const line = ed.selection.active.line;
+  const data = threadDataAtLine(uri, line);
+  if (data) {
+    await openThreadData(data, uri);
+    return;
   }
-  painter.decorate(ed);
+  const n = painter.repaintFile(uri, true);
+  refreshDecorations();
   updateStatus();
+  const jsonN = painter.threadsFor(uri).length;
   vscode.window.showInformationMessage(
-    `Crucible: ${n} тредов на ${path.basename(ed.document.uri.fsPath)}`
+    `Crucible: ${n}/${jsonN} на ${path.basename(uri.fsPath)}`
   );
 }
 
@@ -1270,7 +1384,9 @@ function createCruController() {
       if (!painter?.bundle) {
         return [];
       }
-      return painter.threadsFor(document.uri).map((th) => spanRange(th.span));
+      return painter
+        .threadsFor(document.uri)
+        .map((th) => spanRange(th.span, document));
     },
   };
   return controller;
@@ -1303,6 +1419,35 @@ function activate(context) {
   status.command = "cru.paint";
   updateStatus();
 
+  lensEmitter = new vscode.EventEmitter();
+  context.subscriptions.push(lensEmitter);
+  context.subscriptions.push(
+    vscode.languages.registerCodeLensProvider(
+      { scheme: "file" },
+      {
+        onDidChangeCodeLenses: lensEmitter.event,
+        provideCodeLenses(document) {
+          if (!painter?.bundle) {
+            return [];
+          }
+          const lenses = [];
+          for (const th of painter.threadsFor(document.uri)) {
+            const line = spanLine(th.span);
+            const warn = th.anchorMiss ? " ⚠" : "";
+            lenses.push(
+              new vscode.CodeLens(new vscode.Range(line, 0, line, 0), {
+                title: `$(comment-discussion) ${th.id}${warn}`,
+                command: "cru.openId",
+                arguments: [th.id, document.uri.toString()],
+              })
+            );
+          }
+          return lenses;
+        },
+      }
+    )
+  );
+
   const poll = setInterval(() => void consumeRequest(), 500);
   void consumeRequest();
 
@@ -1319,9 +1464,9 @@ function activate(context) {
         const jsonN = painter.threadsFor(ed.document.uri).length;
         const liveN = painter.liveThreadsFor(ed.document.uri).length;
         if (jsonN > 0 && liveN !== jsonN) {
-          painter.repaintFile(ed.document.uri, true);
+          painter.remountPanel(new Set(), ed.document.uri);
         }
-        painter.decorate(ed);
+        refreshDecorations();
       }
     }),
     cmd("cru.load", async () => {
@@ -1335,6 +1480,7 @@ function activate(context) {
     }),
     cmd("cru.paint", () => paintActive()),
     cmd("cru.open", () => openThreadAtCursor()),
+    cmd("cru.openId", (id, uriStr) => openThreadById(id, uriStr)),
     cmd("cru.reply", (r) => onReply(r)),
     cmd("cru.resolve", (t) => setResolved(t, true)),
     cmd("cru.unresolve", (t) => setResolved(t, false)),
