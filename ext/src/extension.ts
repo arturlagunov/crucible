@@ -1,31 +1,31 @@
 import * as vscode from "vscode";
-import { Commands } from "./commands";
-import { Controller } from "./controller";
-import { EditTracker } from "./editTracker";
-import { Lens, type LensHandle } from "./lens";
-import { LoadSignal } from "./loadSignal";
-import { POLL_MS } from "./lib/constants";
-import { Ui } from "./lib/ui";
-import { Session } from "./session";
+import { Router } from "./app/router";
+import { Ctx } from "./app/ctx";
+import { Controller } from "./vscode/controller";
+import { EditTracker } from "./bootstrap/editTracker";
+import { Lens, type LensHandle } from "./vscode/lens";
+import { LoadSignal } from "./bootstrap/loadSignal";
+import { wire } from "./bootstrap/wire";
+import { POLL_MS } from "./infra/constants";
 
 export class App {
-  private session?: Session;
+  private ctx?: Ctx;
   private status?: vscode.StatusBarItem;
   private editTracker?: EditTracker;
   private codeLens?: LensHandle;
 
   activate(context: vscode.ExtensionContext): void {
-    const session = new Session();
-    session.context = context;
-    session.wire(Controller.for, () => {
+    const ctx = new Ctx();
+    ctx.ui.context = context;
+    wire(ctx, Controller.for, () => {
       this.refresh();
       this.updateStatus();
     });
-    session.controller = Controller.for(session);
-    this.session = session;
+    ctx.ui.controller = Controller.for(ctx);
+    this.ctx = ctx;
 
-    context.subscriptions.push(...session.decorator.init(context));
-    context.subscriptions.push(session.log);
+    context.subscriptions.push(...ctx.ui.decorator.init(context));
+    context.subscriptions.push(ctx.ui.log);
 
     const status = vscode.window.createStatusBarItem(
       vscode.StatusBarAlignment.Right,
@@ -35,107 +35,69 @@ export class App {
     context.subscriptions.push(status);
     this.status = status;
 
-    const codeLens = Lens.for(session);
+    const codeLens = Lens.for(ctx);
     context.subscriptions.push(codeLens.provider, codeLens.emitter);
     this.codeLens = codeLens;
 
-    const editTracker = new EditTracker(session);
+    const editTracker = new EditTracker(ctx);
     context.subscriptions.push(editTracker);
     this.editTracker = editTracker;
 
-    const commands = new Commands(session, () => this.refresh(), () => this.updateStatus());
+    const router = new Router(ctx);
     this.updateStatus();
 
-    const poll = setInterval(
-      () => void LoadSignal.consume(session, () => this.refresh()),
-      POLL_MS
-    );
+    const poll = setInterval(() => void LoadSignal.consume(ctx), POLL_MS);
     context.subscriptions.push({ dispose: () => clearInterval(poll) });
-    void LoadSignal.consume(session, () => this.refresh());
+    void LoadSignal.consume(ctx);
 
     context.subscriptions.push(
-      session.controller,
-      vscode.window.onDidChangeActiveTextEditor((ed) => {
-        if (ed && session.bundle) {
-          const jsonN = session.forUri(ed.document.uri).length;
-          const liveN = session.panel.liveFor(ed.document.uri).length;
-          if (jsonN > 0 && liveN !== jsonN) {
-            session.remountPanel(new Set(), ed.document.uri);
+      {
+        dispose: () => {
+          try {
+            ctx.ui.controller?.dispose();
+          } catch {
+            /* */
           }
-          this.refresh();
+        },
+      },
+      vscode.window.onDidChangeActiveTextEditor((ed) => {
+        if (ed && ctx.data.bundle) {
+          const jsonN = ctx.forUri(ed.document.uri).open.length;
+          const liveN = ctx.ui.panel.liveFor(ed.document.uri).length;
+          if (jsonN > 0 && liveN !== jsonN) {
+            ctx.ui.painter.repaintFile(ed.document.uri, false);
+          }
+          ctx.notify();
         }
       }),
-      this.cmd("cru.load", async () => {
-        const pick = await vscode.window.showOpenDialog({
-          canSelectMany: false,
-          filters: { JSON: ["json"] },
-        });
-        if (pick?.[0]) {
-          await LoadSignal.apply(session, pick[0].fsPath, () => {
-            this.refresh();
-            this.updateStatus();
-          });
-        }
-      }),
-      this.cmd("cru.paint", () => commands.paintActive()),
-      this.cmd("cru.open", () => commands.openAtCursor()),
-      this.cmd("cru.openId", (id, uriStr) =>
-        commands.openById(id as string, uriStr as string | undefined)
-      ),
-      this.cmd("cru.reply", (r) =>
-        commands.onReply(r as { thread?: vscode.CommentThread; text?: string })
-      ),
-      this.cmd("cru.resolve", (t) => commands.setResolved(t, true)),
-      this.cmd("cru.unresolve", (t) => commands.setResolved(t, false)),
-      this.cmd("cru.del", (t, c) => commands.delComment(t, c)),
-      this.cmd("cru.delThread", (t) => commands.delThread(t)),
-      this.cmd("cru.chat", (t, c) => void commands.addChat(t, c)),
-      this.cmd("cru.save", () => {
-        try {
-          session.save();
-          this.refresh();
-          this.updateStatus();
-        } catch (e) {
-          Ui.err(e);
-        }
-      }),
-      this.cmd("cru.clear", () => {
-        session.reset();
-        this.refresh();
-        this.updateStatus();
-      }),
-      this.cmd("cru.link", (a, b) => void commands.onLink(a, b))
+      ...router.bind(context)
     );
 
-    session.info("activate ok");
+    ctx.info("activate ok");
   }
 
   deactivate(): void {
     this.editTracker?.dispose();
     this.codeLens?.dispose();
-    this.session = undefined;
+    this.ctx = undefined;
     this.status = undefined;
   }
 
   private refresh(): void {
-    this.session?.decorator.refreshAll();
+    this.ctx?.ui.decorator.refreshAll();
     this.codeLens?.refresh();
   }
 
   private updateStatus(): void {
     const status = this.status;
-    const session = this.session;
+    const ctx = this.ctx;
     if (!status) {
       return;
     }
-    status.text = session?.bundle
-      ? `$(comment-discussion) ${session.bundle.review.id}: ${session.panel.threads.length}`
+    status.text = ctx?.data.bundle
+      ? `$(comment-discussion) ${ctx.data.bundle.review.id}: ${ctx.ui.panel.threads.length}`
       : "$(comment-discussion) Crucible: idle";
     status.show();
-  }
-
-  private cmd(id: string, fn: (...args: unknown[]) => unknown): vscode.Disposable {
-    return vscode.commands.registerCommand(id, fn);
   }
 }
 

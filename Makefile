@@ -38,3 +38,4 @@ endif
 
 test:
 	cd "$(ROOT)" && $(PYTHON) -m unittest tests.test_source -v
+	cd "$(ROOT)ext" && npm test
