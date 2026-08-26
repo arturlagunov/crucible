@@ -1,10 +1,10 @@
 import * as vscode from "vscode";
 import type { Comment } from "../domain/comment";
 import type { Thread } from "../domain/thread";
-import type { CrucibleComment } from "./types";
+import type { ViewComment } from "./types";
 
 /** Domain comment → VS Code Comment panel. */
-export function toView(c: Comment, th: Thread): CrucibleComment {
+export function toView(c: Comment, th: Thread): ViewComment {
   const who = c.author || c.user || "?";
   const ln = th.ln;
   const author = ln ? `[Ln ${ln}] ${who}` : who;
@@ -26,13 +26,13 @@ export function toView(c: Comment, th: Thread): CrucibleComment {
   };
 }
 
-export function toComments(th: Thread): CrucibleComment[] {
+export function toComments(th: Thread): ViewComment[] {
   return th.msgs.map((c) => toView(c, th));
 }
 
 /** id из VS Code Comment (fallback если msgId потерян). */
 export function idOf(
-  view: CrucibleComment | undefined,
+  view: ViewComment | undefined,
   ct?: vscode.CommentThread,
   th?: Thread
 ): string | undefined {
@@ -71,7 +71,7 @@ function stripAuthor(name: string | undefined): string {
   return String(name || "").replace(/^\[Ln \d+(?:-\d+)?\] /, "");
 }
 
-function bodyText(view: CrucibleComment): string {
+function bodyText(view: ViewComment): string {
   const body = view.body;
   if (typeof body === "object" && body && "value" in body) {
     return String(body.value);

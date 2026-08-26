@@ -1,7 +1,8 @@
+import * as path from "path";
 import * as vscode from "vscode";
 import { LoadSignal } from "../../bootstrap/loadSignal";
 import { Ui } from "../../vscode/ui";
-import { cmd } from "../cmd";
+import { cmd, commit } from "../cmd";
 import type { BundleCmds } from "../shape";
 import type { Show } from "../../domain/types";
 
@@ -30,12 +31,10 @@ export class BundleCmd {
   }
 
   private save(): void {
-    try {
-      this.host.ops.store.save();
-      this.host.notify();
-    } catch (e) {
-      Ui.err(e);
-    }
+    commit(
+      this.host,
+      `сохранено → ${path.basename(this.host.data.jsonPath || "")}`
+    );
   }
 
   private clear(): void {

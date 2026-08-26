@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { Router } from "./app/router";
 import { Ctx } from "./app/ctx";
 import { Controller } from "./vscode/controller";
+import { Painter } from "./vscode/painter";
 import { EditTracker } from "./bootstrap/editTracker";
 import { Lens, type LensHandle } from "./vscode/lens";
 import { LoadSignal } from "./bootstrap/loadSignal";
@@ -24,6 +25,7 @@ export class App {
       this.updateStatus();
     });
     ctx.ui.controller = Controller.for(ctx);
+    ctx.ui.painter = new Painter(ctx);
     this.ctx = ctx;
 
     context.subscriptions.push(...ctx.ui.decorator.init(context));

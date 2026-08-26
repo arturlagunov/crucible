@@ -3,7 +3,7 @@ import { Comment } from "../../domain/comment";
 import { Cursor } from "./cursor";
 import { idOf } from "../../vscode/commentView";
 import { Ui } from "../../vscode/ui";
-import { cmd } from "../cmd";
+import { cmd, commit } from "../cmd";
 import type { CommentCmds } from "../shape";
 import { resolveCmd, unpack } from "../resolve";
 
@@ -31,8 +31,9 @@ export class CommentCmd {
       return;
     }
     got.data.msgs.push(Comment.local(text, Ui.localAuthor()));
-    this.host.ops.thread.setState(got.thread, "UNRESOLVED");
-    this.host.ops.store.persist();
+    this.host.ops.thread.setState(got.data, "UNRESOLVED");
+    this.host.ui.panel.apply(got.thread, got.data);
+    commit(this.host);
   }
 
   private del(a: unknown, b?: unknown): void {
@@ -46,12 +47,17 @@ export class CommentCmd {
       return;
     }
     try {
-      this.host.ops.comment.delete(got.thread, id);
+      if (this.host.ops.comment.delete(got.data, id)) {
+        this.host.ops.thread.delete(got.data.id);
+        this.host.ui.panel.dropId(got.data.id);
+      } else {
+        this.host.ui.panel.apply(got.thread, got.data);
+      }
     } catch (e) {
       Ui.err(e);
       return;
     }
-    this.host.notify();
+    commit(this.host);
   }
 
   private async chat(a: unknown, b?: unknown): Promise<void> {

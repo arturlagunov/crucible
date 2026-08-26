@@ -129,9 +129,13 @@ export class Panel {
     ct.range = threadRange(data, doc);
   }
 
-  rebuildComments(ct: vscode.CommentThread, data: Thread): void {
+  /** Domain → живой виджет: contextValue, label, comments. */
+  apply(ct: vscode.CommentThread, data: Thread): vscode.CommentThread {
     const live = this.liveOf(ct) || ct;
+    this.setUi(live, data.status, data.id);
+    live.label = data.label;
     live.comments = toComments(data);
+    return live;
   }
 
   mount(th: Thread, expand: boolean): vscode.CommentThread | undefined {

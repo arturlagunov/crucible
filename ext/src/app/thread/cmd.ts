@@ -3,7 +3,7 @@ import * as vscode from "vscode";
 import { Thread } from "../../domain/thread";
 import { Paths } from "../../infra/paths";
 import { Ui } from "../../vscode/ui";
-import { cmd } from "../cmd";
+import { cmd, commit } from "../cmd";
 import type { ThreadCmds } from "../shape";
 import { resolveCmd } from "../resolve";
 
@@ -75,12 +75,13 @@ export class ThreadCmd {
     if (!got) {
       return;
     }
-    this.host.ops.thread.setState(got.thread, resolved ? "RESOLVED" : "UNRESOLVED");
-    if (this.host.ops.store.persist()) {
-      Ui.flash(
-        `${resolved ? "resolved" : "unresolved"} → ${path.basename(this.host.data.jsonPath || "")}`
-      );
-    }
+    const status = resolved ? "RESOLVED" : "UNRESOLVED";
+    this.host.ops.thread.setState(got.data, status);
+    this.host.ui.panel.apply(got.thread, got.data);
+    commit(
+      this.host,
+      `${resolved ? "resolved" : "unresolved"} → ${path.basename(this.host.data.jsonPath || "")}`
+    );
   }
 
   private del(a: unknown, b?: unknown): void {
@@ -89,12 +90,13 @@ export class ThreadCmd {
       return;
     }
     try {
-      this.host.ops.thread.delete(got.thread);
+      this.host.ops.thread.delete(got.data.id);
     } catch (e) {
       Ui.err(e);
       return;
     }
-    this.host.notify();
+    this.host.ui.panel.dropId(got.data.id);
+    commit(this.host);
   }
 
   /** Comments panel XOR markdown preview. */

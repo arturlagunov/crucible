@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
 
-export interface CrucibleComment extends vscode.Comment {
+export interface ViewComment extends vscode.Comment {
   msgId?: string;
 }

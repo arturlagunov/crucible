@@ -22,7 +22,7 @@ infra  ←  domain  ←  vscode  ←  app  ←  bootstrap / extension
 
 Нижние слои **не импортируют `Ctx`**. Связка — duck types в `shape.ts`. `Ctx` структурно подходит.
 
-`Ops` собирает store → painter (кладёт в `ui.painter`) → thread → comment.
+`Ops` собирает store → thread → comment. `Painter` — `App.activate` → `ctx.ui.painter`.
 
 Domain **не** импортирует `vscode` и `app/`. Uri/Range живут в vscode (`threadRange`, `Ctx.forUri`).
 
@@ -32,12 +32,12 @@ Domain **не** импортирует `vscode` и `app/`. Uri/Range живут 
 меню cru.resolve
   ThreadCmd           cmd     распаковал args
   resolveCmd                  { CommentThread, domain Thread }
-  ops.thread.setState         модель + виджет
-  ops.store.persist           JSON
-  host.notify()               gutter + lens + status
+  ops.thread.setState         модель
+  panel.apply                 виджет
+  commit()                    save + notify + flash
 ```
 
-Правка файла — без cmd: `EditTracker` → `ops.thread.syncFile`.
+Правка файла — без cmd: `EditTracker` → `store.save({ quiet: true })`.
 
 ## Два представления
 
@@ -69,10 +69,9 @@ cmd не знает `hooks`. Зовут `host.notify()`.
 | Тип | Кто |
 |-----|-----|
 | `View` | Lens, Decorator, Controller (`data.bundle`, `ui.panel`, `forUri`) |
-| `StoreHost` / `PaintHost` / `ThreadHost` / `CommentHost` | ops |
+| `StoreHost` / `PaintHost` / `ThreadHost` | ops |
 | `BundleCmds` / `ThreadCmds` / `CommentCmds` | соответствующие cmd |
 | `LoadHost` / `TrackHost` / `WireHost` | bootstrap |
-| `OpsSeed` | сборка Ops |
 
 ## Domain
 
@@ -94,9 +93,9 @@ ThreadBundle
 
 | Сущность | ops | cmd |
 |----------|-----|-----|
-| bundle | store: load/save/clear/persist | load, save, clear |
-| thread | setState, delete, syncFile | paint, open, openId, resolve, delThread |
-| comment | delete msg | reply, del, chat, link |
+| bundle | store: load/save/clear | load, save, clear |
+| thread | setState(Thread), delete(id) | paint, open, openId, resolve, delThread |
+| comment | delete(Thread, mid) → empty? | reply, del, chat, link |
 
 `painter` — `ctx.ui.painter`, не ops.
 
@@ -116,7 +115,7 @@ ThreadBundle
 |--|--|
 | `wire` | createController + attachRefresh |
 | `LoadSignal` | `.load-request` → store.load + ui.painter.paint + notify |
-| `EditTracker` | debounce → thread.syncFile |
+| `EditTracker` | debounce → store.save({ quiet }) |
 
 ## Тесты
 

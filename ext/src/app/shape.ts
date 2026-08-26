@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import type { ThreadBundle } from "../domain/bundle";
+import type { Thread } from "../domain/thread";
 import type { ThreadList } from "../domain/threadList";
 import type { ThreadStatus } from "../domain/types";
 import type { Panel } from "../vscode/panel";
@@ -19,9 +20,8 @@ export type Refresh = {
   notify(): void;
 };
 
-export type StoreHost = Refresh & {
+export type StoreHost = {
   data: Data;
-  ui: { panel: Panel };
   info(msg: string): void;
 };
 
@@ -38,19 +38,8 @@ export type PaintHost = {
   ops: { store: { save(opts?: SaveOpts): void } };
 };
 
-export type ThreadHost = Refresh & {
+export type ThreadHost = {
   data: Pick<Data, "bundle">;
-  ui: { panel: Panel };
-  ops: { store: { save(opts?: SaveOpts): void } };
-};
-
-export type CommentHost = {
-  data: Pick<Data, "bundle">;
-  ui: { panel: Panel };
-  ops: {
-    store: { save(): void };
-    thread: { delete(ct: vscode.CommentThread): void };
-  };
 };
 
 export type ResolveHost = {
@@ -95,10 +84,10 @@ export type ThreadCmds = View &
       painter: { repaintFile(uri: vscode.Uri, expand?: boolean): number };
     };
     ops: {
-      store: { persist(): boolean };
+      store: { save(): void };
       thread: {
-        setState(ct: vscode.CommentThread, status: ThreadStatus): vscode.CommentThread;
-        delete(ct: vscode.CommentThread): void;
+        setState(data: Thread, status: ThreadStatus): void;
+        delete(id: string): void;
       };
     };
     requireBundle(): ThreadBundle | undefined;
@@ -109,11 +98,12 @@ export type CommentCmds = View &
     data: Data;
     ui: { panel: Panel };
     ops: {
-      store: { persist(): boolean };
+      store: { save(): void };
       thread: {
-        setState(ct: vscode.CommentThread, status: ThreadStatus): vscode.CommentThread;
+        setState(data: Thread, status: ThreadStatus): void;
+        delete(id: string): void;
       };
-      comment: { delete(ct: vscode.CommentThread, mid: string): void };
+      comment: { delete(data: Thread, mid: string): boolean };
     };
   };
 
@@ -128,16 +118,3 @@ export type TrackHost = {
 export type UiHost = View & {
   data: Data;
 };
-
-export type OpsSeed = StoreHost &
-  View &
-  Refresh & {
-    data: Data;
-    ui: PaintHost["ui"] & {
-      painter?: {
-        remount(expanded: Set<string>, expandUri?: vscode.Uri): void;
-        paint(onlyUri?: vscode.Uri, opts?: { expand?: boolean }): number;
-        repaintFile(uri: vscode.Uri, expand?: boolean): number;
-      };
-    };
-  };
