@@ -43,6 +43,7 @@ class Thread:
     span: tuple[int, int]  # (start, end), 1-based inclusive
     status: str  # UNRESOLVED если хоть одно msg UNRESOLVED
     msgs: list[Msg] = field(default_factory=list)
+    anchor: dict[str, list[str]] | None = None  # {"lines": [...]}
 
 
 @dataclass
@@ -291,15 +292,17 @@ class Source:
             return None
 
         open_ = any(m.status == "UNRESOLVED" for m in msgs)
+        ws = self._ws(path)
         return Thread(
             id=self._id(node.get("permaId")),
             item=rid,
             path=path,
-            ws=self._ws(path),
+            ws=ws,
             repo=item.get("repositoryName") or "",
             span=span,
             status="UNRESOLVED" if open_ else msgs[0].status,
             msgs=msgs,
+            anchor=self._anchor(ws, span),
         )
 
 

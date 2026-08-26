@@ -1,6 +1,6 @@
 ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 REVIEW ?= CR-17391
-EXT_ID := onec-sandbox.cru-0.3.4
+EXT_ID := onec-sandbox.cru-0.3.11
 EXT_DIR := $(HOME)/.cursor/extensions
 # Windows/Git Bash: python3 = WindowsApps stub → Error 49
 ifdef MSYSTEM
