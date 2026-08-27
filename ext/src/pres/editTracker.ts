@@ -7,9 +7,10 @@ import * as v from "./v";
 import type * as m from "../domain/m";
 
 export type Ports = {
-  store: store.Store;
+  store: Pick<store.Store, "review">;
   panel: v.Panel;
   forUri(uri: vc.Uri): m.thread.List;
+  save(): void;
   info(msg: string): void;
 };
 
@@ -94,7 +95,7 @@ export class EditTracker implements vc.Disposable {
     }
     this.dirty = false;
     try {
-      this.p.store.save({ quiet: true });
+      this.p.save();
       this.p.info("shift json saved");
     } catch (err) {
       this.dirty = true;

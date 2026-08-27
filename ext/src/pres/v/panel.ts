@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as vc from "vscode";
-import { Paths } from "../../infra/paths";
+import * as ws from "../ws";
 import * as m from "../../domain/m";
 import type * as d from "../../domain/d";
 import { Comment } from "./comment";
@@ -42,8 +42,8 @@ export class Panel {
   ): { count: number; spanDirty: boolean } {
     let count = 0;
     let spanDirty = false;
-    for (const [ws, fileThreads] of m.thread.List.byWs(list)) {
-      const fsPath = Paths.wsFsPath(ws);
+    for (const [key, fileThreads] of m.thread.List.byWs(list)) {
+      const fsPath = ws.fsPath(key);
       if (!fsPath || !fs.existsSync(fsPath)) {
         continue;
       }
@@ -148,7 +148,7 @@ export class Panel {
   }
 
   sync(ct: vc.CommentThread, data: m.thread.Item): void {
-    const doc = Paths.docForPath(ct.uri.fsPath);
+    const doc = ws.docOf(ct.uri.fsPath);
     ct.label = data.label;
     ct.comments = Comment.list(data);
     ct.range = Span.line(data, doc);
@@ -172,12 +172,12 @@ export class Panel {
   }
 
   mount(th: m.thread.Item, expand: boolean): vc.CommentThread | undefined {
-    const fsPath = Paths.wsFsPath(th.ws);
+    const fsPath = ws.fsPath(th.ws);
     if (!fsPath || !fs.existsSync(fsPath)) {
       return undefined;
     }
     const uri = vc.Uri.file(fsPath);
-    const doc = Paths.docForPath(fsPath);
+    const doc = ws.docOf(fsPath);
     try {
       const ct = this.getController().createCommentThread(
         uri,

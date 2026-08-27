@@ -5,7 +5,7 @@ import * as m from "../../domain/m";
 import * as v from "../v";
 import { cmd } from "./cmd";
 import { Cursor } from "../cursor";
-import type { Graph } from "../../di";
+import type { Graph } from "../graph";
 import { resolveCmd, unpack } from "./resolve";
 
 const IDS = [
@@ -69,7 +69,10 @@ export class Router {
         try {
           const show = u.review.cycleShow();
           if (show) {
-            g.v.painter.paint();
+            const { dirty } = g.v.painter.paint();
+            if (dirty) {
+              u.review.save();
+            }
             u.review.notify();
             void this.context.workspaceState.update("cru.show", show);
             v.Ui.flash(`show: ${show}`, 1500);
@@ -178,7 +181,7 @@ export class Router {
       v.Ui.err(`нет треда на строке ${ed.selection.active.line + 1}`);
       return;
     }
-    await u.thread.open(item);
+    await this.g.v.thread.open(item);
   }
 
   private async openById(id: string): Promise<void> {
@@ -191,7 +194,7 @@ export class Router {
       v.Ui.err(`тред ${id} не найден в json`);
       return;
     }
-    await u.thread.open(item);
+    await this.g.v.thread.open(item);
   }
 
   private async paint(): Promise<void> {
@@ -203,7 +206,7 @@ export class Router {
     const uri = ed.document.uri;
     const item = u.review.forUri(uri).atLine(ed.selection.active.line);
     if (item) {
-      await u.thread.open(item);
+      await this.g.v.thread.open(item);
       return;
     }
     const n = this.g.v.painter.repaintFile(uri, true);

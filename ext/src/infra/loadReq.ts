@@ -2,9 +2,12 @@ import * as fs from "fs";
 import { Paths } from "./paths";
 
 /** Прочитать и снять `.load-request`. Путь к json или undefined. */
-export function consume(): string | undefined {
-  const p = Paths.reqPath();
-  if (!p || !fs.existsSync(p)) {
+export function consume(folderFs?: string): string | undefined {
+  if (!folderFs) {
+    return undefined;
+  }
+  const p = Paths.reqPath(folderFs);
+  if (!fs.existsSync(p)) {
     return undefined;
   }
   let body: { file?: string };

@@ -1,6 +1,5 @@
 import * as fs from "fs";
 import * as path from "path";
-import * as vc from "vscode";
 import { REQ } from "./constants";
 import { norm } from "../domain/norm";
 
@@ -9,49 +8,27 @@ export class Paths {
     return norm(p);
   }
 
-  static relKey(fileUri: vc.Uri, folderUri: vc.Uri): string {
-    const root = folderUri.fsPath.replace(/\\/g, "/");
-    const full = fileUri.fsPath.replace(/\\/g, "/");
-    if (full.startsWith(root + "/") || full === root) {
-      return full.slice(root.length).replace(/^\/+/, "");
+  static relKey(full: string, root: string): string {
+    const r = root.replace(/\\/g, "/");
+    const f = full.replace(/\\/g, "/");
+    if (f.startsWith(r + "/") || f === r) {
+      return f.slice(r.length).replace(/^\/+/, "");
     }
-    return Paths.norm(vc.workspace.asRelativePath(fileUri, false));
+    return Paths.norm(f);
   }
 
-  static wsFsPath(ws: string): string | undefined {
-    const folder = vc.workspace.workspaceFolders?.[0];
-    if (!folder) {
-      return undefined;
-    }
-    return path.join(folder.uri.fsPath, ...Paths.norm(ws).split("/"));
+  static wsFsPath(ws: string, folderFs: string): string {
+    return path.join(folderFs, ...Paths.norm(ws).split("/"));
   }
 
-  static docForPath(fsPath: string | undefined): vc.TextDocument | undefined {
-    if (!fsPath) {
-      return undefined;
-    }
-    const want = path.normalize(fsPath);
-    const active = vc.window.activeTextEditor;
-    if (active && path.normalize(active.document.uri.fsPath) === want) {
-      return active.document;
-    }
-    return vc.workspace.textDocuments.find(
-      (d) => path.normalize(d.uri.fsPath) === want
-    );
-  }
-
-  static lines(fsPath: string): string[] {
-    const doc = Paths.docForPath(fsPath);
-    if (doc) {
-      return doc.getText().split(/\r?\n/);
+  static lines(fsPath: string, live?: string): string[] {
+    if (live !== undefined) {
+      return live.split(/\r?\n/);
     }
     return fs.readFileSync(fsPath, "utf8").split(/\r?\n/);
   }
 
-  static reqPath(): string | undefined {
-    const folder = vc.workspace.workspaceFolders?.[0];
-    return folder
-      ? path.join(folder.uri.fsPath, "projects", "crucible", REQ)
-      : undefined;
+  static reqPath(folderFs: string): string {
+    return path.join(folderFs, "projects", "crucible", REQ);
   }
 }

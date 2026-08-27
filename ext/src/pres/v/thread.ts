@@ -1,7 +1,7 @@
 import * as vc from "vscode";
 import type * as m from "../../domain/m";
 import type * as store from "../../app/store";
-import { Paths } from "../../infra/paths";
+import * as ws from "../ws";
 import { Panel } from "./panel";
 import { Painter } from "./painter";
 import { Ui } from "./ui";
@@ -22,7 +22,7 @@ export class Thread {
   }
 
   async open(item: m.thread.Item): Promise<void> {
-    const fp = Paths.wsFsPath(item.ws);
+    const fp = ws.fsPath(item.ws);
     const uri = fp ? vc.Uri.file(fp) : undefined;
     let ct = this.p.panel.liveOf(item.id);
     if (!ct && uri) {

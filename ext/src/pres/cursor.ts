@@ -1,7 +1,7 @@
 import * as path from "path";
 import * as fs from "fs";
 import * as vc from "vscode";
-import { Paths } from "../infra/paths";
+import * as ws from "./ws";
 import type * as m from "../domain/m";
 
 /**
@@ -10,7 +10,7 @@ import type * as m from "../domain/m";
  */
 export class Cursor {
   static async send(info: (msg: string) => void, data: m.thread.Item): Promise<void> {
-    const fsPath = Paths.wsFsPath(data.ws);
+    const fsPath = ws.fsPath(data.ws);
     if (!fsPath || !fs.existsSync(fsPath)) {
       vc.window.showErrorMessage(`нет файла ${data.ws}`);
       return;

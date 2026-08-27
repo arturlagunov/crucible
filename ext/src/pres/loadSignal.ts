@@ -1,20 +1,23 @@
 import * as vc from "vscode";
-import { Paths } from "../infra/paths";
-import type { Graph } from "../di";
+import * as ws from "./ws";
+import type { Graph } from "./graph";
 
 /** u.review.load + открыть самый жирный файл. */
 export class LoadSignal {
   static async apply(g: Graph, fsPath: string): Promise<void> {
     g.u.review.load(fsPath);
-    const n = g.v.painter.paint();
-    await reveal(g, n);
+    const { count, dirty } = g.v.painter.paint();
+    if (dirty) {
+      g.u.review.save();
+    }
+    await reveal(g, count);
   }
 }
 
 async function reveal(g: Graph, n: number): Promise<void> {
   const top = g.store.review!.busiest();
   if (top) {
-    const fp = Paths.wsFsPath(top.key);
+    const fp = ws.fsPath(top.key);
     if (fp) {
       const doc = await vc.workspace.openTextDocument(vc.Uri.file(fp));
       const ed = await vc.window.showTextDocument(doc, { preview: false });

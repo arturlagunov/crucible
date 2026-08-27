@@ -1,55 +1,44 @@
 import * as vc from "vscode";
 import * as m from "./domain/m";
 import * as v from "./pres/v";
-import { bind, type U } from "./app/di";
-import type * as store from "./app/store";
-import { Store } from "./app/store";
+import { bind } from "./app/di";
+import * as store from "./app/store";
 import { forUri as lookup } from "./pres/lookup";
+import type { Graph } from "./pres/graph";
 
-export type Graph = {
-  u: U;
-  store: store.Store;
-  v: {
-    panel: v.Panel;
-    painter: v.Painter;
-    decorator: v.Decorator;
-    thread: v.Thread;
-    controller: vc.CommentController;
-  };
-};
+export type { Graph };
 
 export function make(p: {
   info(msg: string): void;
   refresh(): void;
 }): Graph {
   const info = p.info;
-  const store = Store.for(info);
+  const g = {
+    store: store.Store.for(info),
+  } as Graph;
   const anchors = new m.Anchor(info);
   const notify = () => p.refresh();
 
   let controller!: vc.CommentController;
   const panel = v.Panel.for(
     () => controller,
-    (id) => store.review?.threads.find((t) => t.id === id),
+    (id) => g.store.review?.threads.find((t) => t.id === id),
     info
   );
-  const forUri = (uri: vc.Uri) => lookup(store, uri);
-  controller = v.Controller.for({ store, forUri });
+  const forUri = (uri: vc.Uri) => lookup(g.store, uri);
+  controller = v.Controller.for({ store: g.store, forUri });
 
-  const decorator = v.Decorator.for(panel, store);
+  const decorator = v.Decorator.for(panel, g.store);
   const painter = v.Painter.for({
-    store,
+    store: g.store,
     panel,
     anchors,
     forUri,
     info,
   });
-  const thread = v.Thread.for({ store, panel, painter, notify });
+  const thread = v.Thread.for({ store: g.store, panel, painter, notify });
 
-  const g = {
-    store,
-    v: { panel, painter, decorator, thread, controller },
-  } as Graph;
-  g.u = bind(g, { forUri, notify });
+  g.u = bind(g.store, { forUri, notify });
+  g.v = { panel, painter, decorator, thread, controller };
   return g;
 }

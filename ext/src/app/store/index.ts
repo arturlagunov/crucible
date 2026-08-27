@@ -1,1 +1,1 @@
-export { Store, asShow, type SaveOpts } from "./io";
+export { Store, asShow } from "./io";

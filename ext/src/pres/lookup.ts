@@ -1,6 +1,6 @@
 import * as path from "path";
 import * as vc from "vscode";
-import { Paths } from "../infra/paths";
+import * as ws from "./ws";
 import * as m from "../domain/m";
 import type * as store from "../app/store";
 
@@ -14,14 +14,14 @@ export function forUri(store: store.Store, uri: vc.Uri): m.thread.List {
   if (!folder) {
     return m.thread.List.empty();
   }
-  const key = Paths.relKey(uri, folder.uri);
+  const key = ws.relKey(uri);
   const hit = review.forKey(key);
   if (hit.length) {
     return hit;
   }
   const want = path.normalize(uri.fsPath);
   for (const th of review.threads) {
-    const fp = Paths.wsFsPath(th.ws);
+    const fp = ws.fsPath(th.ws);
     if (fp && path.normalize(fp) === want) {
       return review.forKey(th.ws);
     }

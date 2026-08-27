@@ -8,10 +8,10 @@ export class Decorator {
 
   constructor(
     private panel: Panel,
-    private store: store.Store
+    private store: Pick<store.Store, "review">
   ) {}
 
-  static for(panel: Panel, store: store.Store): Decorator {
+  static for(panel: Panel, store: Pick<store.Store, "review">): Decorator {
     return new Decorator(panel, store);
   }
 

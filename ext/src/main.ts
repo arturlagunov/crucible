@@ -1,6 +1,7 @@
 import * as vc from "vscode";
 import { Router } from "./pres/controller/router";
-import { make, type Graph } from "./di";
+import { make } from "./di";
+import type { Graph } from "./pres/graph";
 import * as v from "./pres/v";
 import { EditTracker } from "./pres/editTracker";
 import { LoadSignal } from "./pres/loadSignal";
@@ -74,18 +75,17 @@ export class App {
         },
       },
       vc.window.onDidChangeActiveTextEditor((ed) => {
-        const { u, store, v } = g;
-        if (!ed || !store.review) {
+        if (!ed || !g.store.review) {
           return;
         }
         const uri = ed.document.uri;
-        const n = u.review.forUri(uri).length;
-        const live = v.panel.liveFor(uri).length;
-        const want = u.review.forUri(uri).shown(store.show).length;
+        const n = g.u.review.forUri(uri).length;
+        const live = g.v.panel.liveFor(uri).length;
+        const want = g.u.review.forUri(uri).shown(g.store.show).length;
         if (n > 0 && live !== want) {
-          v.painter.repaintFile(uri, false);
+          g.v.painter.repaintFile(uri, false);
         }
-        u.review.notify();
+        g.u.review.notify();
       }),
       ...router.bind()
     );
@@ -123,7 +123,7 @@ export class App {
 }
 
 async function poll(g: Graph): Promise<void> {
-  const file = consume();
+  const file = consume(vc.workspace.workspaceFolders?.[0]?.uri.fsPath);
   if (file) {
     await LoadSignal.apply(g, file);
   }

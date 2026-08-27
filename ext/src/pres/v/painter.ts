@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as vc from "vscode";
 import * as m from "../../domain/m";
-import { Paths } from "../../infra/paths";
+import * as ws from "../ws";
 import type * as store from "../../app/store";
 import type { Panel } from "./panel";
 
@@ -11,7 +11,7 @@ export interface PaintOpts {
 }
 
 export type Ports = {
-  store: store.Store;
+  store: Pick<store.Store, "review" | "show">;
   panel: Panel;
   anchors: m.Anchor;
   forUri(uri: vc.Uri): m.thread.List;
@@ -26,7 +26,7 @@ export class Painter {
     return new Painter(p);
   }
 
-  paint(onlyUri?: vc.Uri, opts: PaintOpts = {}): number {
+  paint(onlyUri?: vc.Uri, opts: PaintOpts = {}): { count: number; dirty: boolean } {
     const folder = vc.workspace.workspaceFolders?.[0];
     if (!folder || !this.p.store.review) {
       throw new Error("нет workspace или ревью");
@@ -41,24 +41,21 @@ export class Painter {
       this.p.panel.clear();
     }
 
-    let spanDirty = false;
-    for (const [ws, items] of m.thread.List.byWs(all)) {
-      const fp = Paths.wsFsPath(ws);
+    let dirty = false;
+    for (const [key, items] of m.thread.List.byWs(all)) {
+      const fp = ws.fsPath(key);
       if (!fp || !fs.existsSync(fp)) {
         continue;
       }
-      const lines = Paths.lines(fp);
+      const lines = ws.lines(fp);
       if (this.p.anchors.locateLines(items, lines, { miss: false })) {
-        spanDirty = true;
+        dirty = true;
       }
     }
     const list = all.shown(this.p.store.show);
     const { count } = this.p.panel.paint(list, expand, () => false);
-    if (spanDirty) {
-      this.p.store.save();
-    }
     this.p.info(`painted ${count}`);
-    return count;
+    return { count, dirty };
   }
 
   repaintFile(uri: vc.Uri, expand = false): number {
@@ -71,7 +68,7 @@ export class Painter {
       this.p.panel.dropUri(uri);
       return 0;
     }
-    const lines = Paths.lines(uri.fsPath);
+    const lines = ws.lines(uri.fsPath);
     this.p.anchors.locateLines(all.toArray(), lines, { miss: false });
     this.p.panel.dropUri(uri);
     const { count } = this.p.panel.paint(list, expand, () => false);
