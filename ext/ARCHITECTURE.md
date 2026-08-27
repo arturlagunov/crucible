@@ -104,7 +104,7 @@ Index: `forKey(ws)`, не `forUri`. `lookup.forUri` переводит Uri → �
 
 Фабрики: `Store.for`, `Panel.for`, `Controller.for`, `Decorator.for`, `Painter.for`, `Lens.for`, `EditTracker.for`.
 
-`notify()` — refresh (decorator + CodeLens + status bar), колбэк из `App`.
+`u.review.notify()` — refresh (decorator + CodeLens + status bar), колбэк из `App`.
 
 ## m / d
 

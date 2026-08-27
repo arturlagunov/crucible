@@ -19,23 +19,24 @@ export type Ports = {
   thread: {
     open(item: m.thread.Item): Promise<void>;
   };
-  forUri(uri: { fsPath: string }): m.thread.List;
-  notify(): void;
 };
 
-/** Замыкание сценариев. Снаружи не таскаем. */
+/** DI. Снаружи не таскаем. */
 export type Ctx = {
   store: store.Store;
+  lookup(uri: { fsPath: string }): m.thread.List;
+  refresh(): void;
+  u: U;
 } & Ports;
 
 export type U = {
-  notify(): void;
   review: {
     load(fsPath: string): number;
     save(): void;
     clear(): void;
     cycleShow(): d.Show | undefined;
     forUri(uri: { fsPath: string }): m.thread.List;
+    notify(): void;
   };
   thread: {
     setStatus(item: m.thread.Item, status: d.thread.Status): void;
@@ -49,15 +50,16 @@ export type U = {
   };
 };
 
-export function bind(ctx: Ctx): U {
-  return {
-    notify: () => ctx.notify(),
+export function bind(ports: Omit<Ctx, "u">): U {
+  const ctx = ports as Ctx;
+  const bound: U = {
     review: {
       load: (fsPath) => u.review.load(ctx, fsPath),
       save: () => u.review.save(ctx),
       clear: () => u.review.clear(ctx),
       cycleShow: () => u.review.cycleShow(ctx),
       forUri: (uri) => u.review.forUri(ctx, uri),
+      notify: () => u.review.notify(ctx),
     },
     thread: {
       setStatus: (item, status) => u.thread.setStatus(ctx, item, status),
@@ -70,4 +72,6 @@ export function bind(ctx: Ctx): U {
       link: u.comment.link,
     },
   };
+  ctx.u = bound;
+  return bound;
 }

@@ -1,6 +1,5 @@
 import type * as d from "../../domain/d";
 import type * as m from "../../domain/m";
-import { persist } from "./persist";
 import type { Ctx } from "../di";
 
 export function setStatus(
@@ -10,7 +9,7 @@ export function setStatus(
 ): void {
   item.status = status;
   s.panel.touch(item, s.store.show);
-  persist(s);
+  s.u.review.save();
 }
 
 export async function open(s: Ctx, item: m.thread.Item): Promise<void> {
@@ -22,5 +21,5 @@ export function del(s: Ctx, item: m.thread.Item): void {
     throw new Error("тред не найден");
   }
   s.panel.dropId(item.id);
-  persist(s);
+  s.u.review.save();
 }

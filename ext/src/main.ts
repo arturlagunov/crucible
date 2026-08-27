@@ -84,7 +84,7 @@ export class App {
         if (n > 0 && live !== want) {
           v.painter.repaintFile(uri, false);
         }
-        u.notify();
+        u.review.notify();
       }),
       ...router.bind()
     );

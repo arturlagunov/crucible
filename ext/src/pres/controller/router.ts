@@ -194,7 +194,7 @@ export class Router {
       return;
     }
     const n = this.g.v.painter.repaintFile(uri, true);
-    this.u.notify();
+    this.u.review.notify();
     const total = this.u.review.forUri(uri).length;
     vc.window.showInformationMessage(
       `Crucible: ${n}/${total} на ${path.basename(uri.fsPath)}`

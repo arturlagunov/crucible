@@ -52,8 +52,8 @@ export function make(p: {
     painter,
     decorator,
     thread,
-    forUri,
-    notify,
+    lookup: forUri,
+    refresh: notify,
   });
 
   return {

@@ -24,7 +24,7 @@ async function reveal(g: Graph, n: number): Promise<void> {
       g.v.decorator.decorate(ed);
     }
   }
-  g.u.notify();
+  g.u.review.notify();
   vc.window.showInformationMessage(
     `Crucible: ${g.store.review!.id} — ${n} тредов`
   );

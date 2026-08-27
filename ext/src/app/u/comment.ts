@@ -1,5 +1,4 @@
 import * as m from "../../domain/m";
-import { persist } from "./persist";
 import type { Ctx } from "../di";
 
 export function reply(
@@ -15,7 +14,7 @@ export function reply(
   item.msgs.push(m.comment.Item.local(body, author));
   item.status = "UNRESOLVED";
   s.panel.touch(item, s.store.show);
-  persist(s);
+  s.u.review.save();
 }
 
 export function del(s: Ctx, item: m.thread.Item, mid: string): void {
@@ -30,7 +29,7 @@ export function del(s: Ctx, item: m.thread.Item, mid: string): void {
   } else {
     s.panel.touch(item);
   }
-  persist(s);
+  s.u.review.save();
 }
 
 export function link(review: m.Review, mid: string): string {
