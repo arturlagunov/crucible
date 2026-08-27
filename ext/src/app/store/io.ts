@@ -2,10 +2,6 @@ import * as fs from "fs";
 import type * as d from "../../domain/d";
 import * as m from "../../domain/m";
 
-export interface SaveOpts {
-  quiet?: boolean;
-}
-
 export function asShow(v: unknown): d.Show {
   if (v === "all" || v === "resolved") {
     return v;
@@ -47,7 +43,7 @@ export class Store {
   }
 
   /** Domain → disk. Не читать status с виджета: Resolved-state прячет треды. */
-  save(_opts: SaveOpts = {}): void {
+  save(): void {
     const { jsonPath, review } = this;
     if (!jsonPath || !review) {
       throw new Error("нечего сохранять");

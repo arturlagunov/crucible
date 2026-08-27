@@ -1,35 +1,32 @@
 import * as m from "../../domain/m";
-import type { Ctx } from "../di";
+import type * as store from "../store";
 
 export function reply(
-  s: Ctx,
+  s: store.Store,
   item: m.thread.Item,
   text: string,
   author: string
-): void {
+): boolean {
   const body = text.trim();
   if (!body) {
-    return;
+    return false;
   }
   item.msgs.push(m.comment.Item.local(body, author));
   item.status = "UNRESOLVED";
-  s.panel.touch(item, s.store.show);
-  s.u.review.save();
+  s.save();
+  return true;
 }
 
-export function del(s: Ctx, item: m.thread.Item, mid: string): void {
+export function del(s: store.Store, item: m.thread.Item, mid: string): void {
   const before = item.msgs.length;
   item.msgs = item.msgs.del(mid);
   if (item.msgs.length === before) {
     throw new Error(`msg ${mid} не найден`);
   }
   if (!item.msgs.length) {
-    s.store.review?.del(item.id);
-    s.panel.dropId(item.id);
-  } else {
-    s.panel.touch(item);
+    s.review?.del(item.id);
   }
-  s.u.review.save();
+  s.save();
 }
 
 export function link(review: m.Review, mid: string): string {

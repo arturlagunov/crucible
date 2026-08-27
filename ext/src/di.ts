@@ -46,19 +46,10 @@ export function make(p: {
   });
   const thread = v.Thread.for({ store, panel, painter, notify });
 
-  const u = bind({
-    store,
-    panel,
-    painter,
-    decorator,
-    thread,
-    lookup: forUri,
-    refresh: notify,
-  });
-
-  return {
-    u,
+  const g = {
     store,
     v: { panel, painter, decorator, thread, controller },
-  };
+  } as Graph;
+  g.u = bind(g, { forUri, notify });
+  return g;
 }

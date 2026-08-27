@@ -9,7 +9,7 @@ import { POLL_MS } from "./infra/constants";
 import * as store from "./app/store";
 
 export class App {
-  private graph?: Graph;
+  private g?: Graph;
   private status?: vc.StatusBarItem;
   private tracker?: EditTracker;
   private lens?: v.LensHandle;
@@ -19,14 +19,14 @@ export class App {
     const info = (msg: string) => {
       log.appendLine(`[${new Date().toISOString()}] ${msg}`);
     };
-    const graph = make({
+    const g = make({
       info,
       refresh: () => this.refresh(),
     });
-    graph.store.show = store.asShow(context.workspaceState.get("cru.show"));
-    this.graph = graph;
+    g.store.show = store.asShow(context.workspaceState.get("cru.show"));
+    this.g = g;
 
-    context.subscriptions.push(...graph.v.decorator.init(context));
+    context.subscriptions.push(...g.v.decorator.init(context));
     context.subscriptions.push(log);
 
     const status = vc.window.createStatusBarItem(
@@ -39,25 +39,26 @@ export class App {
     this.status = status;
 
     const lens = v.Lens.for({
-      store: graph.store,
-      forUri: graph.u.review.forUri,
+      store: g.store,
+      forUri: g.u.review.forUri,
     });
     context.subscriptions.push(lens.provider, lens.emitter);
     this.lens = lens;
 
     const tracker = EditTracker.for({
-      store: graph.store,
-      panel: graph.v.panel,
-      forUri: graph.u.review.forUri,
+      store: g.store,
+      panel: g.v.panel,
+      forUri: g.u.review.forUri,
+      save: () => g.u.review.save(),
       info,
     });
     context.subscriptions.push(tracker);
     this.tracker = tracker;
 
-    const router = new Router(graph, context, info);
+    const router = new Router(g, context, info);
     this.refresh();
 
-    const tick = () => void poll(graph);
+    const tick = () => void poll(g);
     const id = setInterval(tick, POLL_MS);
     context.subscriptions.push({ dispose: () => clearInterval(id) });
     tick();
@@ -66,14 +67,14 @@ export class App {
       {
         dispose: () => {
           try {
-            graph.v.controller.dispose();
+            g.v.controller.dispose();
           } catch {
             /* */
           }
         },
       },
       vc.window.onDidChangeActiveTextEditor((ed) => {
-        const { u, store, v } = graph;
+        const { u, store, v } = g;
         if (!ed || !store.review) {
           return;
         }
@@ -95,36 +96,36 @@ export class App {
   deactivate(): void {
     this.tracker?.dispose();
     this.lens?.dispose();
-    this.graph = undefined;
+    this.g = undefined;
     this.status = undefined;
   }
 
   private refresh(): void {
-    this.graph?.v.decorator.refreshAll();
+    this.g?.v.decorator.refreshAll();
     this.lens?.refresh();
     const status = this.status;
-    const graph = this.graph;
+    const g = this.g;
     if (!status) {
       return;
     }
-    if (!graph?.store.review) {
+    if (!g?.store.review) {
       status.text = "$(comment-discussion) Crucible: idle";
       status.show();
       return;
     }
-    const show = graph.store.show;
-    const n = graph.v.panel.threads.length;
-    const total = graph.store.review.threads.length;
+    const show = g.store.show;
+    const n = g.v.panel.threads.length;
+    const total = g.store.review.threads.length;
     const icon = show === "resolved" ? "$(check)" : "$(comment-discussion)";
-    status.text = `${icon} ${graph.store.review.id}: ${n}/${total} ${show}`;
+    status.text = `${icon} ${g.store.review.id}: ${n}/${total} ${show}`;
     status.show();
   }
 }
 
-async function poll(graph: Graph): Promise<void> {
+async function poll(g: Graph): Promise<void> {
   const file = consume();
   if (file) {
-    await LoadSignal.apply(graph, file);
+    await LoadSignal.apply(g, file);
   }
 }
 

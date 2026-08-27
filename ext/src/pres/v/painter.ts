@@ -55,7 +55,7 @@ export class Painter {
     const list = all.shown(this.p.store.show);
     const { count } = this.p.panel.paint(list, expand, () => false);
     if (spanDirty) {
-      this.p.store.save({ quiet: true });
+      this.p.store.save();
     }
     this.p.info(`painted ${count}`);
     return count;

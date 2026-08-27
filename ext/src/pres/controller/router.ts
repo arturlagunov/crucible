@@ -27,15 +27,11 @@ const IDS = [
 
 /** VS Code args → доменные параметры → u. Сценарий vscode не видит. */
 export class Router {
-  private u: Graph["u"];
-
   constructor(
     private g: Graph,
     private context: vc.ExtensionContext,
     private info: (msg: string) => void
-  ) {
-    this.u = g.u;
-  }
+  ) {}
 
   bind(): vc.Disposable[] {
     return IDS.map((id) => cmd(id, (...a) => void this.handle(id, ...a)));
@@ -43,7 +39,7 @@ export class Router {
 
   private async handle(id: string, ...args: unknown[]): Promise<void> {
     const g = this.g;
-    const u = this.u;
+    const { u } = g;
     switch (id) {
       case "cru.load": {
         const pick = await vc.window.showOpenDialog({
@@ -56,15 +52,25 @@ export class Router {
         return;
       }
       case "cru.save":
-        this.run(() => u.review.save(), `сохранено → ${base(g)}`);
+        this.run(() => {
+          u.review.save();
+          u.review.notify();
+        }, `сохранено → ${base(g)}`);
         return;
       case "cru.clear":
-        this.run(() => u.review.clear());
+        this.run(() => {
+          u.review.clear();
+          g.v.panel.clear();
+          g.v.decorator.clearAll();
+          u.review.notify();
+        });
         return;
       case "cru.show": {
         try {
           const show = u.review.cycleShow();
           if (show) {
+            g.v.painter.paint();
+            u.review.notify();
             void this.context.workspaceState.update("cru.show", show);
             v.Ui.flash(`show: ${show}`, 1500);
           }
@@ -88,14 +94,13 @@ export class Router {
         if (!got) {
           return;
         }
-        this.run(
-          () =>
-            u.thread.setStatus(
-              got.data,
-              id === "cru.resolve" ? "RESOLVED" : "UNRESOLVED"
-            ),
-          `${id === "cru.resolve" ? "resolved" : "unresolved"} → ${base(g)}`
-        );
+        this.run(() => {
+          u.thread.setStatus(
+            got.data,
+            id === "cru.resolve" ? "RESOLVED" : "UNRESOLVED"
+          );
+          this.sync(got.data.id);
+        }, `${id === "cru.resolve" ? "resolved" : "unresolved"} → ${base(g)}`);
         return;
       }
       case "cru.delThread": {
@@ -103,7 +108,10 @@ export class Router {
         if (!got) {
           return;
         }
-        this.run(() => u.thread.del(got.data));
+        this.run(() => {
+          u.thread.del(got.data);
+          this.sync(got.data.id);
+        });
         return;
       }
       case "cru.reply": {
@@ -112,9 +120,11 @@ export class Router {
         if (!got) {
           return;
         }
-        this.run(() =>
-          u.comment.reply(got.data, reply?.text || "", v.Ui.localAuthor())
-        );
+        this.run(() => {
+          if (u.comment.reply(got.data, reply?.text || "", v.Ui.localAuthor())) {
+            this.sync(got.data.id);
+          }
+        });
         return;
       }
       case "cru.del": {
@@ -127,7 +137,10 @@ export class Router {
           v.Ui.err("коммент не найден");
           return;
         }
-        this.run(() => u.comment.del(got.data, mid));
+        this.run(() => {
+          u.comment.del(got.data, mid);
+          this.sync(got.data.id);
+        });
         return;
       }
       case "cru.chat": {
@@ -157,14 +170,14 @@ export class Router {
     if (!ed || !this.review()) {
       return;
     }
-    const item = this.u.review
+    const { u } = this.g;
+    const item = u.review
       .forUri(ed.document.uri)
       .atLine(ed.selection.active.line);
     if (!item) {
       v.Ui.err(`нет треда на строке ${ed.selection.active.line + 1}`);
       return;
     }
-    const { u } = this;
     await u.thread.open(item);
   }
 
@@ -172,12 +185,12 @@ export class Router {
     if (!this.review() || !id) {
       return;
     }
-    const item = this.g.store.review!.threads.find((t) => t.id === id);
+    const { u, store } = this.g;
+    const item = store.review!.threads.find((t) => t.id === id);
     if (!item) {
       v.Ui.err(`тред ${id} не найден в json`);
       return;
     }
-    const { u } = this;
     await u.thread.open(item);
   }
 
@@ -186,29 +199,29 @@ export class Router {
     if (!ed || !this.review()) {
       return;
     }
+    const { u } = this.g;
     const uri = ed.document.uri;
-    const item = this.u.review.forUri(uri).atLine(ed.selection.active.line);
+    const item = u.review.forUri(uri).atLine(ed.selection.active.line);
     if (item) {
-      const { u } = this;
       await u.thread.open(item);
       return;
     }
     const n = this.g.v.painter.repaintFile(uri, true);
-    this.u.review.notify();
-    const total = this.u.review.forUri(uri).length;
+    u.review.notify();
+    const total = u.review.forUri(uri).length;
     vc.window.showInformationMessage(
       `Crucible: ${n}/${total} на ${path.basename(uri.fsPath)}`
     );
   }
 
   private async link(a: unknown, b?: unknown): Promise<void> {
+    const { u, store } = this.g;
     let url = typeof a === "string" ? a : undefined;
-    if (!url && this.g.store.review) {
+    if (!url && store.review) {
       const { comment } = unpack(a, b, this.g.v.panel.threads);
       const id = v.Comment.idOf(comment);
       if (id) {
-        const { u } = this;
-        url = u.comment.link(this.g.store.review, id);
+        url = u.comment.link(store.review, id);
       }
     }
     if (!url) {
@@ -217,6 +230,17 @@ export class Router {
     }
     await vc.env.clipboard.writeText(url);
     v.Ui.flash("ссылка скопирована", 1500);
+  }
+
+  private sync(id: string): void {
+    const { u, store } = this.g;
+    const item = store.review?.threads.find((t) => t.id === id);
+    if (item) {
+      this.g.v.panel.touch(item, store.show);
+    } else {
+      this.g.v.panel.dropId(id);
+    }
+    u.review.notify();
   }
 
   private run(fn: () => void, flash?: string): void {

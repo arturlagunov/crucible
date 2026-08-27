@@ -5,8 +5,8 @@ import type { Graph } from "../di";
 /** u.review.load + открыть самый жирный файл. */
 export class LoadSignal {
   static async apply(g: Graph, fsPath: string): Promise<void> {
-    const { u } = g;
-    const n = u.review.load(fsPath);
+    g.u.review.load(fsPath);
+    const n = g.v.painter.paint();
     await reveal(g, n);
   }
 }

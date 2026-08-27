@@ -21,17 +21,9 @@ export type Ports = {
   };
 };
 
-/** DI. Снаружи не таскаем. */
-export type Ctx = {
-  store: store.Store;
-  lookup(uri: { fsPath: string }): m.thread.List;
-  refresh(): void;
-  u: U;
-} & Ports;
-
 export type U = {
   review: {
-    load(fsPath: string): number;
+    load(fsPath: string): void;
     save(): void;
     clear(): void;
     cycleShow(): d.Show | undefined;
@@ -44,34 +36,35 @@ export type U = {
     open(item: m.thread.Item): Promise<void>;
   };
   comment: {
-    reply(item: m.thread.Item, text: string, author: string): void;
+    reply(item: m.thread.Item, text: string, author: string): boolean;
     del(item: m.thread.Item, mid: string): void;
     link(review: m.Review, mid: string): string;
   };
 };
 
-export function bind(ports: Omit<Ctx, "u">): U {
-  const ctx = ports as Ctx;
-  const bound: U = {
+export function bind(
+  g: { store: store.Store; v: Ports },
+  review: Pick<U["review"], "forUri" | "notify">
+): U {
+  return {
     review: {
-      load: (fsPath) => u.review.load(ctx, fsPath),
-      save: () => u.review.save(ctx),
-      clear: () => u.review.clear(ctx),
-      cycleShow: () => u.review.cycleShow(ctx),
-      forUri: (uri) => u.review.forUri(ctx, uri),
-      notify: () => u.review.notify(ctx),
+      load: (fsPath) => u.review.load(g.store, fsPath),
+      save: () => u.review.save(g.store),
+      clear: () => u.review.clear(g.store),
+      cycleShow: () => u.review.cycleShow(g.store),
+      forUri: review.forUri,
+      notify: review.notify,
     },
     thread: {
-      setStatus: (item, status) => u.thread.setStatus(ctx, item, status),
-      del: (item) => u.thread.del(ctx, item),
-      open: (item) => u.thread.open(ctx, item),
+      setStatus: (item, status) => u.thread.setStatus(g.store, item, status),
+      del: (item) => u.thread.del(g.store, item),
+      open: (item) => g.v.thread.open(item),
     },
     comment: {
-      reply: (item, text, author) => u.comment.reply(ctx, item, text, author),
-      del: (item, mid) => u.comment.del(ctx, item, mid),
+      reply: (item, text, author) =>
+        u.comment.reply(g.store, item, text, author),
+      del: (item, mid) => u.comment.del(g.store, item, mid),
       link: u.comment.link,
     },
   };
-  ctx.u = bound;
-  return bound;
 }
