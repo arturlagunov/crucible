@@ -11,10 +11,10 @@ import type { Frame } from "./pres/frame";
 export type Graph = Frame & {
   v: Frame["v"] & {
     lens: v.LensHandle;
+    status: v.Status;
   };
   tracker: EditTracker;
   router: Router;
-  status: vc.StatusBarItem;
 };
 
 export function make(p: {
@@ -51,17 +51,11 @@ export function make(p: {
     info,
   });
 
-  const status = vc.window.createStatusBarItem(
-    vc.StatusBarAlignment.Right,
-    100
-  );
-  status.command = "cru.show";
-  status.tooltip = "клик: unresolved → all → resolved";
-
+  const status = v.Status.for({ store: g.store, panel });
   const notify = () => {
     decorator.refreshAll();
     lens.refresh();
-    paintStatus(status, g.store, panel);
+    status.paint();
   };
   const thread = v.Thread.for({ store: g.store, panel, painter, notify });
   const frame: Frame = {
@@ -75,27 +69,8 @@ export function make(p: {
 
   return {
     ...frame,
-    v: { panel, painter, decorator, thread, lens },
+    v: { panel, painter, decorator, thread, lens, status },
     tracker,
     router,
-    status,
   };
-}
-
-function paintStatus(
-  status: vc.StatusBarItem,
-  s: store.Store,
-  panel: v.Panel
-): void {
-  if (!s.review) {
-    status.text = "$(comment-discussion) Crucible: idle";
-    status.show();
-    return;
-  }
-  const show = s.show;
-  const n = panel.threads.length;
-  const total = s.review.threads.length;
-  const icon = show === "resolved" ? "$(check)" : "$(comment-discussion)";
-  status.text = `${icon} ${s.review.id}: ${n}/${total} ${show}`;
-  status.show();
 }

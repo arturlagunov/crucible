@@ -16,7 +16,7 @@ export class App {
     context.subscriptions.push(
       log,
       ...g.v.decorator.init(context),
-      g.status,
+      g.v.status,
       g.v.lens.provider,
       g.v.lens.emitter,
       g.tracker,

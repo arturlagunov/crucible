@@ -78,13 +78,13 @@ Index: `forKey(ws)`, не `forUri`. `lookup.forUri` переводит Uri → �
 
 `di.make({ info, context })` → `Graph`. `app/di.bind` собирает `U` (store + Anchor).
 
-`Graph` = `Frame` + lens/tracker/router/status.
+`Graph` = `Frame` + lens/status/tracker/router.
 
 `Frame` — срез для Router / LoadSignal: `u`, `store`, `forUri`, `v` (panel/painter/decorator/thread), `notify`.
 
 `notify()` — decorator + CodeLens + status bar (замыкание в `make`).
 
-Фабрики: `Store.for`, `Panel.for`, `Decorator.for`, `Painter.for`, `Lens.for`, `EditTracker.for`.
+Фабрики: `Store.for`, `Panel.for`, `Decorator.for`, `Painter.for`, `Lens.for`, `Status.for`, `EditTracker.for`.
 
 ## m / d
 
@@ -128,7 +128,7 @@ m.Review
 | `v.Panel` | view | CommentThread + id |
 | `v.Painter` | view | domain → panel (без relocate) |
 | `v.Thread` | view | open comments XOR markdown |
-| `Decorator` / `Lens` | view | gutter, CodeLens |
+| `Decorator` / `Lens` / `Status` | view | gutter, CodeLens, status bar |
 | `controller/Router` | controller | `cru.*` + смена редактора |
 | `cursor.ts` | pres edge | приватные `composer.*` |
 | `EditTracker` | pres | debounce → `u.thread.shift` + save |
