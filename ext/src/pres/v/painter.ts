@@ -39,7 +39,7 @@ export class Painter {
     }
 
     const list = all.shown(this.p.store.show);
-    const { count } = this.p.panel.paint(list, expand, () => false);
+    const count = this.p.panel.paint(list, expand);
     this.p.info(`painted ${count}`);
     return count;
   }
@@ -55,7 +55,7 @@ export class Painter {
       return 0;
     }
     this.p.panel.dropUri(uri);
-    const { count } = this.p.panel.paint(list, expand, () => false);
+    const count = this.p.panel.paint(list, expand);
     if (count) {
       this.p.info(`repaint ${path.basename(uri.fsPath)}: ${count}`);
     }

@@ -57,16 +57,6 @@ export class Store {
     this.info(`saved ${jsonPath}`);
   }
 
-  persist(): boolean {
-    try {
-      this.save();
-      return true;
-    } catch (e) {
-      this.info(`save failed: ${e instanceof Error ? e.message : e}`);
-      return false;
-    }
-  }
-
   /** Старый фильтр+save вырезал resolved. Не затирать полный JSON коротким. */
   private assertWritable(jsonPath: string, memN: number): void {
     if (!fs.existsSync(jsonPath)) {

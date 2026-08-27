@@ -2,10 +2,13 @@ import * as fs from "fs";
 import * as vc from "vscode";
 import * as m from "../domain/m";
 import * as ws from "./ws";
-import type { Graph } from "../di";
+import type { Frame } from "./frame";
 
 /** Строки файлов → u.review.relocate. */
-export function locate(g: Graph, uri?: vc.Uri): boolean {
+export function locate(
+  g: Pick<Frame, "u" | "store" | "forUri">,
+  uri?: vc.Uri
+): boolean {
   const review = g.store.review;
   if (!review) {
     return false;

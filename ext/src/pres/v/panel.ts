@@ -34,21 +34,13 @@ export class Panel {
     return tid ? `${base} tid=${tid}` : base;
   }
 
-  /** Mount list; locate — extra pass по файлу (обычно уже сделан). */
-  paint(
-    list: m.thread.List,
-    expand: boolean,
-    locate: (items: m.thread.Item[], fsPath: string) => boolean
-  ): { count: number; spanDirty: boolean } {
+  /** Mount list. */
+  paint(list: m.thread.List, expand: boolean): number {
     let count = 0;
-    let spanDirty = false;
     for (const [key, fileThreads] of m.thread.List.byWs(list)) {
       const fsPath = ws.fsPath(key);
       if (!fsPath || !fs.existsSync(fsPath)) {
         continue;
-      }
-      if (locate(fileThreads, fsPath)) {
-        spanDirty = true;
       }
       for (const th of m.thread.List.from(fileThreads).sorted()) {
         const ct = this.mount(th, expand);
@@ -58,7 +50,7 @@ export class Panel {
         }
       }
     }
-    return { count, spanDirty };
+    return count;
   }
 
   threadId(ct: vc.CommentThread | undefined): string | undefined {

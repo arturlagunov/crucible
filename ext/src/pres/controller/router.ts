@@ -5,7 +5,7 @@ import * as m from "../../domain/m";
 import * as v from "../v";
 import { cmd } from "./cmd";
 import { Cursor } from "../cursor";
-import type { Graph } from "../../di";
+import type { Frame } from "../frame";
 import { locate } from "../locate";
 import * as ws from "../ws";
 import { resolveCmd, unpack } from "./resolve";
@@ -30,13 +30,16 @@ const IDS = [
 /** VS Code args → доменные параметры → u. Сценарий vscode не видит. */
 export class Router {
   constructor(
-    private g: Graph,
+    private g: Frame,
     private context: vc.ExtensionContext,
     private info: (msg: string) => void
   ) {}
 
   bind(): vc.Disposable[] {
-    return IDS.map((id) => cmd(id, (...a) => void this.handle(id, ...a)));
+    return [
+      ...IDS.map((id) => cmd(id, (...a) => void this.handle(id, ...a))),
+      vc.window.onDidChangeActiveTextEditor((ed) => this.onEditor(ed)),
+    ];
   }
 
   private async handle(id: string, ...args: unknown[]): Promise<void> {
@@ -250,6 +253,22 @@ export class Router {
     if (locate(this.g, uri)) {
       this.g.u.review.save();
     }
+  }
+
+  private onEditor(ed: vc.TextEditor | undefined): void {
+    const g = this.g;
+    if (!ed || !g.store.review) {
+      return;
+    }
+    const uri = ed.document.uri;
+    const n = g.forUri(uri).length;
+    const live = g.v.panel.liveFor(uri).length;
+    const want = g.forUri(uri).shown(g.store.show).length;
+    if (n > 0 && live !== want) {
+      this.saveSpan(uri);
+      g.v.painter.repaintFile(uri, false);
+    }
+    g.notify();
   }
 
   private run(fn: () => void, flash?: string): void {

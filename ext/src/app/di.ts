@@ -9,6 +9,7 @@ export type U = {
     save(): void;
     clear(): void;
     cycleShow(): d.Show | undefined;
+    setShow(raw: unknown): d.Show;
     relocate(items: m.thread.Item[], docLines: string[]): boolean;
   };
   thread: {
@@ -30,6 +31,7 @@ export function bind(s: store.Store, anchors: m.Anchor): U {
       save: () => u.review.save(s),
       clear: () => u.review.clear(s),
       cycleShow: () => u.review.cycleShow(s),
+      setShow: (raw) => u.review.setShow(s, raw),
       relocate: (items, docLines) =>
         u.review.relocate(anchors, items, docLines),
     },
