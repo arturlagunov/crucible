@@ -4,79 +4,131 @@ VS Code extension: paint/edit `*-threads.json`.
 
 Снаружи: `make fetch` → JSON, `make load` → `.load-request` → poll. Ext читает/пишет JSON и рисует native Comments.
 
-## Связь слоёв
+## Слои
 
-Слои — **запрет на импорт**. Стрелка = «можно import». Обратно нельзя.
+Луковица. Стрелка = import. Обратно нельзя. Папки = слои (термины архитектуры). Внутри — пакеты-алиасы `d` `m` `u` `store` `v`.
 
 ```
-infra  ←  domain  ←  vscode  ←  app  ←  bootstrap / extension
+         domain              сущности
+            ↑
+          app                сценарии, store
+            ↑
+       pres + infra
 ```
 
-| слой | роль | не имеет права |
-|------|------|----------------|
-| `infra` | `norm`, paths, constants | знать domain/vscode UI |
-| `domain` | JSON-модель, якоря | знать vscode API, Panel, команды |
-| `vscode` | виджеты Comments | знать `Ctx` |
-| `app` | use cases (cmd / ops) | — склейка |
-| `bootstrap` / `extension` | когда, не что | жить в domain |
+| слой | папка | внутри | не знает |
+|------|-------|--------|----------|
+| Domain | `domain/` | `m/` entities, `d/` JSON, `norm` | vscode, pres, app, fs |
+| Application | `app/` | `u/` use cases, `store/` сессия+диск | vscode, pres/controller |
+| Presentation | `pres/` | `v/` view, `controller/` | — знает vscode |
+| Infrastructure | `infra/` | paths, constants, loadReq | pres, app |
 
-Нижние слои **не импортируют `Ctx`**. Связка — duck types в `shape.ts`. `Ctx` структурно подходит.
+Presentation — слой, папка `pres`. Внутри две роли:
 
-`Ops` собирает store → thread → comment. `Painter` — `App.activate` → `ctx.ui.painter`.
+| роль | папка | что |
+|------|-------|-----|
+| View | `pres/v/` | Panel, Painter, декорации |
+| Controller | `pres/controller/` | `cru.*` args → `u` (`router`, `resolve`) |
 
-Domain **не** импортирует `vscode` и `app/`. Uri/Range живут в vscode (`threadRange`, `Ctx.forUri`).
+```
+src/
+  domain/
+    m/
+    d/
+    norm.ts
+
+  app/
+    u/
+    store/           Store, asShow
+    ctx.ts
+    di.ts
+
+  pres/
+    v/
+    controller/      router.ts resolve.ts cmd.ts
+    cursor.ts        composer — driver, живёт на краю
+    editTracker.ts
+    loadSignal.ts    load + reveal
+    di.ts            сборка Graph
+
+  infra/
+    paths.ts
+    constants.ts
+    loadReq.ts       `.load-request` → path
+
+  main.ts            activate, poll
+```
+
+Импорты:
+
+```
+import type * as d from "../domain/d"
+import * as m from "../domain/m"
+import * as u from "../app/u"
+import * as store from "../app/store"
+import * as v from "../pres/v"
+import * as vc from "vscode"
+```
+
+`d` в `domain`: форма `*-threads.json`, рядом с `m`. Не DTO сценариев.
 
 ## Как проходит команда
 
 ```
+меню cru.open / cru.openId
+  Router                 vscode args → m.thread.Item
+  u.thread.open          comments XOR markdown
+
 меню cru.resolve
-  ThreadCmd           cmd     распаковал args
-  resolveCmd                  { CommentThread, domain Thread }
-  ops.thread.setState         модель
-  panel.apply                 виджет
-  commit()                    save + notify + flash
+  Router                 vscode args → m.thread.Item
+  u.thread.setStatus     item.status + panel.touch + store.save
 ```
+
+`u` не импортирует `vscode` и `pres`. Chat/link — ветки Router (`v` / clipboard / Cursor). Toast/err — Router.
 
 Правка файла — без cmd: `EditTracker` → `store.save({ quiet: true })`.
 
 ## Два представления
 
 ```
-disk JSON            domain                      vscode widgets
-ThreadData[]  →  ThreadBundle.threads  →  Panel.threads
+disk JSON            m                           vscode widgets
+d.thread.Item[]  →  m.Review.threads  →  Panel.threads
                       │
                       └── threads.open = UNRESOLVED
 ```
 
-Index: `forKey(ws)`, не `forUri`. `Ctx.forUri` переводит Uri → ключ.
+Index: `forKey(ws)`, не `forUri`. `lookup.forUri` переводит Uri → ключ.
 
-## Ctx
+## Сборка
 
-| Поле | Содержимое |
-|------|------------|
-| `ctx.data` | `bundle`, `jsonPath` |
-| `ctx.ui` | `panel`, `painter`, `controller`, `decorator`, `anchors`, `log` |
-| `ctx.ops` | `store`, `thread`, `comment` — мутации, без проекции в UI |
+`pres/di.make` → `Graph`. `app/di.bind` замыкает `u.*` на порты.
 
-`notify()` — единственный refresh (decorator + CodeLens + status bar).
+Фабрики: `Store.for`, `Panel.for`, `Controller.for`, `Decorator.for`, `Painter.for`, `Lens.for`, `EditTracker.for`.
 
-cmd не знает `hooks`. Зовут `host.notify()`.
+`notify()` — refresh (decorator + CodeLens + status bar), колбэк из `App`.
 
-## shape.ts
+## m / d
 
-Срезы по ролям, не один `CmdHost`:
-
-| Тип | Кто |
-|-----|-----|
-| `View` | Lens, Decorator, Controller (`data.bundle`, `ui.panel`, `forUri`) |
-| `StoreHost` / `PaintHost` / `ThreadHost` | ops |
-| `BundleCmds` / `ThreadCmds` / `CommentCmds` | соответствующие cmd |
-| `LoadHost` / `TrackHost` / `WireHost` | bootstrap |
-
-## Domain
+Доступ только через пакеты:
 
 ```
-ThreadBundle
+import type * as d from "../domain/d"
+import * as m from "../domain/m"
+import * as u from "../app/u"
+import * as store from "../app/store"
+import * as v from "../pres/v"
+import * as vc from "vscode"
+
+d.thread.Item / d.Comment / d.Review
+m.thread.Item / m.thread.List / m.Review
+store.Store / store.asShow
+u.review.load / u.thread.open / u.thread.setStatus / u.comment.reply
+v.Panel / v.Painter / v.Comment
+vc.CommentThread / vc.Range / vc.Uri
+```
+
+```
+m.Review
   ├── threads          все, включая RESOLVED
   ├── threads.open     UI
   └── idx: forKey / atLine / busiest
@@ -84,38 +136,36 @@ ThreadBundle
 
 `Anchor.locateLines(items, docLines, { miss? })`. Строки файла даёт vscode/`Paths.lines` (буфер или диск).
 
-`vscode/commentView.ts` — Comment → vscode.Comment.  
-`vscode/span.ts` — `threadRange`.  
-`app/resolve.ts` — unpack args.  
-`app/thread/cmd.ts` — open: comments XOR markdown.
+`pres/v/comment.ts` — `m.comment.Item` → `v.Comment`.  
+`pres/v/span.ts` — `v.Span`.  
+`pres/controller/resolve.ts` — unpack args.  
+`pres/v/thread.ts` — `m.thread.Item` → `v.Thread`.
 
-## App
-
-| Сущность | ops | cmd |
-|----------|-----|-----|
-| bundle | store: load/save/clear | load, save, clear |
-| thread | setState(Thread), delete(id) | paint, open, openId, resolve, delThread |
-| comment | delete(Thread, mid) → empty? | reply, del, chat, link |
-
-`painter` — `ctx.ui.painter`, не ops.
-
-## vscode / infra
-
-| Модуль | Роль |
-|--------|------|
-| `Panel` | CommentThread + id |
-| `Painter` | domain → panel |
-| `commentView` / `span` | маппинг в VS Code типы |
-| `Decorator` / `Lens` / `Controller` | gutter, CodeLens, ranges |
-| `app/comment/cursor.ts` | приватные `composer.*` + clipboard; сломается на апдейте |
-
-## Bootstrap
+## Application
 
 | | |
 |--|--|
-| `wire` | createController + attachRefresh |
-| `LoadSignal` | `.load-request` → store.load + ui.painter.paint + notify |
-| `EditTracker` | debounce → store.save({ quiet }) |
+| `controller` | `cru.*` + args → `u` |
+| `u.review` | `load` / `save` / `clear` / `cycleShow` |
+| `u.thread` | `open` / `setStatus` / `del` |
+| `u.comment` | `reply` / `del` / `link` |
+| `store` | сессия + JSON fs |
+
+`painter` — `v.Painter.for(...)` в `pres/di`.
+
+## Presentation / infra
+
+| | слой | роль |
+|--|------|------|
+| `v.Panel` | view | CommentThread + id |
+| `v.Painter` | view | domain → panel |
+| `v.Comment` / `v.Span` | view | маппинг в vscode |
+| `Decorator` / `Lens` | view | gutter, CodeLens |
+| `controller` | controller | вход команд |
+| `cursor.ts` | pres edge | приватные `composer.*` |
+| `EditTracker` | pres | debounce → store.save |
+| `LoadSignal.apply` | pres | `u.review.load` + reveal |
+| `loadReq.consume` | infra | `.load-request` → path |
 
 ## Тесты
 
@@ -125,16 +175,9 @@ ThreadBundle
 
 ```
 src/
-  extension.ts
-  bootstrap/     wire, loadSignal, editTracker
-  app/
-    ctx.ts, data.ts, uiCtx.ts, ops.ts, shape.ts
-    resolve.ts, router.ts, cmd.ts
-    bundle/ store, cmd
-    thread/ ops, cmd
-    comment/ ops, cmd, cursor
-  domain/        bundle, thread, comment*, threadList, threadIndex, items, anchor, types
-  vscode/        panel, painter, commentView, span, decorator, lens, controller, ui, types
-  infra/         norm, paths, constants
-test/            anchor.test.ts, bundle.test.ts
+  domain/m/ d/ norm.ts
+  app/     u/ store/ ctx.ts di.ts
+  pres/            v/ controller/ cursor.ts editTracker.ts loadSignal.ts di.ts
+  infra/           paths.ts constants.ts loadReq.ts
+  main.ts
 ```

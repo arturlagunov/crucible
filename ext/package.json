@@ -6,11 +6,11 @@
   "publisher": "onec-sandbox",
   "engines": { "vscode": "^1.85.0" },
   "activationEvents": ["onStartupFinished"],
-  "main": "./out/extension.js",
+  "main": "./out/main.js",
   "scripts": {
     "compile": "tsc -b .",
     "watch": "tsc -b . -watch",
-    "test": "tsc -p test && node --test test-out/test/*.js"
+    "test": "rm -rf test-out && tsc -p test && node --test test-out/test/*.js"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",

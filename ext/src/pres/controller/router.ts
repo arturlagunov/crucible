@@ -1,0 +1,236 @@
+import * as path from "path";
+import * as vc from "vscode";
+import { LoadSignal } from "../loadSignal";
+import * as m from "../../domain/m";
+import * as v from "../v";
+import { cmd } from "./cmd";
+import { Cursor } from "../cursor";
+import type { Graph } from "../di";
+import { resolveCmd, unpack } from "./resolve";
+
+const IDS = [
+  "cru.load",
+  "cru.save",
+  "cru.clear",
+  "cru.show",
+  "cru.paint",
+  "cru.open",
+  "cru.openId",
+  "cru.resolve",
+  "cru.unresolve",
+  "cru.delThread",
+  "cru.reply",
+  "cru.del",
+  "cru.chat",
+  "cru.link",
+] as const;
+
+/** VS Code args → доменные параметры → u. Сценарий vscode не видит. */
+export class Router {
+  private u: Graph["u"];
+
+  constructor(
+    private g: Graph,
+    private context: vc.ExtensionContext,
+    private info: (msg: string) => void
+  ) {
+    this.u = g.u;
+  }
+
+  bind(): vc.Disposable[] {
+    return IDS.map((id) => cmd(id, (...a) => void this.handle(id, ...a)));
+  }
+
+  private async handle(id: string, ...args: unknown[]): Promise<void> {
+    const g = this.g;
+    const u = this.u;
+    switch (id) {
+      case "cru.load": {
+        const pick = await vc.window.showOpenDialog({
+          canSelectMany: false,
+          filters: { JSON: ["json"] },
+        });
+        if (pick?.[0]) {
+          await LoadSignal.apply(g, pick[0].fsPath);
+        }
+        return;
+      }
+      case "cru.save":
+        this.run(() => u.review.save(), `сохранено → ${base(g)}`);
+        return;
+      case "cru.clear":
+        this.run(() => u.review.clear());
+        return;
+      case "cru.show": {
+        try {
+          const show = u.review.cycleShow();
+          if (show) {
+            void this.context.workspaceState.update("cru.show", show);
+            v.Ui.flash(`show: ${show}`, 1500);
+          }
+        } catch (e) {
+          v.Ui.err(e);
+        }
+        return;
+      }
+      case "cru.paint":
+        await this.paint();
+        return;
+      case "cru.open":
+        await this.openAt();
+        return;
+      case "cru.openId":
+        await this.openById(args[0] as string);
+        return;
+      case "cru.resolve":
+      case "cru.unresolve": {
+        const got = resolveCmd(g.v.panel, g.store.review, args[0]);
+        if (!got) {
+          return;
+        }
+        this.run(
+          () =>
+            u.thread.setStatus(
+              got.data,
+              id === "cru.resolve" ? "RESOLVED" : "UNRESOLVED"
+            ),
+          `${id === "cru.resolve" ? "resolved" : "unresolved"} → ${base(g)}`
+        );
+        return;
+      }
+      case "cru.delThread": {
+        const got = resolveCmd(g.v.panel, g.store.review, args[0], args[1]);
+        if (!got) {
+          return;
+        }
+        this.run(() => u.thread.del(got.data));
+        return;
+      }
+      case "cru.reply": {
+        const reply = args[0] as { thread?: vc.CommentThread; text?: string };
+        const got = resolveCmd(g.v.panel, g.store.review, reply?.thread);
+        if (!got) {
+          return;
+        }
+        this.run(() =>
+          u.comment.reply(got.data, reply?.text || "", v.Ui.localAuthor())
+        );
+        return;
+      }
+      case "cru.del": {
+        const got = resolveCmd(g.v.panel, g.store.review, args[0], args[1]);
+        if (!got) {
+          return;
+        }
+        const mid = v.Comment.idOf(got.comment, got.thread, got.data);
+        if (!mid) {
+          v.Ui.err("коммент не найден");
+          return;
+        }
+        this.run(() => u.comment.del(got.data, mid));
+        return;
+      }
+      case "cru.chat": {
+        const got = resolveCmd(g.v.panel, g.store.review, args[0], args[1]);
+        if (!got) {
+          return;
+        }
+        await Cursor.send(this.info, got.data);
+        return;
+      }
+      case "cru.link":
+        await this.link(args[0], args[1]);
+        return;
+    }
+  }
+
+  private review(): m.Review | undefined {
+    if (!this.g.store.review) {
+      vc.window.showWarningMessage("Сначала make load");
+      return undefined;
+    }
+    return this.g.store.review;
+  }
+
+  private async openAt(): Promise<void> {
+    const ed = vc.window.activeTextEditor;
+    if (!ed || !this.review()) {
+      return;
+    }
+    const item = this.u.review
+      .forUri(ed.document.uri)
+      .atLine(ed.selection.active.line);
+    if (!item) {
+      v.Ui.err(`нет треда на строке ${ed.selection.active.line + 1}`);
+      return;
+    }
+    const { u } = this;
+    await u.thread.open(item);
+  }
+
+  private async openById(id: string): Promise<void> {
+    if (!this.review() || !id) {
+      return;
+    }
+    const item = this.g.store.review!.threads.find((t) => t.id === id);
+    if (!item) {
+      v.Ui.err(`тред ${id} не найден в json`);
+      return;
+    }
+    const { u } = this;
+    await u.thread.open(item);
+  }
+
+  private async paint(): Promise<void> {
+    const ed = vc.window.activeTextEditor;
+    if (!ed || !this.review()) {
+      return;
+    }
+    const uri = ed.document.uri;
+    const item = this.u.review.forUri(uri).atLine(ed.selection.active.line);
+    if (item) {
+      const { u } = this;
+      await u.thread.open(item);
+      return;
+    }
+    const n = this.g.v.painter.repaintFile(uri, true);
+    this.u.notify();
+    const total = this.u.review.forUri(uri).length;
+    vc.window.showInformationMessage(
+      `Crucible: ${n}/${total} на ${path.basename(uri.fsPath)}`
+    );
+  }
+
+  private async link(a: unknown, b?: unknown): Promise<void> {
+    let url = typeof a === "string" ? a : undefined;
+    if (!url && this.g.store.review) {
+      const { comment } = unpack(a, b, this.g.v.panel.threads);
+      const id = v.Comment.idOf(comment);
+      if (id) {
+        const { u } = this;
+        url = u.comment.link(this.g.store.review, id);
+      }
+    }
+    if (!url) {
+      v.Ui.err("нет ссылки");
+      return;
+    }
+    await vc.env.clipboard.writeText(url);
+    v.Ui.flash("ссылка скопирована", 1500);
+  }
+
+  private run(fn: () => void, flash?: string): void {
+    try {
+      fn();
+      if (flash) {
+        v.Ui.flash(flash);
+      }
+    } catch (e) {
+      v.Ui.err(e);
+    }
+  }
+}
+
+function base(g: { store: { jsonPath?: string } }): string {
+  return path.basename(g.store.jsonPath || "");
+}

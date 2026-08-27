@@ -1,46 +1,45 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { Thread } from "../src/domain/thread";
-import { ThreadList } from "../src/domain/threadList";
-import type { LineEdit, ThreadData } from "../src/domain/types";
+import type * as d from "../src/domain/d";
+import * as m from "../src/domain/m";
 
-function th(id: string, span: [number, number]): Thread {
-  const raw: ThreadData = {
+function th(id: string, span: [number, number]): m.thread.Item {
+  const raw: d.thread.Item = {
     id,
     ws: "a.bsl",
     span,
     msgs: [{ id: "c", text: "x", status: "UNRESOLVED" }],
   };
-  return new Thread(raw, "CR-1");
+  return new m.thread.Item(raw, "CR-1");
 }
 
 test("shift: insert newline выше треда", () => {
   const t = th("t", [10, 12]);
-  const edit: LineEdit = { start: 0, end: 0, ins: 1 };
+  const edit: d.thread.Edit = { start: 0, end: 0, ins: 1 };
   assert.equal(t.shift(edit, 100), true);
   assert.deepEqual(t.lines, [11, 13]);
 });
 
 test("shift: insert ниже — без сдвига", () => {
   const t = th("t", [10, 12]);
-  const edit: LineEdit = { start: 20, end: 20, ins: 1 };
+  const edit: d.thread.Edit = { start: 20, end: 20, ins: 1 };
   assert.equal(t.shift(edit, 100), false);
   assert.deepEqual(t.lines, [10, 12]);
 });
 
 test("shift: delete строки выше", () => {
   const t = th("t", [10, 12]);
-  const edit: LineEdit = { start: 2, end: 3, ins: 0 };
+  const edit: d.thread.Edit = { start: 2, end: 3, ins: 0 };
   assert.equal(t.shift(edit, 99), true);
   assert.deepEqual(t.lines, [9, 11]);
 });
 
 test("shift: два insert снизу вверх", () => {
-  const list = ThreadList.from([th("t", [25, 25])]);
+  const list = m.thread.List.from([th("t", [25, 25])]);
   for (const edit of [
     { start: 20, end: 20, ins: 1 },
     { start: 10, end: 10, ins: 1 },
-  ] as LineEdit[]) {
+  ] as d.thread.Edit[]) {
     list.shift(edit, 100);
   }
   assert.deepEqual(list.first()?.lines, [27, 27]);
@@ -49,7 +48,7 @@ test("shift: два insert снизу вверх", () => {
 test("shift: enter в конце строки — эта стоит, ниже едет", () => {
   const on = th("a", [10, 10]);
   const below = th("b", [11, 12]);
-  const edit: LineEdit = { start: 9, end: 9, ins: 1, at: 5 };
+  const edit: d.thread.Edit = { start: 9, end: 9, ins: 1, at: 5 };
   assert.equal(on.shift(edit, 100), false);
   assert.deepEqual(on.lines, [10, 10]);
   assert.equal(below.shift(edit, 100), true);

@@ -11,5 +11,5 @@
     "moduleResolution": "Node16",
     "types": ["node"]
   },
-  "include": ["./**/*.ts", "../src/domain/**/*.ts", "../src/infra/norm.ts"]
+  "include": ["./**/*.ts", "../src/domain/d/**/*.ts", "../src/domain/m/**/*.ts", "../src/domain/norm.ts"]
 }
