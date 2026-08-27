@@ -1,7 +1,7 @@
 import type * as d from "../../domain/d";
 import type * as m from "../../domain/m";
 import { persist } from "./persist";
-import type { Ctx } from "../ctx";
+import type { Ctx } from "../di";
 
 export function setStatus(
   s: Ctx,

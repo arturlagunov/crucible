@@ -5,7 +5,7 @@ import * as m from "../../domain/m";
 import * as v from "../v";
 import { cmd } from "./cmd";
 import { Cursor } from "../cursor";
-import type { Graph } from "../di";
+import type { Graph } from "../../di";
 import { resolveCmd, unpack } from "./resolve";
 
 const IDS = [

@@ -1,6 +1,6 @@
 import * as vc from "vscode";
 import { Router } from "./pres/controller/router";
-import { make, type Graph } from "./pres/di";
+import { make, type Graph } from "./di";
 import * as v from "./pres/v";
 import { EditTracker } from "./pres/editTracker";
 import { LoadSignal } from "./pres/loadSignal";

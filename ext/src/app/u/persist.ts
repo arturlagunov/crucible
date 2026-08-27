@@ -1,4 +1,4 @@
-import type { Ctx } from "../ctx";
+import type { Ctx } from "../di";
 
 /** Disk + gutter/lens. Кидает — UI снаружи. */
 export function persist(s: Ctx): void {

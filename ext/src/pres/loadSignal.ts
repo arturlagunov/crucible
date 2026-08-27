@@ -1,6 +1,6 @@
 import * as vc from "vscode";
 import { Paths } from "../infra/paths";
-import type { Graph } from "./di";
+import type { Graph } from "../di";
 
 /** u.review.load + открыть самый жирный файл. */
 export class LoadSignal {

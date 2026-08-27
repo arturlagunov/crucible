@@ -40,8 +40,7 @@ src/
   app/
     u/
     store/           Store, asShow
-    ctx.ts
-    di.ts
+    di.ts            Ctx, Ports, U, bind
 
   pres/
     v/
@@ -49,7 +48,6 @@ src/
     cursor.ts        composer — driver, живёт на краю
     editTracker.ts
     loadSignal.ts    load + reveal
-    di.ts            сборка Graph
 
   infra/
     paths.ts
@@ -57,6 +55,7 @@ src/
     loadReq.ts       `.load-request` → path
 
   main.ts            activate, poll
+  di.ts              сборка Graph
 ```
 
 Импорты:
@@ -101,7 +100,7 @@ Index: `forKey(ws)`, не `forUri`. `lookup.forUri` переводит Uri → �
 
 ## Сборка
 
-`pres/di.make` → `Graph`. `app/di.bind` замыкает `u.*` на порты.
+`di.make` → `Graph`. `app/di.bind` замыкает `u.*` на порты.
 
 Фабрики: `Store.for`, `Panel.for`, `Controller.for`, `Decorator.for`, `Painter.for`, `Lens.for`, `EditTracker.for`.
 
@@ -176,8 +175,8 @@ m.Review
 ```
 src/
   domain/m/ d/ norm.ts
-  app/     u/ store/ ctx.ts di.ts
-  pres/            v/ controller/ cursor.ts editTracker.ts loadSignal.ts di.ts
+  app/     u/ store/ di.ts
+  pres/            v/ controller/ cursor.ts editTracker.ts loadSignal.ts
   infra/           paths.ts constants.ts loadReq.ts
-  main.ts
+  main.ts di.ts
 ```

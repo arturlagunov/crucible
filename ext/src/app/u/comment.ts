@@ -1,6 +1,6 @@
 import * as m from "../../domain/m";
 import { persist } from "./persist";
-import type { Ctx } from "../ctx";
+import type { Ctx } from "../di";
 
 export function reply(
   s: Ctx,

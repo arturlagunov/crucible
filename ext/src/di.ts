@@ -1,10 +1,10 @@
 import * as vc from "vscode";
-import * as m from "../domain/m";
-import * as v from "./v";
-import { bind, type U } from "../app/di";
-import type * as store from "../app/store";
-import { Store } from "../app/store";
-import { forUri as lookup } from "./lookup";
+import * as m from "./domain/m";
+import * as v from "./pres/v";
+import { bind, type U } from "./app/di";
+import type * as store from "./app/store";
+import { Store } from "./app/store";
+import { forUri as lookup } from "./pres/lookup";
 
 export type Graph = {
   u: U;
