@@ -10,7 +10,6 @@ import type { Frame } from "./pres/frame";
 
 export type Graph = Frame & {
   v: Frame["v"] & {
-    controller: vc.CommentController;
     lens: v.LensHandle;
   };
   tracker: EditTracker;
@@ -27,14 +26,12 @@ export function make(p: {
   const anchors = new m.Anchor(info);
   const forUri = (uri: vc.Uri) => lookup(g.store, uri);
 
-  let controller!: vc.CommentController;
-  const panel = v.Panel.for(
-    () => controller,
-    (id) => g.store.review?.threads.find((t) => t.id === id),
-    info
-  );
-  controller = v.Controller.for({ store: g.store, forUri });
-
+  const panel = v.Panel.for({
+    store: g.store,
+    forUri,
+    find: (id) => g.store.review?.threads.find((t) => t.id === id),
+    info,
+  });
   const decorator = v.Decorator.for(panel, g.store);
   const painter = v.Painter.for({
     store: g.store,
@@ -78,7 +75,7 @@ export function make(p: {
 
   return {
     ...frame,
-    v: { panel, painter, decorator, thread, controller, lens },
+    v: { panel, painter, decorator, thread, lens },
     tracker,
     router,
     status,

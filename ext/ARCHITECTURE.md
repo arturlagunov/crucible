@@ -78,13 +78,13 @@ Index: `forKey(ws)`, не `forUri`. `lookup.forUri` переводит Uri → �
 
 `di.make({ info, context })` → `Graph`. `app/di.bind` собирает `U` (store + Anchor).
 
-`Graph` = `Frame` + lens/controller/tracker/router/status.
+`Graph` = `Frame` + lens/tracker/router/status.
 
 `Frame` — срез для Router / LoadSignal: `u`, `store`, `forUri`, `v` (panel/painter/decorator/thread), `notify`.
 
 `notify()` — decorator + CodeLens + status bar (замыкание в `make`).
 
-Фабрики: `Store.for`, `Panel.for`, `Controller.for`, `Decorator.for`, `Painter.for`, `Lens.for`, `EditTracker.for`.
+Фабрики: `Store.for`, `Panel.for`, `Decorator.for`, `Painter.for`, `Lens.for`, `EditTracker.for`.
 
 ## m / d
 

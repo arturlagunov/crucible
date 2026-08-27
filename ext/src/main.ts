@@ -21,13 +21,7 @@ export class App {
       g.v.lens.emitter,
       g.tracker,
       {
-        dispose: () => {
-          try {
-            g.v.controller.dispose();
-          } catch {
-            /* */
-          }
-        },
+        dispose: () => g.v.panel.dispose(),
       },
       ...g.router.bind(),
       LoadSignal.watch(g)

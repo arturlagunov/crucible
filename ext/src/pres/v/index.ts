@@ -4,6 +4,5 @@ export { Panel } from "./panel";
 export { Painter, type PaintOpts } from "./painter";
 export { Decorator } from "./decorator";
 export { Lens, type LensHandle } from "./lens";
-export { Controller } from "./controller";
 export { Ui } from "./ui";
 export { Thread } from "./thread";

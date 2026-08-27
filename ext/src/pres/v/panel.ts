@@ -4,28 +4,48 @@ import * as vc from "vscode";
 import * as ws from "../ws";
 import * as m from "../../domain/m";
 import type * as d from "../../domain/d";
+import type * as store from "../../app/store";
 import { Comment } from "./comment";
 import { Span } from "./span";
 
 const STATE = vc.CommentThreadState;
 
+export type Ports = {
+  store: Pick<store.Store, "review" | "show">;
+  forUri(uri: vc.Uri): m.thread.List;
+  find(id: string): m.thread.Item | undefined;
+  info(msg: string): void;
+};
+
 /** VS Code CommentThread panel + id mapping. */
 export class Panel {
   threads: vc.CommentThread[] = [];
   private meta = new WeakMap<vc.CommentThread, string>();
+  private ctrl: vc.CommentController;
 
-  constructor(
-    private getController: () => vc.CommentController,
-    private findData: (id: string) => m.thread.Item | undefined,
-    private log: (msg: string) => void
-  ) {}
+  constructor(private p: Ports) {
+    const ctrl = vc.comments.createCommentController("cru", "Crucible");
+    ctrl.options = { placeHolder: "Ответ в тред…", prompt: "Reply" };
+    ctrl.commentingRangeProvider = {
+      provideCommentingRanges(document) {
+        if (!p.store.review) {
+          return [];
+        }
+        return p.forUri(document.uri).shown(p.store.show).map((th) =>
+          Span.line(th, document)
+        );
+      },
+    };
+    this.ctrl = ctrl;
+  }
 
-  static for(
-    controller: () => vc.CommentController,
-    find: (id: string) => m.thread.Item | undefined,
-    info: (msg: string) => void
-  ): Panel {
-    return new Panel(controller, find, info);
+  static for(p: Ports): Panel {
+    return new Panel(p);
+  }
+
+  dispose(): void {
+    this.clear();
+    this.ctrl.dispose();
   }
 
   static uiCtx(status: d.thread.Status, tid?: string): string {
@@ -77,7 +97,7 @@ export class Panel {
 
   dataOf(ct: vc.CommentThread | undefined): m.thread.Item | undefined {
     const id = this.threadId(ct);
-    return id ? this.findData(id) : undefined;
+    return id ? this.p.find(id) : undefined;
   }
 
   liveFor(uri: vc.Uri): vc.CommentThread[] {
@@ -171,7 +191,7 @@ export class Panel {
     const uri = vc.Uri.file(fsPath);
     const doc = ws.docOf(fsPath);
     try {
-      const ct = this.getController().createCommentThread(
+      const ct = this.ctrl.createCommentThread(
         uri,
         Span.line(th, doc),
         Comment.list(th)
@@ -188,7 +208,7 @@ export class Panel {
       }
       return ct;
     } catch (e) {
-      this.log(`mount ${th.id} @${th.lines}: ${e}`);
+      this.p.info(`mount ${th.id} @${th.lines}: ${e}`);
       return undefined;
     }
   }
