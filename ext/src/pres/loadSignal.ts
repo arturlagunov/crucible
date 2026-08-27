@@ -1,16 +1,17 @@
 import * as vc from "vscode";
 import * as ws from "./ws";
-import type { Graph } from "./graph";
+import type { Graph } from "../di";
+import { locate } from "./locate";
 
 /** u.review.load + открыть самый жирный файл. */
 export class LoadSignal {
   static async apply(g: Graph, fsPath: string): Promise<void> {
     g.u.review.load(fsPath);
-    const { count, dirty } = g.v.painter.paint();
-    if (dirty) {
+    if (locate(g)) {
       g.u.review.save();
     }
-    await reveal(g, count);
+    const n = g.v.painter.paint();
+    await reveal(g, n);
   }
 }
 
@@ -27,7 +28,7 @@ async function reveal(g: Graph, n: number): Promise<void> {
       g.v.decorator.decorate(ed);
     }
   }
-  g.u.review.notify();
+  g.notify();
   vc.window.showInformationMessage(
     `Crucible: ${g.store.review!.id} — ${n} тредов`
   );

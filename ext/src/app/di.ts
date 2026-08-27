@@ -1,5 +1,5 @@
 import type * as d from "../domain/d";
-import type * as m from "../domain/m";
+import * as m from "../domain/m";
 import type * as store from "./store";
 import * as u from "./u";
 
@@ -9,12 +9,12 @@ export type U = {
     save(): void;
     clear(): void;
     cycleShow(): d.Show | undefined;
-    forUri(uri: { fsPath: string }): m.thread.List;
-    notify(): void;
+    relocate(items: m.thread.Item[], docLines: string[]): boolean;
   };
   thread: {
     setStatus(item: m.thread.Item, status: d.thread.Status): void;
     del(item: m.thread.Item): void;
+    shift(list: m.thread.List, edit: d.thread.Edit, lineCount: number): boolean;
   };
   comment: {
     reply(item: m.thread.Item, text: string, author: string): boolean;
@@ -23,22 +23,20 @@ export type U = {
   };
 };
 
-export function bind(
-  s: store.Store,
-  review: Pick<U["review"], "forUri" | "notify">
-): U {
+export function bind(s: store.Store, anchors: m.Anchor): U {
   return {
     review: {
       load: (fsPath) => u.review.load(s, fsPath),
       save: () => u.review.save(s),
       clear: () => u.review.clear(s),
       cycleShow: () => u.review.cycleShow(s),
-      forUri: review.forUri,
-      notify: review.notify,
+      relocate: (items, docLines) =>
+        u.review.relocate(anchors, items, docLines),
     },
     thread: {
       setStatus: (item, status) => u.thread.setStatus(s, item, status),
       del: (item) => u.thread.del(s, item),
+      shift: (list, edit, lineCount) => u.thread.shift(list, edit, lineCount),
     },
     comment: {
       reply: (item, text, author) =>

@@ -1,5 +1,6 @@
 import type * as d from "../../domain/d";
 import type * as store from "../store";
+import * as m from "../../domain/m";
 
 const ORDER: d.Show[] = ["unresolved", "all", "resolved"];
 
@@ -22,4 +23,12 @@ export function cycleShow(s: store.Store): d.Show | undefined {
   const i = Math.max(0, ORDER.indexOf(s.show));
   s.show = ORDER[(i + 1) % ORDER.length];
   return s.show;
+}
+
+export function relocate(
+  anchors: m.Anchor,
+  items: m.thread.Item[],
+  docLines: string[]
+): boolean {
+  return anchors.locateLines(items, docLines, { miss: false });
 }

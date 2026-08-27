@@ -1,8 +1,6 @@
-import * as fs from "fs";
 import * as path from "path";
 import * as vc from "vscode";
-import * as m from "../../domain/m";
-import * as ws from "../ws";
+import type * as m from "../../domain/m";
 import type * as store from "../../app/store";
 import type { Panel } from "./panel";
 
@@ -13,7 +11,6 @@ export interface PaintOpts {
 export type Ports = {
   store: Pick<store.Store, "review" | "show">;
   panel: Panel;
-  anchors: m.Anchor;
   forUri(uri: vc.Uri): m.thread.List;
   info(msg: string): void;
 };
@@ -26,7 +23,7 @@ export class Painter {
     return new Painter(p);
   }
 
-  paint(onlyUri?: vc.Uri, opts: PaintOpts = {}): { count: number; dirty: boolean } {
+  paint(onlyUri?: vc.Uri, opts: PaintOpts = {}): number {
     const folder = vc.workspace.workspaceFolders?.[0];
     if (!folder || !this.p.store.review) {
       throw new Error("нет workspace или ревью");
@@ -41,21 +38,10 @@ export class Painter {
       this.p.panel.clear();
     }
 
-    let dirty = false;
-    for (const [key, items] of m.thread.List.byWs(all)) {
-      const fp = ws.fsPath(key);
-      if (!fp || !fs.existsSync(fp)) {
-        continue;
-      }
-      const lines = ws.lines(fp);
-      if (this.p.anchors.locateLines(items, lines, { miss: false })) {
-        dirty = true;
-      }
-    }
     const list = all.shown(this.p.store.show);
     const { count } = this.p.panel.paint(list, expand, () => false);
     this.p.info(`painted ${count}`);
-    return { count, dirty };
+    return count;
   }
 
   repaintFile(uri: vc.Uri, expand = false): number {
@@ -68,8 +54,6 @@ export class Painter {
       this.p.panel.dropUri(uri);
       return 0;
     }
-    const lines = ws.lines(uri.fsPath);
-    this.p.anchors.locateLines(all.toArray(), lines, { miss: false });
     this.p.panel.dropUri(uri);
     const { count } = this.p.panel.paint(list, expand, () => false);
     if (count) {

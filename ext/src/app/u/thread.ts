@@ -17,3 +17,11 @@ export function del(s: store.Store, item: m.thread.Item): void {
   }
   s.save();
 }
+
+export function shift(
+  list: m.thread.List,
+  edit: d.thread.Edit,
+  lineCount: number
+): boolean {
+  return list.shift(edit, lineCount);
+}

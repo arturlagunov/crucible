@@ -1,19 +1,15 @@
 import * as vc from "vscode";
 import { Router } from "./pres/controller/router";
-import { make } from "./di";
-import type { Graph } from "./pres/graph";
-import * as v from "./pres/v";
-import { EditTracker } from "./pres/editTracker";
+import { make, type Graph } from "./di";
 import { LoadSignal } from "./pres/loadSignal";
 import { consume } from "./infra/loadReq";
 import { POLL_MS } from "./infra/constants";
 import * as store from "./app/store";
+import { locate } from "./pres/locate";
 
 export class App {
   private g?: Graph;
   private status?: vc.StatusBarItem;
-  private tracker?: EditTracker;
-  private lens?: v.LensHandle;
 
   activate(context: vc.ExtensionContext): void {
     const log = vc.window.createOutputChannel("Crucible");
@@ -39,22 +35,8 @@ export class App {
     context.subscriptions.push(status);
     this.status = status;
 
-    const lens = v.Lens.for({
-      store: g.store,
-      forUri: g.u.review.forUri,
-    });
-    context.subscriptions.push(lens.provider, lens.emitter);
-    this.lens = lens;
-
-    const tracker = EditTracker.for({
-      store: g.store,
-      panel: g.v.panel,
-      forUri: g.u.review.forUri,
-      save: () => g.u.review.save(),
-      info,
-    });
-    context.subscriptions.push(tracker);
-    this.tracker = tracker;
+    context.subscriptions.push(g.v.lens.provider, g.v.lens.emitter);
+    context.subscriptions.push(g.tracker);
 
     const router = new Router(g, context, info);
     this.refresh();
@@ -79,13 +61,16 @@ export class App {
           return;
         }
         const uri = ed.document.uri;
-        const n = g.u.review.forUri(uri).length;
+        const n = g.forUri(uri).length;
         const live = g.v.panel.liveFor(uri).length;
-        const want = g.u.review.forUri(uri).shown(g.store.show).length;
+        const want = g.forUri(uri).shown(g.store.show).length;
         if (n > 0 && live !== want) {
+          if (locate(g, uri)) {
+            g.u.review.save();
+          }
           g.v.painter.repaintFile(uri, false);
         }
-        g.u.review.notify();
+        g.notify();
       }),
       ...router.bind()
     );
@@ -94,15 +79,15 @@ export class App {
   }
 
   deactivate(): void {
-    this.tracker?.dispose();
-    this.lens?.dispose();
+    this.g?.tracker.dispose();
+    this.g?.v.lens.dispose();
     this.g = undefined;
     this.status = undefined;
   }
 
   private refresh(): void {
     this.g?.v.decorator.refreshAll();
-    this.lens?.refresh();
+    this.g?.v.lens.refresh();
     const status = this.status;
     const g = this.g;
     if (!status) {

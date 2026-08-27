@@ -5,7 +5,9 @@ import * as m from "../../domain/m";
 import * as v from "../v";
 import { cmd } from "./cmd";
 import { Cursor } from "../cursor";
-import type { Graph } from "../graph";
+import type { Graph } from "../../di";
+import { locate } from "../locate";
+import * as ws from "../ws";
 import { resolveCmd, unpack } from "./resolve";
 
 const IDS = [
@@ -54,7 +56,7 @@ export class Router {
       case "cru.save":
         this.run(() => {
           u.review.save();
-          u.review.notify();
+          g.notify();
         }, `сохранено → ${base(g)}`);
         return;
       case "cru.clear":
@@ -62,18 +64,15 @@ export class Router {
           u.review.clear();
           g.v.panel.clear();
           g.v.decorator.clearAll();
-          u.review.notify();
+          g.notify();
         });
         return;
       case "cru.show": {
         try {
           const show = u.review.cycleShow();
           if (show) {
-            const { dirty } = g.v.painter.paint();
-            if (dirty) {
-              u.review.save();
-            }
-            u.review.notify();
+            g.v.painter.paint();
+            g.notify();
             void this.context.workspaceState.update("cru.show", show);
             v.Ui.flash(`show: ${show}`, 1500);
           }
@@ -173,14 +172,12 @@ export class Router {
     if (!ed || !this.review()) {
       return;
     }
-    const { u } = this.g;
-    const item = u.review
-      .forUri(ed.document.uri)
-      .atLine(ed.selection.active.line);
+    const item = this.g.forUri(ed.document.uri).atLine(ed.selection.active.line);
     if (!item) {
       v.Ui.err(`нет треда на строке ${ed.selection.active.line + 1}`);
       return;
     }
+    this.saveSpan(ed.document.uri);
     await this.g.v.thread.open(item);
   }
 
@@ -188,12 +185,14 @@ export class Router {
     if (!this.review() || !id) {
       return;
     }
-    const { u, store } = this.g;
+    const { store } = this.g;
     const item = store.review!.threads.find((t) => t.id === id);
     if (!item) {
       v.Ui.err(`тред ${id} не найден в json`);
       return;
     }
+    const fp = ws.fsPath(item.ws);
+    this.saveSpan(fp ? vc.Uri.file(fp) : undefined);
     await this.g.v.thread.open(item);
   }
 
@@ -202,16 +201,17 @@ export class Router {
     if (!ed || !this.review()) {
       return;
     }
-    const { u } = this.g;
+    const g = this.g;
     const uri = ed.document.uri;
-    const item = u.review.forUri(uri).atLine(ed.selection.active.line);
+    this.saveSpan(uri);
+    const item = g.forUri(uri).atLine(ed.selection.active.line);
     if (item) {
-      await this.g.v.thread.open(item);
+      await g.v.thread.open(item);
       return;
     }
-    const n = this.g.v.painter.repaintFile(uri, true);
-    u.review.notify();
-    const total = u.review.forUri(uri).length;
+    const n = g.v.painter.repaintFile(uri, true);
+    g.notify();
+    const total = g.forUri(uri).length;
     vc.window.showInformationMessage(
       `Crucible: ${n}/${total} на ${path.basename(uri.fsPath)}`
     );
@@ -236,14 +236,20 @@ export class Router {
   }
 
   private sync(id: string): void {
-    const { u, store } = this.g;
+    const { store } = this.g;
     const item = store.review?.threads.find((t) => t.id === id);
     if (item) {
       this.g.v.panel.touch(item, store.show);
     } else {
       this.g.v.panel.dropId(id);
     }
-    u.review.notify();
+    this.g.notify();
+  }
+
+  private saveSpan(uri?: vc.Uri): void {
+    if (locate(this.g, uri)) {
+      this.g.u.review.save();
+    }
   }
 
   private run(fn: () => void, flash?: string): void {

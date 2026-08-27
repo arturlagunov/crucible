@@ -10,6 +10,7 @@ export type Ports = {
   store: Pick<store.Store, "review">;
   panel: v.Panel;
   forUri(uri: vc.Uri): m.thread.List;
+  shift(list: m.thread.List, edit: d.thread.Edit, lineCount: number): boolean;
   save(): void;
   info(msg: string): void;
 };
@@ -50,7 +51,7 @@ export class EditTracker implements vc.Disposable {
       .map(toEdit);
     let moved = false;
     for (const edit of edits) {
-      if (list.shift(edit, e.document.lineCount)) {
+      if (this.p.shift(list, edit, e.document.lineCount)) {
         moved = true;
       }
     }
