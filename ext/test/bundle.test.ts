@@ -64,13 +64,13 @@ test("save: resolved остаются в JSON", () => {
   fs.rmSync(dir, { recursive: true });
 });
 
-test("read: thread.status RESOLVED, даже если msgs UNRESOLVED", () => {
+test("read: UNRESOLVED msg → тред открыт, даже если stored RESOLVED", () => {
   const th = new Thread(
     { ...raw("b", "UNRESOLVED"), status: "RESOLVED" },
     "CR-1"
   );
-  assert.equal(th.unresolved, false);
-  assert.equal(th.toRaw().status, "RESOLVED");
+  assert.equal(th.unresolved, true);
+  assert.equal(th.toRaw().status, "UNRESOLVED");
 });
 
 test("index: forKey / atLine / busiest", () => {

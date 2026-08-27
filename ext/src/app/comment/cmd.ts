@@ -32,7 +32,7 @@ export class CommentCmd {
     }
     got.data.msgs.push(Comment.local(text, Ui.localAuthor()));
     this.host.ops.thread.setState(got.data, "UNRESOLVED");
-    this.host.ui.panel.apply(got.thread, got.data);
+    this.host.ui.panel.apply(got.thread, got.data, this.host.data.show);
     commit(this.host);
   }
 

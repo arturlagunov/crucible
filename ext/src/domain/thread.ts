@@ -34,13 +34,16 @@ export class Thread {
   }
 
   get unresolved(): boolean {
+    if (this.msgs.some((c) => c.status === "UNRESOLVED")) {
+      return true;
+    }
     if (this.stored === "RESOLVED") {
       return false;
     }
     if (this.stored === "UNRESOLVED") {
       return true;
     }
-    return this.msgs.some((c) => c.status === "UNRESOLVED");
+    return false;
   }
 
   get status(): ThreadStatus {

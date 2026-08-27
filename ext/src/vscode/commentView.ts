@@ -9,8 +9,8 @@ export function toView(c: Comment, th: Thread): ViewComment {
   const ln = th.ln;
   const author = ln ? `[Ln ${ln}] ${who}` : who;
   const md = new vscode.MarkdownString();
-  if (c.status && c.status !== "UNKNOWN") {
-    md.appendMarkdown(`**${c.status}**\n\n`);
+  if (c.status === "UNRESOLVED") {
+    md.appendMarkdown(`**UNRESOLVED**\n\n`);
   }
   if (ln) {
     md.appendMarkdown(`**Ln ${ln}** · `);

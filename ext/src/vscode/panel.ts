@@ -4,7 +4,7 @@ import * as vscode from "vscode";
 import { Paths } from "../infra/paths";
 import { ThreadList } from "../domain/threadList";
 import type { Thread } from "../domain/thread";
-import type { ThreadStatus } from "../domain/types";
+import type { ThreadStatus, Show } from "../domain/types";
 import { toComments } from "./commentView";
 import { threadRange } from "./span";
 
@@ -129,8 +129,16 @@ export class Panel {
     ct.range = threadRange(data, doc);
   }
 
-  /** Domain → живой виджет: contextValue, label, comments. */
-  apply(ct: vscode.CommentThread, data: Thread): vscode.CommentThread {
+  /** Domain → живой виджет. Если фильтр show его скрывает — снять. */
+  apply(ct: vscode.CommentThread, data: Thread, show?: Show): vscode.CommentThread | undefined {
+    const visible =
+      show === undefined ||
+      show === "all" ||
+      (show === "resolved" ? !data.unresolved : data.unresolved);
+    if (!visible) {
+      this.dropId(data.id);
+      return undefined;
+    }
     const live = this.liveOf(ct) || ct;
     this.setUi(live, data.status, data.id);
     live.label = data.label;

@@ -71,17 +71,18 @@ export class ThreadCmd {
   }
 
   private setResolved(a: unknown, resolved: boolean): void {
+    // app: VS Code сунул виджет → достаём пару {thread, data}
     const got = resolveCmd(this.host, a);
     if (!got) {
       return;
     }
     const status = resolved ? "RESOLVED" : "UNRESOLVED";
     this.host.ops.thread.setState(got.data, status);
-    this.host.ui.panel.apply(got.thread, got.data);
+    this.host.ui.panel.apply(got.thread, got.data, this.host.data.show);
     commit(
       this.host,
       `${resolved ? "resolved" : "unresolved"} → ${path.basename(this.host.data.jsonPath || "")}`
-    );
+    ); // app: store.save (диск) + notify (gutter/lens)
   }
 
   private del(a: unknown, b?: unknown): void {
