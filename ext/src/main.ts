@@ -10,24 +10,29 @@ export class App {
     const info = (msg: string) => {
       log.appendLine(`[${new Date().toISOString()}] ${msg}`);
     };
-    const g = make({ info, context });
-    this.g = g;
+    try {
+      const g = make({ info, context });
+      this.g = g;
 
-    context.subscriptions.push(
-      log,
-      ...g.v.decorator.init(context),
-      g.v.status,
-      g.v.lens.provider,
-      g.v.lens.emitter,
-      g.tracker,
-      {
-        dispose: () => g.v.panel.dispose(),
-      },
-      ...g.router.bind(),
-      LoadSignal.watch(g)
-    );
-    g.v.notify();
-    info("activate ok");
+      context.subscriptions.push(
+        log,
+        ...g.v.decorator.init(context),
+        g.v.status.item,
+        g.v.lens.provider,
+        g.v.lens.emitter,
+        g.tracker,
+        {
+          dispose: () => g.v.panel.dispose(),
+        },
+        ...g.router.bind(),
+        LoadSignal.watch(g)
+      );
+      g.v.notify();
+      info("activate ok");
+    } catch (e) {
+      info(`activate fail: ${e}`);
+      vc.window.showErrorMessage(`Crucible activate: ${e}`);
+    }
   }
 
   deactivate(): void {

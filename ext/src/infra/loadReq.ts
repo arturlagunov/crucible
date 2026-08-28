@@ -1,13 +1,21 @@
 import * as fs from "fs";
+import * as path from "path";
 import { Paths } from "./paths";
+import { REQ } from "./constants";
+
+/** Makefile ROOT: crucible/.load-request. Compiled file: ext/out/infra. */
+function extReq(): string {
+  return path.join(__dirname, "..", "..", "..", REQ);
+}
 
 /** Прочитать и снять `.load-request`. Путь к json или undefined. */
 export function consume(folderFs?: string): string | undefined {
-  if (!folderFs) {
-    return undefined;
+  const hits = [extReq()];
+  if (folderFs) {
+    hits.push(Paths.reqPath(folderFs), path.join(folderFs, REQ));
   }
-  const p = Paths.reqPath(folderFs);
-  if (!fs.existsSync(p)) {
+  const p = hits.find((x) => fs.existsSync(x));
+  if (!p) {
     return undefined;
   }
   let body: { file?: string };

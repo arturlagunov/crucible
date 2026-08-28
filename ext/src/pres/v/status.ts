@@ -19,6 +19,7 @@ export class Status {
     item.command = "cru.show";
     item.tooltip = "клик: unresolved → all → resolved";
     this.item = item;
+    this.paint();
   }
 
   static for(p: Ports): Status {

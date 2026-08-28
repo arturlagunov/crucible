@@ -11,8 +11,8 @@ export type Ports = {
 /** Гуттер + CodeLens + status bar. Panel сюда не входит. */
 export function refresh(p: Ports): () => void {
   return () => {
+    p.status.paint();
     p.decorator.refreshAll();
     p.lens.refresh();
-    p.status.paint();
   };
 }
