@@ -28,7 +28,7 @@ src/
   domain/     m/ d/ norm.ts
   app/        u/ store/ di.ts     U, bind
   pres/       v/ controller/ frame.ts
-              cursor.ts editTracker.ts loadSignal.ts locate.ts lookup.ts ws.ts
+              cursor.ts editTracker.ts loadSignal.ts locate.ts ws.ts
   infra/      paths.ts constants.ts loadReq.ts
   main.ts     activate
   di.ts       make → Graph
@@ -72,7 +72,7 @@ d.thread.Item[]  →  m.Review.threads  →  Panel.threads
                       └── threads.open = UNRESOLVED
 ```
 
-Index: `forKey(ws)`, не `forUri`. `lookup.forUri` переводит Uri → ключ. Живёт на Frame, не на `U`.
+Index: `forKey(ws)`, не Uri. `ws.relKey` переводит Uri → ключ. Треды — `review.forKey`.
 
 ## Сборка
 
@@ -80,9 +80,9 @@ Index: `forKey(ws)`, не `forUri`. `lookup.forUri` переводит Uri → �
 
 `Graph` = `Frame` + lens/status/tracker/router.
 
-`Frame` — срез для Router / LoadSignal: `u`, `store`, `forUri`, `v` (panel/painter/decorator/thread), `notify`.
+`Frame` — срез для Router / LoadSignal: `u`, `store`, `v` (panel/painter/decorator/thread), `notify`.
 
-`notify()` — decorator + CodeLens + status bar (замыкание в `make`).
+`notify()` — `v.refresh`: decorator + CodeLens + status bar. Panel отдельно.
 
 Фабрики: `Store.for`, `Panel.for`, `Decorator.for`, `Painter.for`, `Lens.for`, `Status.for`, `EditTracker.for`.
 

@@ -172,10 +172,13 @@ export class Router {
 
   private async openAt(): Promise<void> {
     const ed = vc.window.activeTextEditor;
-    if (!ed || !this.review()) {
+    const review = this.review();
+    if (!ed || !review) {
       return;
     }
-    const item = this.g.forUri(ed.document.uri).atLine(ed.selection.active.line);
+    const item = review
+      .forKey(ws.relKey(ed.document.uri))
+      .atLine(ed.selection.active.line);
     if (!item) {
       v.Ui.err(`нет треда на строке ${ed.selection.active.line + 1}`);
       return;
@@ -201,20 +204,22 @@ export class Router {
 
   private async paint(): Promise<void> {
     const ed = vc.window.activeTextEditor;
-    if (!ed || !this.review()) {
+    const review = this.review();
+    if (!ed || !review) {
       return;
     }
     const g = this.g;
     const uri = ed.document.uri;
     this.saveSpan(uri);
-    const item = g.forUri(uri).atLine(ed.selection.active.line);
+    const list = review.forKey(ws.relKey(uri));
+    const item = list.atLine(ed.selection.active.line);
     if (item) {
       await g.v.thread.open(item);
       return;
     }
     const n = g.v.painter.repaintFile(uri, true);
     g.notify();
-    const total = g.forUri(uri).length;
+    const total = list.length;
     vc.window.showInformationMessage(
       `Crucible: ${n}/${total} на ${path.basename(uri.fsPath)}`
     );
@@ -261,9 +266,10 @@ export class Router {
       return;
     }
     const uri = ed.document.uri;
-    const n = g.forUri(uri).length;
+    const list = g.store.review.forKey(ws.relKey(uri));
+    const n = list.length;
     const live = g.v.panel.liveFor(uri).length;
-    const want = g.forUri(uri).shown(g.store.show).length;
+    const want = list.shown(g.store.show).length;
     if (n > 0 && live !== want) {
       this.saveSpan(uri);
       g.v.painter.repaintFile(uri, false);

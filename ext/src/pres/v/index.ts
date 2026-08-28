@@ -7,3 +7,4 @@ export { Lens, type LensHandle } from "./lens";
 export { Ui } from "./ui";
 export { Thread } from "./thread";
 export { Status } from "./status";
+export { refresh } from "./refresh";

@@ -12,7 +12,6 @@ const STATE = vc.CommentThreadState;
 
 export type Ports = {
   store: Pick<store.Store, "review" | "show">;
-  forUri(uri: vc.Uri): m.thread.List;
   find(id: string): m.thread.Item | undefined;
   info(msg: string): void;
 };
@@ -28,10 +27,14 @@ export class Panel {
     ctrl.options = { placeHolder: "Ответ в тред…", prompt: "Reply" };
     ctrl.commentingRangeProvider = {
       provideCommentingRanges(document) {
-        if (!p.store.review) {
+        const review = p.store.review;
+        if (!review) {
           return [];
         }
-        return p.forUri(document.uri).shown(p.store.show).map((th) =>
+        return review
+          .forKey(ws.relKey(document.uri))
+          .shown(p.store.show)
+          .map((th) =>
           Span.line(th, document)
         );
       },

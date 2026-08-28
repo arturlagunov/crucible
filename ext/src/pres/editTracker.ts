@@ -5,11 +5,11 @@ import type * as store from "../app/store";
 import { SAVE_MS } from "../infra/constants";
 import * as v from "./v";
 import type * as m from "../domain/m";
+import * as ws from "./ws";
 
 export type Ports = {
   store: Pick<store.Store, "review">;
   panel: v.Panel;
-  forUri(uri: vc.Uri): m.thread.List;
   shift(list: m.thread.List, edit: d.thread.Edit, lineCount: number): boolean;
   save(): void;
   info(msg: string): void;
@@ -38,10 +38,11 @@ export class EditTracker implements vc.Disposable {
   }
 
   private onChange(e: vc.TextDocumentChangeEvent): void {
-    if (!this.p.store.review || e.document.uri.scheme !== "file") {
+    const review = this.p.store.review;
+    if (!review || e.document.uri.scheme !== "file") {
       return;
     }
-    const list = this.p.forUri(e.document.uri);
+    const list = review.forKey(ws.relKey(e.document.uri));
     if (!list.length || !e.contentChanges.length) {
       return;
     }

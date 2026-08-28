@@ -6,14 +6,17 @@ import type { Frame } from "./frame";
 
 /** Строки файлов → u.review.relocate. */
 export function locate(
-  g: Pick<Frame, "u" | "store" | "forUri">,
+  g: Pick<Frame, "u" | "store">,
   uri?: vc.Uri
 ): boolean {
   const review = g.store.review;
   if (!review) {
     return false;
   }
-  const all = uri ? g.forUri(uri) : review.threads;
+  let all = review.threads;
+  if (uri) {
+    all = review.forKey(ws.relKey(uri));
+  }
   let dirty = false;
   for (const [key, items] of m.thread.List.byWs(all)) {
     const fp = ws.fsPath(key);

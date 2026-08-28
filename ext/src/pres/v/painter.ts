@@ -1,8 +1,8 @@
 import * as path from "path";
 import * as vc from "vscode";
-import type * as m from "../../domain/m";
 import type * as store from "../../app/store";
 import type { Panel } from "./panel";
+import * as ws from "../ws";
 
 export interface PaintOpts {
   expand?: boolean;
@@ -11,7 +11,6 @@ export interface PaintOpts {
 export type Ports = {
   store: Pick<store.Store, "review" | "show">;
   panel: Panel;
-  forUri(uri: vc.Uri): m.thread.List;
   info(msg: string): void;
 };
 
@@ -25,14 +24,14 @@ export class Painter {
 
   paint(onlyUri?: vc.Uri, opts: PaintOpts = {}): number {
     const folder = vc.workspace.workspaceFolders?.[0];
-    if (!folder || !this.p.store.review) {
+    const review = this.p.store.review;
+    if (!folder || !review) {
       throw new Error("нет workspace или ревью");
     }
     const expand = opts.expand === true;
-    const all = onlyUri
-      ? this.p.forUri(onlyUri)
-      : this.p.store.review.threads;
+    let all = review.threads;
     if (onlyUri) {
+      all = review.forKey(ws.relKey(onlyUri));
       this.p.panel.dropUri(onlyUri);
     } else {
       this.p.panel.clear();
@@ -45,10 +44,11 @@ export class Painter {
   }
 
   repaintFile(uri: vc.Uri, expand = false): number {
-    if (!this.p.store.review) {
+    const review = this.p.store.review;
+    if (!review) {
       return 0;
     }
-    const all = this.p.forUri(uri);
+    const all = review.forKey(ws.relKey(uri));
     const list = all.shown(this.p.store.show);
     if (!list.length) {
       this.p.panel.dropUri(uri);

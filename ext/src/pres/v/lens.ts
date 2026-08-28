@@ -1,6 +1,6 @@
 import * as vc from "vscode";
 import type * as store from "../../app/store";
-import type * as m from "../../domain/m";
+import * as ws from "../ws";
 
 export interface LensHandle {
   provider: vc.Disposable;
@@ -11,7 +11,6 @@ export interface LensHandle {
 
 export type Ports = {
   store: Pick<store.Store, "review" | "show">;
-  forUri(uri: vc.Uri): m.thread.List;
 };
 
 export class Lens {
@@ -22,11 +21,13 @@ export class Lens {
       {
         onDidChangeCodeLenses: emitter.event,
         provideCodeLenses(document) {
-          if (!p.store.review) {
+          const review = p.store.review;
+          if (!review) {
             return [];
           }
+          const list = review.forKey(ws.relKey(document.uri));
           const lenses: vc.CodeLens[] = [];
-          for (const th of p.forUri(document.uri).shown(p.store.show)) {
+          for (const th of list.shown(p.store.show)) {
             const line = th.lines[0] - 1;
             const mark = th.unresolved ? "" : " ✓";
             const warn = th.miss ? " ⚠" : "";
