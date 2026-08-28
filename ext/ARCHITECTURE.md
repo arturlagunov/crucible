@@ -56,7 +56,7 @@ cru.open / cru.openId
 cru.resolve
   Router                 vscode args → m.thread.Item
   u.thread.setStatus     item.status + store.save
-  panel.touch + notify
+  panel.touch + v.notify
 ```
 
 `u` не импортирует `vscode` и `pres`. Open/chat/link/toast — Router / `v`.  
@@ -80,7 +80,7 @@ Index: `forKey(ws)`, не Uri. `ws.relKey` переводит Uri → ключ. 
 
 `Graph` = `Frame` + lens/status/tracker/router.
 
-`Frame` — срез для Router / LoadSignal: `u`, `store`, `v` (panel/painter/decorator/thread), `notify`.
+`Frame` — срез для Router / LoadSignal: `u`, `store`, `v` (panel/painter/decorator/thread/notify).
 
 `notify()` — `v.refresh`: decorator + CodeLens + status bar. Panel отдельно.
 

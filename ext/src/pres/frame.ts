@@ -10,6 +10,6 @@ export type Frame = {
     painter: v.Painter;
     decorator: v.Decorator;
     thread: v.Thread;
+    notify(): void;
   };
-  notify(): void;
 };

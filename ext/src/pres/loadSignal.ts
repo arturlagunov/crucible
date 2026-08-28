@@ -42,7 +42,7 @@ async function reveal(g: Frame, n: number): Promise<void> {
       g.v.decorator.decorate(ed);
     }
   }
-  g.notify();
+  g.v.notify();
   vc.window.showInformationMessage(
     `Crucible: ${g.store.review!.id} — ${n} тредов`
   );

@@ -26,7 +26,7 @@ export class App {
       ...g.router.bind(),
       LoadSignal.watch(g)
     );
-    g.notify();
+    g.v.notify();
     info("activate ok");
   }
 

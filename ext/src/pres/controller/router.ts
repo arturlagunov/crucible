@@ -59,7 +59,7 @@ export class Router {
       case "cru.save":
         this.run(() => {
           u.review.save();
-          g.notify();
+          g.v.notify();
         }, `сохранено → ${base(g)}`);
         return;
       case "cru.clear":
@@ -67,7 +67,7 @@ export class Router {
           u.review.clear();
           g.v.panel.clear();
           g.v.decorator.clearAll();
-          g.notify();
+          g.v.notify();
         });
         return;
       case "cru.show": {
@@ -75,7 +75,7 @@ export class Router {
           const show = u.review.cycleShow();
           if (show) {
             g.v.painter.paint();
-            g.notify();
+            g.v.notify();
             void this.context.workspaceState.update("cru.show", show);
             v.Ui.flash(`show: ${show}`, 1500);
           }
@@ -218,7 +218,7 @@ export class Router {
       return;
     }
     const n = g.v.painter.repaintFile(uri, true);
-    g.notify();
+    g.v.notify();
     const total = list.length;
     vc.window.showInformationMessage(
       `Crucible: ${n}/${total} на ${path.basename(uri.fsPath)}`
@@ -251,7 +251,7 @@ export class Router {
     } else {
       this.g.v.panel.dropId(id);
     }
-    this.g.notify();
+    this.g.v.notify();
   }
 
   private saveSpan(uri?: vc.Uri): void {
@@ -274,7 +274,7 @@ export class Router {
       this.saveSpan(uri);
       g.v.painter.repaintFile(uri, false);
     }
-    g.notify();
+    g.v.notify();
   }
 
   private run(fn: () => void, flash?: string): void {

@@ -21,6 +21,7 @@ export function make(p: {
   context: vc.ExtensionContext;
 }): Graph {
   const info = p.info;
+
   const g = { store: store.Store.for(info) };
   const anchors = new m.Anchor(info);
 
@@ -30,14 +31,11 @@ export function make(p: {
     info,
   });
   const decorator = v.Decorator.for(panel, g.store);
-  const painter = v.Painter.for({
-    store: g.store,
-    panel,
-    info,
-  });
+  const painter = v.Painter.for({ store: g.store, panel, info });
   const u = bind(g.store, anchors);
   u.review.setShow(p.context.workspaceState.get("cru.show"));
   const lens = v.Lens.for({ store: g.store });
+
   const tracker = EditTracker.for({
     store: g.store,
     panel,
@@ -49,17 +47,18 @@ export function make(p: {
   const status = v.Status.for({ store: g.store, panel });
   const notify = v.refresh({ decorator, lens, status });
   const thread = v.Thread.for({ store: g.store, panel, painter, notify });
+  const views = { panel, painter, decorator, thread, notify };
+
   const frame: Frame = {
     u,
     store: g.store,
-    v: { panel, painter, decorator, thread },
-    notify,
+    v: views,
   };
   const router = new Router(frame, p.context, info);
 
   return {
     ...frame,
-    v: { panel, painter, decorator, thread, lens, status },
+    v: { ...views, lens, status },
     tracker,
     router,
   };
